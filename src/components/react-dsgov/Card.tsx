@@ -1,0 +1,41 @@
+import classNames from "classnames";
+import React from "react";
+import CardContent from "./CardContent";
+import CardFooter from "./CardFooter";
+import CardHeader from "./CardHeader";
+import IMtProps from "./IMtProps";
+import { useSpreadProps } from "./useSpreadProps";
+
+interface CardProps extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
+    hover?: boolean,
+    hFixed?: boolean,
+    disabled?: boolean
+} 
+
+const Card = React.forwardRef<HTMLDivElement, CardProps>(
+    ({className, children, hover, hFixed, disabled, ...props}, ref) => {
+        const spreadProps = useSpreadProps(props);
+
+        return (
+            <div 
+                ref={ref}
+                className={classNames(
+                    "br-card",
+                    hover && "hover",
+                    hFixed && "h-fixed",
+                    disabled && "disabled",
+                    className
+                )}
+                {...spreadProps}
+            >
+                {children}
+            </div>
+        );
+    }
+) 
+
+export default Object.assign(Card, {
+    Header: CardHeader,
+    Content: CardContent,
+    Footer: CardFooter
+});

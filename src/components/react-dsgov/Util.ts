@@ -1,0 +1,1 @@
+export const listMtProps = ['mt', 'mt-sm'];
