@@ -26,7 +26,12 @@
         <noscript>Você precisa habilitar JavaScript para rodar este site.</noscript>
         <div id="root"></div>
         <!-- Scripts de componentes -->
-        <script src="node_modules\@govbr-ds\core\dist\core-init.js"></script>
+        <script src="core-init.js"></script>
+        <script>const updateCarouselLista = () => {const carouselList = []
+          for (const brCarousel of window.document.querySelectorAll('.br-carousel')) {
+            carouselList.push(new core.BRCarousel('br-carousel', brCarousel))
+          }}
+          </script>
     </body>
 </html>
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import './App.css';
 import Breadcrumb from './components/react-dsgov/Breadcrumb';
 import Button from './components/react-dsgov/Button';
@@ -8,8 +8,17 @@ import Card from './components/react-dsgov/Card';
 import Row from './components/react-dsgov/Row';
 import Container from './components/react-dsgov/Container';
 import Col from './components/react-dsgov/Col';
+import Carousel from './components/react-dsgov/Carousel';
 
 function App() {
+  const refX = useRef(null);
+
+  useEffect(() => {
+    console.log('bla');
+    console.log(refX);
+  })
+
+  
   return (
     <>
       <Container fluid>
@@ -41,6 +50,30 @@ function App() {
           <Col lg="2" sm="3">
           </Col>
         </Row>
+        <Row>
+          <Col>
+            <Carousel interno ref={refX}>
+              <Carousel.Page active pageTitle='Teste1' backgroundColor='blue-10' stepName="Step 01">
+
+              </Carousel.Page>
+              <Carousel.Page pageTitle='Teste2' backgroundColor='blue-10'>
+
+              </Carousel.Page>
+
+              <Carousel.Page pageTitle='Teste3' backgroundColor='blue-10'>
+
+              </Carousel.Page>
+
+              <Carousel.Page pageTitle='Teste4' backgroundColor='blue-10'>
+
+              </Carousel.Page>
+              <Carousel.Page pageTitle='Teste5' backgroundColor='blue-10'>
+
+              </Carousel.Page>
+            </Carousel>
+          </Col>
+        </Row>
+       
       </Container>
     </>
   );
