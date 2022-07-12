@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import './App.css';
 import Breadcrumb from './components/react-dsgov/Breadcrumb';
 import Button from './components/react-dsgov/Button';
@@ -9,14 +9,10 @@ import Row from './components/react-dsgov/Row';
 import Container from './components/react-dsgov/Container';
 import Col from './components/react-dsgov/Col';
 import Carousel from './components/react-dsgov/Carousel';
+import Checkbox from './components/react-dsgov/Checkbox';
 
 function App() {
-  const refX = useRef(null);
-
-  useEffect(() => {
-    console.log('bla');
-    console.log(refX);
-  })
+  const [teste, setTeste] = useState<boolean>(false);
 
   
   return (
@@ -52,7 +48,7 @@ function App() {
         </Row>
         <Row>
           <Col>
-            <Carousel interno ref={refX}>
+            <Carousel interno>
               <Carousel.Page active pageTitle='Teste1' backgroundColor='blue-10' stepName="Step 01">
 
               </Carousel.Page>
@@ -71,6 +67,12 @@ function App() {
 
               </Carousel.Page>
             </Carousel>
+          </Col>
+        </Row>
+        <Row></Row>
+        <Row>
+          <Col>
+            <Checkbox checked={teste || false} state="invalid" id="checkbox-1" onChange={(event) => {setTeste(event.currentTarget.checked);}}>Teste</Checkbox>
           </Col>
         </Row>
        
