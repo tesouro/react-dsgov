@@ -25,6 +25,7 @@ const Carousel = React.forwardRef<HTMLDivElement, CarouselProps>(
 
         const spreadProps = useSpreadProps(props);
 
+        // Reinstancia o Carousel quando mudarem os filhos do Carousel (ou seja, as páginas)
         useEffect(() => {
             const qtdChildrenAtual = Children.count(children);
 
