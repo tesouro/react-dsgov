@@ -9,7 +9,7 @@ interface ContainerProps  extends React.HTMLAttributes<HTMLDivElement>, IMtProps
     md?: boolean,
     lg?: boolean,
     xl?: boolean,
-    fluid: boolean
+    fluid?: boolean
 } 
 
 const Container = React.forwardRef<HTMLDivElement, ContainerProps>(
