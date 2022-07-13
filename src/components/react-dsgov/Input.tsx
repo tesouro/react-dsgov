@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React from "react";
+import React, { useImperativeHandle, useRef } from "react";
 import IMtProps from "./IMtProps";
 import { useSpreadProps } from "./useSpreadProps";
 import { useMtProps } from "./useMtProps";
@@ -21,9 +21,36 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
         const mtProps = useMtProps(props);
         const spreadProps = useSpreadProps(props);
 
+        // Implementando os refs de cada um dos elementos
+        const refInputWrapper = useRef(null);
+        const refInputContent = useRef(null);
+        const refLabel = useRef(null);
+        const refLabelGroup = useRef(null);
+        const refIcon = useRef(null);
+        const refIconGroup = useRef(null);
+
+        useImperativeHandle<HTMLInputElement, any>(ref, () => ({
+            get inputWrapper() {
+                return refInputWrapper.current;
+            },
+            get label() {
+                return refLabel.current;
+            },
+            get labelGroup() {
+                return refLabelGroup.current;
+            },
+            get icon() {
+                return refIcon.current;
+            },
+            get iconGroup() {
+                return refIconGroup.current;
+            }
+        }));
+
         return (
             <div
-                ref={ref}
+                
+                ref={refInputWrapper}
                 className={classNames(
                     "br-input",
                     ((density === "small") && "small"),
@@ -36,11 +63,11 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
                 
                 
             >
-                {label && <div className="input-label"><label htmlFor={id}>{label}</label></div>}
-                <div className="input-content">
+                {label && <div ref={refLabelGroup} className="input-label"><label ref={refLabel} htmlFor={id}>{label}</label></div>}
+                <div ref={refInputContent} className="input-content">
                     <div className="input-group">
-                        {icon && <div className="input-icon"><i className={icon} aria-hidden="true"></i></div>}
-                        <input id={id} type={type} placeholder={placeholder} value={value} {...spreadProps} />
+                        {icon && <div ref={refIconGroup} className="input-icon"><i ref={refIcon} className={icon} aria-hidden="true"></i></div>}
+                        <input id={id} ref={ref} type={type} placeholder={placeholder} value={value} {...spreadProps} />
                         {button}
                         {children}
                     </div>
