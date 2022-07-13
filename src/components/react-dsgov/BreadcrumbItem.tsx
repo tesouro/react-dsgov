@@ -9,7 +9,9 @@ export interface BreadcrumbItemProps extends React.HTMLAttributes<HTMLLIElement>
 }
 
 export const BreadcrumbItem = React.forwardRef<HTMLLIElement, BreadcrumbItemProps>(
+
     ({ home, href, target, children, className, ...props }, ref) => {
+
         return (
             <>
                 {!home && <i className="icon fas fa-chevron-right"></i>}

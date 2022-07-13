@@ -2,6 +2,7 @@ import classNames from "classnames";
 import React from "react";
 import IMtProps from "./IMtProps";
 import { useSpreadProps } from "./useSpreadProps";
+import { useMtProps } from "./useMtProps";
 
 interface ColProps  extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
     size?: string,
@@ -14,10 +15,8 @@ interface ColProps  extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
 
 const Col = React.forwardRef<HTMLDivElement, ColProps>(
     ({className, children, size, sm, md, lg, xl, auto, ...props}, ref) => {
-        const spreadProps = useSpreadProps(props);
-        
-    
-
+        const mtProps = useMtProps(props);
+        const spreadProps = useSpreadProps(props);    
 
         return (
             <div
@@ -29,6 +28,7 @@ const Col = React.forwardRef<HTMLDivElement, ColProps>(
                     xl && (typeof xl === 'boolean' ? 'col-xl' : `col-xl-${xl}`),
                     auto && (typeof auto === 'boolean' ? 'col-auto' : `col-xl-${auto}`),
                     !sm && !md && !lg && !xl && !auto && "col",
+                    ...mtProps,
                     className
                 )}
                 {...spreadProps}

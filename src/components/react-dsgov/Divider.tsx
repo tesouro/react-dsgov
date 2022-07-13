@@ -4,12 +4,15 @@ import IMtProps from "./IMtProps";
 import { useSpreadProps } from "./useSpreadProps";
 import { useMtProps } from "./useMtProps";
 
-interface CarouselStepProps  extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
-
+interface DividerProps  extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
+    orientation?: "vertical" | "horizontal",
+    dashed?: boolean,
+    sm?: boolean;
+    lg?: boolean;
 } 
 
-const CarouselStep = React.forwardRef<HTMLDivElement, CarouselStepProps>(
-    ({className, children, ...props}, ref) => {
+const Divider = React.forwardRef<HTMLDivElement, DividerProps>(
+    ({className, children, orientation = "horizontal", dashed = false, sm, lg, ...props}, ref) => {
         const mtProps = useMtProps(props);
         const spreadProps = useSpreadProps(props);
 
@@ -17,11 +20,16 @@ const CarouselStep = React.forwardRef<HTMLDivElement, CarouselStepProps>(
             <div
                 ref={ref}
                 className={classNames(
-                    "carousel-step",
+                    "br-divider",
+                    ((orientation === "vertical") && "vertical"),
+                    (dashed && "dashed"),
+                    (sm && "sm"),
+                    (lg && "lg"),
                     ...mtProps,
                     className
                 )}
                 {...spreadProps}
+                
                 
             >
                 {children}
@@ -30,4 +38,4 @@ const CarouselStep = React.forwardRef<HTMLDivElement, CarouselStepProps>(
     }
 ) 
 
-export default CarouselStep;
+export default Divider;

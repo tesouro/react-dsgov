@@ -11,6 +11,7 @@ import Col from './components/react-dsgov/Col';
 import Carousel from './components/react-dsgov/Carousel';
 import Checkbox from './components/react-dsgov/Checkbox';
 import DateTimePicker from './components/react-dsgov/DateTimePicker';
+import Divider from './components/react-dsgov/Divider';
 
 function App() {
   const [teste, setTeste] = useState<boolean>(false);
@@ -81,6 +82,13 @@ function App() {
           <Col>
             <DateTimePicker />
           </Col>
+        </Row>
+
+        <Row>
+          <Col>
+          <Divider dashed lg mx="2" />
+          </Col>
+          
         </Row>
        
       </Container>

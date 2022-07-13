@@ -2,6 +2,7 @@ import classNames from "classnames";
 import React, { useEffect, useImperativeHandle, useRef } from "react";
 import IMtProps from "./IMtProps";
 import { useSpreadProps } from "./useSpreadProps";
+import { useMtProps } from "./useMtProps";
 
 interface DateTimePickerProps extends React.HTMLAttributes<HTMLInputElement>, IMtProps {
     dataMode?: "single" | "range";
@@ -42,12 +43,14 @@ const DateTimePicker = React.forwardRef<HTMLInputElement, DateTimePickerProps>(
             refElement.current = new core.BRDateTimePicker('br-datetimepicker', refWrapper.current,{minDate: minDate, maxDate: maxDate});
         }, [minDate, maxDate])
 
+        const mtProps = useMtProps(props);
         const spreadProps = useSpreadProps(props);
 
         return (
             <div
                 className={classNames(
                     "br-datetimepicker",
+                    ...mtProps,
                     className
                 )}
                 ref={refWrapper}

@@ -5,6 +5,7 @@ import CardFooter from "./CardFooter";
 import CardHeader from "./CardHeader";
 import IMtProps from "./IMtProps";
 import { useSpreadProps } from "./useSpreadProps";
+import { useMtProps } from "./useMtProps";
 
 interface CardProps extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
     hover?: boolean,
@@ -14,6 +15,7 @@ interface CardProps extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
 
 const Card = React.forwardRef<HTMLDivElement, CardProps>(
     ({className, children, hover, hFixed, disabled, ...props}, ref) => {
+        const mtProps = useMtProps(props);
         const spreadProps = useSpreadProps(props);
 
         return (
@@ -24,6 +26,7 @@ const Card = React.forwardRef<HTMLDivElement, CardProps>(
                     hover && "hover",
                     hFixed && "h-fixed",
                     disabled && "disabled",
+                    ...mtProps,
                     className
                 )}
                 {...spreadProps}

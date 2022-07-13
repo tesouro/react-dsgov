@@ -2,6 +2,7 @@ import classNames from "classnames";
 import React from "react";
 import IMtProps from "./IMtProps";
 import { useSpreadProps } from "./useSpreadProps";
+import { useMtProps } from "./useMtProps";
 
 interface ContainerProps  extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
     sm?: boolean,
@@ -13,6 +14,7 @@ interface ContainerProps  extends React.HTMLAttributes<HTMLDivElement>, IMtProps
 
 const Container = React.forwardRef<HTMLDivElement, ContainerProps>(
     ({className, children, sm, md, lg, xl, fluid, ...props}, ref) => {
+        const mtProps = useMtProps(props);
         const spreadProps = useSpreadProps(props);
 
         const containerSuffix = 
@@ -29,6 +31,7 @@ const Container = React.forwardRef<HTMLDivElement, ContainerProps>(
                 ref={ref}
                 className={classNames(
                     `container${containerSuffix}`,
+                    ...mtProps,
                     className
                 )}
                 {...spreadProps}

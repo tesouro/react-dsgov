@@ -2,6 +2,7 @@ import classNames from "classnames";
 import React from "react";
 import IMtProps from "./IMtProps";
 import { useSpreadProps } from "./useSpreadProps";
+import { useMtProps } from "./useMtProps";
 
 interface CheckboxProps  extends React.HTMLAttributes<HTMLInputElement>, IMtProps {
     inline?: boolean;
@@ -12,6 +13,7 @@ interface CheckboxProps  extends React.HTMLAttributes<HTMLInputElement>, IMtProp
 
 const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
     ({className, children, inline, state, disabled, checked = false, ...props}, ref) => {
+        const mtProps = useMtProps(props);
         const spreadProps = useSpreadProps(props);
 
         return (
@@ -20,6 +22,7 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
                 {...(state === "invalid") && {invalid: "invalid"}}
                 className={classNames(
                     "br-checkbox",
+                    ...mtProps,
                     (inline && 'd-inline')
                 )}
                 

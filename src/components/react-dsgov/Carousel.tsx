@@ -5,6 +5,7 @@ import React, { Children, useEffect, useRef, useState } from "react";
 import CarouselPage from "./CarouselPage";
 import CarouselStep from "./CarouselStep";
 import IMtProps from "./IMtProps";
+import { useMtProps } from './useMtProps';
 import { useSpreadProps } from "./useSpreadProps";
 
 const core = require('@govbr-ds/core/dist/core-init');
@@ -17,12 +18,12 @@ interface CarouselProps extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
 }
 
 const Carousel = React.forwardRef<HTMLDivElement, CarouselProps>(
-
     ({ className, children, circular, interno, hibw, hibh, ...props }, ref) => {
         const refDiv = useRef<any>(ref);
         const refQtdChildren = useRef<number>(0);
         const refObjetoCarousel = useRef<any>(null);
 
+        const mtProps = useMtProps(props);
         const spreadProps = useSpreadProps(props);
 
         // Reinstancia o Carousel quando mudarem os filhos do Carousel (ou seja, as páginas)
@@ -51,6 +52,7 @@ const Carousel = React.forwardRef<HTMLDivElement, CarouselProps>(
                 data-circular={circular}
                 className={classNames(
                     "br-carousel",
+                    ...mtProps,
                     className
                 )}
                 data-stage={interno ? "in" : hibw ? "hibw" : hibh ? "hibh" : ""}

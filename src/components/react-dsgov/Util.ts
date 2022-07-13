@@ -1,1 +1,1 @@
-export const listMtProps = ['mt', 'mt-sm'];
+export const listMtProps = ['mt', 'mt-sm', 'mx', 'my'];
