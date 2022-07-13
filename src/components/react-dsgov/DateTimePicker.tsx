@@ -36,11 +36,11 @@ const DateTimePicker = React.forwardRef<HTMLInputElement, DateTimePickerProps>(
                 return refButton.current;
             }
         }));
-        
+
         // Inicializando o datetimepicker
         useEffect(() => {
             const core = require('@govbr-ds/core/dist/core-init');
-            refElement.current = new core.BRDateTimePicker('br-datetimepicker', refWrapper.current,{minDate: minDate, maxDate: maxDate});
+            refElement.current = new core.BRDateTimePicker('br-datetimepicker', refWrapper.current, { minDate: minDate, maxDate: maxDate });
         }, [minDate, maxDate])
 
         const mtProps = useMtProps(props);
@@ -59,7 +59,7 @@ const DateTimePicker = React.forwardRef<HTMLInputElement, DateTimePickerProps>(
 
             >
                 <div ref={refInputWrapper} className="br-input has-icon">
-                    {label && <label htmlFor={props.id}>Label</label>}
+                    {label && <label htmlFor={props.id}>{label}</label>}
                     <input
                         type={dataType}
                         placeholder={placeholder}

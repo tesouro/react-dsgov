@@ -8,6 +8,7 @@ import { useMtProps } from './useMtProps';
 import { useSpreadProps } from './useSpreadProps';
 
 
+
 interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement>, IMtProps {
     primary?: boolean,
     secondary?: boolean,
@@ -18,11 +19,12 @@ interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement>, IMtProps 
     small?: boolean,
     loading?: boolean,
     disabled?: boolean,
+    icon?: string,
     type?: "button" | "submit" | "reset"
 } 
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-    ({children, className, type, primary, secondary, circle, inverted, block, large, small, loading, disabled, ...props}, ref) => {
+    ({children, className, type = "submit", primary, secondary, circle, inverted, block, large, small, loading, disabled, icon, ...props}, ref) => {
         
         const mtProps = useMtProps(props);
         const spreadProps = useSpreadProps(props);
@@ -47,6 +49,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
                 ref={ref}
                 {...spreadProps}
             >
+                {icon && <i className={icon} aria-hidden="true"></i>}
                 {children}
             </button>
         );

@@ -12,9 +12,11 @@ import Carousel from './components/react-dsgov/Carousel';
 import Checkbox from './components/react-dsgov/Checkbox';
 import DateTimePicker from './components/react-dsgov/DateTimePicker';
 import Divider from './components/react-dsgov/Divider';
+import Input from './components/react-dsgov/Input';
 
 function App() {
   const [teste, setTeste] = useState<boolean>(false);
+  const [teste2, setTeste2] = useState<string>("");
 
   
   return (
@@ -90,8 +92,37 @@ function App() {
           </Col>
           
         </Row>
+        <br/><br/><br/><br/><br/>
+
+        </Container>
+
+        <Container fluid>
+          <Row>
+            <Col sm="2">
+              <Input id="testeInput" label="Teste de Input"/>
+            </Col>
+            <Col>
+              <Input id="testeInput2" label="Teste de Input 2" icon="fas fa-user-tie" button={<Button type="button" icon="fas fa-eye" />} />
+            </Col>
+            <Col>
+              <DateTimePicker id="inputDateTime" label="Informe a Data" />
+            </Col>
+          </Row>
+          <Row>
+            <Col> 
+            <Input id="testeInput3" label="Teste de Input 2" icon="fas fa-user-tie" highlight />
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+            <Input id="testeInput4" label="Teste de Input" inline value={teste2} onChange={(event) => setTeste2(event.currentTarget.value)}  />
+            </Col>
+          </Row>
+        </Container>
+
+        <br/><br/><br/><br/><br/>
        
-      </Container>
+      
     </>
   );
 }

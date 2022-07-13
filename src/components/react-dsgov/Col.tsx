@@ -5,7 +5,7 @@ import { useSpreadProps } from "./useSpreadProps";
 import { useMtProps } from "./useMtProps";
 
 interface ColProps  extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
-    size?: string,
+    sz?: string,
     sm?: string | boolean,
     md?: string | boolean,
     lg?: string | boolean,
@@ -14,7 +14,7 @@ interface ColProps  extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
 } 
 
 const Col = React.forwardRef<HTMLDivElement, ColProps>(
-    ({className, children, size, sm, md, lg, xl, auto, ...props}, ref) => {
+    ({className, children, sz, sm, md, lg, xl, auto, ...props}, ref) => {
         const mtProps = useMtProps(props);
         const spreadProps = useSpreadProps(props);    
 
@@ -26,8 +26,9 @@ const Col = React.forwardRef<HTMLDivElement, ColProps>(
                     md && (typeof md === 'boolean' ? 'col-md' : `col-md-${md}`),
                     lg && (typeof sm === 'boolean' ? 'col-lg' : `col-md-${lg}`),
                     xl && (typeof xl === 'boolean' ? 'col-xl' : `col-xl-${xl}`),
-                    auto && (typeof auto === 'boolean' ? 'col-auto' : `col-xl-${auto}`),
-                    !sm && !md && !lg && !xl && !auto && "col",
+                    auto && (typeof auto === 'boolean' ? 'col-auto' : `col-auto-${auto}`),
+                    sz && (typeof sz === 'boolean' ? 'col' : `col-${sz}`),
+                    (!sm && !md && !lg && !xl && !auto && !sz && "col"),
                     ...mtProps,
                     className
                 )}
