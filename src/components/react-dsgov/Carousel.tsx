@@ -1,7 +1,7 @@
 import '@govbr-ds/core/dist/core.min.css'
 
 import classNames from "classnames";
-import React, { Children, useEffect, useRef, useState } from "react";
+import React, { Children, useEffect, useRef } from "react";
 import CarouselPage from "./CarouselPage";
 import CarouselStep from "./CarouselStep";
 import IMtProps from "./IMtProps";
