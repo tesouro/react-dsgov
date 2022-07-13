@@ -13,10 +13,12 @@ import Checkbox from './components/react-dsgov/Checkbox';
 import DateTimePicker from './components/react-dsgov/DateTimePicker';
 import Divider from './components/react-dsgov/Divider';
 import Input from './components/react-dsgov/Input';
+import Radio from './components/react-dsgov/Radio';
 
 function App() {
   const [teste, setTeste] = useState<boolean>(false);
   const [teste2, setTeste2] = useState<string>("");
+  const [radioSelecionado, setRadioSelecionado] = useState<string>("");
 
   
   return (
@@ -116,6 +118,16 @@ function App() {
           <Row>
             <Col>
             <Input id="testeInput4" label="Teste de Input" inline value={teste2} onChange={(event) => setTeste2(event.currentTarget.value)}  />
+            </Col>
+          </Row>
+        </Container>
+
+        <Container fluid>
+          <Row>
+            <Col>
+              <Radio id="op-1" name="radio" value="op-1" label="opcao-1" checked={radioSelecionado === "op-1"} onChange={(event) => setRadioSelecionado(event.currentTarget.value)} />
+              <Radio id="op-2" name="radio" value="op-2" label="opcao-2" checked={radioSelecionado === "op-2"} onChange={(event) => setRadioSelecionado(event.currentTarget.value)} />
+              <Radio id="op-3" name="radio" value="op-3" label="opcao-3" checked={radioSelecionado === "op-3"} onChange={(event) => setRadioSelecionado(event.currentTarget.value)} />
             </Col>
           </Row>
         </Container>
