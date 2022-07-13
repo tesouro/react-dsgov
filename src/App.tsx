@@ -10,6 +10,7 @@ import Container from './components/react-dsgov/Container';
 import Col from './components/react-dsgov/Col';
 import Carousel from './components/react-dsgov/Carousel';
 import Checkbox from './components/react-dsgov/Checkbox';
+import DateTimePicker from './components/react-dsgov/DateTimePicker';
 
 function App() {
   const [teste, setTeste] = useState<boolean>(false);
@@ -73,6 +74,12 @@ function App() {
         <Row>
           <Col>
             <Checkbox checked={teste || false} state="invalid" id="checkbox-1" onChange={(event) => {setTeste(event.currentTarget.checked);}}>Teste</Checkbox>
+          </Col>
+        </Row>
+        
+        <Row>
+          <Col>
+            <DateTimePicker />
           </Col>
         </Row>
        
