@@ -17,6 +17,7 @@ import Radio from './components/react-dsgov/Radio';
 import Select from './components/react-dsgov/Select';
 import AnyAttribute, { asObject, asString } from 'react-any-attr';
 import Loading from './components/react-dsgov/Loading';
+import MagicButton from './components/react-dsgov/MagicButton';
 
 
 function App() {
@@ -157,6 +158,15 @@ function App() {
             </Col>
           </Row>
         </Container>
+
+        <Container>
+          <Row>
+            <Col>
+              <MagicButton>Teste</MagicButton>
+            </Col>
+          </Row>
+        </Container>
+
 
 
         <br/><br/><br/><br/><br/>
