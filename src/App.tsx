@@ -21,6 +21,7 @@ import MagicButton from './components/react-dsgov/MagicButton';
 import Message from './components/react-dsgov/Message';
 import Textarea from './components/react-dsgov/Textarea';
 import Switch from './components/react-dsgov/Switch';
+import Upload from './components/react-dsgov/Upload';
 
 
 function App() {
@@ -213,9 +214,23 @@ function App() {
           </Row>
         </Container>
 
+        <br/><br/><br/><br/><br/><br/>
+
+        <Container>
+          <Row>
+            <Col>
+              <Upload id="meuupload" label="Teste Upload" uploadTimeout={() => {return new Promise((resolve) => {
+    
+              return setTimeout(resolve, 3000)
+            })}}/>
+            </Col>
+          </Row>
+        </Container>
+
 
         <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
        
+              
       
     </>
   );
