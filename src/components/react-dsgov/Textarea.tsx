@@ -35,7 +35,6 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
         const refLabelGroup = useRef(null);
         const refIcon = useRef(null);
         const refIconGroup = useRef(null);
-        const refElement = useRef(null);
 
         
         useImperativeHandle<HTMLTextAreaElement, any>(ref, () => ({
