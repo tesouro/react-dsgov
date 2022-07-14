@@ -3,6 +3,8 @@ import React, { useImperativeHandle, useRef } from "react";
 import IMtProps from "./IMtProps";
 import { useSpreadProps } from "./useSpreadProps";
 import { useMtProps } from "./useMtProps";
+import Message from "./Message";
+import { mapaIcones } from "./Util";
 
 interface InputProps  extends React.HTMLAttributes<HTMLInputElement>, IMtProps {
     label? : string | React.ReactElement;
@@ -13,11 +15,13 @@ interface InputProps  extends React.HTMLAttributes<HTMLInputElement>, IMtProps {
     button?: React.ReactElement,
     highlight?: boolean,
     inline?: boolean,
-    value?: string
+    value?: string,
+    status?: "success" | "danger" | "info" | "warning",
+    feedbackText?: string
 } 
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
-    ({className, children, label, id, placeholder, type = "text", density = "normal", icon, button, highlight, inline, value, ...props}, ref) => {
+    ({className, children, label, id, placeholder, type = "text", density = "normal", icon, button, highlight, inline, value, status, feedbackText, ...props}, ref) => {
         const mtProps = useMtProps(props);
         const spreadProps = useSpreadProps(props);
 
@@ -57,6 +61,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
                     ((density === "large") && "large"),
                     (highlight && "input-highlight"),
                     (inline && "input-inline"),
+                    status,
                     className,
                     ...mtProps
                 )}
@@ -69,6 +74,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
                         {icon && <div ref={refIconGroup} className="input-icon"><i ref={refIcon} className={icon} aria-hidden="true"></i></div>}
                         <input id={id} ref={ref} type={type} placeholder={placeholder} value={value} {...spreadProps} />
                         {button}
+                        {feedbackText && <Message category="feedback" type={status ? status : "success"} icon={status && mapaIcones.get(status)}>{feedbackText}</Message>}
                         {children}
                     </div>
                 </div>

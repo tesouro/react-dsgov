@@ -19,6 +19,7 @@ import AnyAttribute, { asObject, asString } from 'react-any-attr';
 import Loading from './components/react-dsgov/Loading';
 import MagicButton from './components/react-dsgov/MagicButton';
 import Message from './components/react-dsgov/Message';
+import Textarea from './components/react-dsgov/Textarea';
 
 
 function App() {
@@ -191,6 +192,15 @@ function App() {
 
 
         <br/><br/><br/><br/><br/>
+
+        <Container fluid>
+          <Row>
+            <Col>
+              <Textarea maxLength={100} showCharacterCounter label="teste" id="teste" status="success" feedbackText="Deu muito ruim kkkk"></Textarea>
+            </Col>
+          </Row>
+
+        </Container>
        
       
     </>

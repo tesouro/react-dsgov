@@ -21,7 +21,6 @@ const Message = React.forwardRef<HTMLElement, MessageProps>(
         const spreadProps = useSpreadProps(props);
         const refWrapper = useRef(ref);
         const refElement = useRef(null);
-        const refProp = useRef("div");
         
         useEffect(() => {
             if(refWrapper.current && !refElement.current) {
