@@ -75,7 +75,7 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
                 value={value} 
                 ref={ref} 
                 type={type} 
-                {...maxLength && {maxlength: maxLength}}
+                {...maxLength && {maxLength: maxLength}}
                 placeholder={placeholder} 
                 onChange={(evento) => handleChange(evento)}
                 {...spreadProps} />
