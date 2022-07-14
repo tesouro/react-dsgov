@@ -9,10 +9,13 @@ interface CheckboxProps  extends React.HTMLAttributes<HTMLInputElement>, IMtProp
     state?: string;
     disabled?: boolean;
     checked?: boolean;
+    name?: string;
+    label?: string;
+    value?: string;
 } 
 
 const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
-    ({className, children, inline, state, disabled, checked = false, ...props}, ref) => {
+    ({className, children, inline, state, disabled, checked = false, name, label, value, ...props}, ref) => {
         const mtProps = useMtProps(props);
         const spreadProps = useSpreadProps(props);
 
@@ -32,12 +35,15 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
                     className={classNames(
                         className
                     )}
+                    name={name}
                     type="checkbox"
-                    checked={checked}
+                    {...value && {value: value}}
+                    {...checked && {checked: checked}}
                     {...disabled && {disabled: "disabled"}}
                     {...spreadProps}
                 />
-                {children && <label htmlFor={props.id}>{children}</label>}
+                {label && <label htmlFor={props.id}>{label}</label>}
+                {children}
             </div>
         );
     }

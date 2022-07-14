@@ -14,9 +14,12 @@ import DateTimePicker from './components/react-dsgov/DateTimePicker';
 import Divider from './components/react-dsgov/Divider';
 import Input from './components/react-dsgov/Input';
 import Radio from './components/react-dsgov/Radio';
+import Select from './components/react-dsgov/Select';
+import AnyAttribute, { asObject, asString } from 'react-any-attr';
+
 
 function App() {
-  const [teste, setTeste] = useState<boolean>(false);
+  const [teste, setTeste] = useState<boolean>(true);
   const [teste2, setTeste2] = useState<string>("");
   const [radioSelecionado, setRadioSelecionado] = useState<string>("");
 
@@ -78,7 +81,7 @@ function App() {
         <Row></Row>
         <Row>
           <Col>
-            <Checkbox checked={teste || false} state="invalid" id="checkbox-1" onChange={(event) => {setTeste(event.currentTarget.checked);}}>Teste</Checkbox>
+            <Checkbox checked={teste || false} state="invalid" id="checkbox-1" onChange={(event) => {setTeste(event.currentTarget.checked);}} label="Teste"></Checkbox>
           </Col>
         </Row>
         
@@ -128,6 +131,20 @@ function App() {
               <Radio id="op-1" name="radio" value="op-1" label="opcao-1" checked={radioSelecionado === "op-1"} onChange={(event) => setRadioSelecionado(event.currentTarget.value)} />
               <Radio id="op-2" name="radio" value="op-2" label="opcao-2" checked={radioSelecionado === "op-2"} onChange={(event) => setRadioSelecionado(event.currentTarget.value)} />
               <Radio id="op-3" name="radio" value="op-3" label="opcao-3" checked={radioSelecionado === "op-3"} onChange={(event) => setRadioSelecionado(event.currentTarget.value)} />
+            </Col>
+          </Row>
+        </Container>
+
+        <Container fluid>
+          <Row>
+            <Col>
+              <Select id="select1" type="multiple" value={["2"]} label="Selecione abaixo" onChange={(evento : any) => console.log(evento)} options={[
+                {label: "Teste 1", value: "1"},
+                {label: "Teste 2", value: "2"},
+                {label: "Teste 3", value: "3"},
+                {label: "Teste 4", value: "4"}
+              ]} />
+
             </Col>
           </Row>
         </Container>

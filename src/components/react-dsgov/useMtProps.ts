@@ -5,6 +5,5 @@ export const useMtProps = (props : any) => {
     for (let index = 0; index < listMtProps.length; index++) {
         mtProps = [...mtProps, (props[listMtProps[index]] && `${listMtProps[index]}-${props[listMtProps[index]]}`)];
     }
-    
     return mtProps;
 }
