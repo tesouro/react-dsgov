@@ -8,11 +8,13 @@ interface SwitchProps  extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
     label: string
     density?: "small" | "medium" | "large"
     enabledText?: string,
-    disabledText?: string
+    disabledText?: string,
+    showIcon?: boolean
+    labelPosition?: "left" | "top" | "right"
 } 
 
 const Switch = React.forwardRef<HTMLDivElement, SwitchProps>(
-    ({className, children, id, label, density = "medium", enabledText, disabledText, ...props}, ref) => {
+    ({className, children, id, label, density = "medium", enabledText, disabledText, showIcon = false, labelPosition = "left", ...props}, ref) => {
         const mtProps = useMtProps(props);
         const spreadProps = useSpreadProps(props);
 
@@ -21,6 +23,9 @@ const Switch = React.forwardRef<HTMLDivElement, SwitchProps>(
             <div
                 className={classNames(
                     "br-switch",
+                    (showIcon && "icon"),
+                    (labelPosition === "right" && "right"),
+                    (labelPosition === "top" && "top"),
                     density,
                     className,
                     ...mtProps
