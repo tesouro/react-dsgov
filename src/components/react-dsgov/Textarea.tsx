@@ -8,7 +8,7 @@ import { mapaIcones } from "./Util";
 import Row from "./Row";
 
 interface TextareaProps extends React.HTMLAttributes<HTMLTextAreaElement>, IMtProps {
-    label?: string | React.ReactElement;
+    label: string | React.ReactElement;
     placeholder?: string,
     type?: string,
     density?: "small" | "normal" | "large",
