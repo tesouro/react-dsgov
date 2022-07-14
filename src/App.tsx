@@ -20,6 +20,7 @@ import Loading from './components/react-dsgov/Loading';
 import MagicButton from './components/react-dsgov/MagicButton';
 import Message from './components/react-dsgov/Message';
 import Textarea from './components/react-dsgov/Textarea';
+import Switch from './components/react-dsgov/Switch';
 
 
 function App() {
@@ -152,7 +153,7 @@ function App() {
             </Col>
           </Row>
         </Container>
-
+       
         <Container>
           <Row>
             <Col>
@@ -201,6 +202,19 @@ function App() {
           </Row>
 
         </Container>
+
+        <br/><br/>
+
+        <Container>
+          <Row>
+            <Col>
+              <Switch id="testeSwitch" label="Teste" />
+            </Col>
+          </Row>
+        </Container>
+
+
+        <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
        
       
     </>
