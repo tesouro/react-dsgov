@@ -18,6 +18,7 @@ import Select from './components/react-dsgov/Select';
 import AnyAttribute, { asObject, asString } from 'react-any-attr';
 import Loading from './components/react-dsgov/Loading';
 import MagicButton from './components/react-dsgov/MagicButton';
+import Message from './components/react-dsgov/Message';
 
 
 function App() {
@@ -166,6 +167,26 @@ function App() {
             </Col>
           </Row>
         </Container>
+        <br/><br/><br/><br/><br/>
+        <Container>
+          <Row>
+            <Col>
+              <p><Message category='feedback' type="danger" icon="fas fa-times-circle">O CPF deve conter apenas dígitos.</Message></p>
+              <p><Message category='feedback' type="success" icon="fas fa-check-circle">Campo correto.</Message></p>
+              <p><Message category='feedback' type="warning" icon="fas fa-exclamation-triangle">A tecla CAPS-LOCK está ativada.</Message></p>
+              <p><Message category='feedback' type="info" icon="fas fa-check-circle">Os arquivos devem ser no formato PNG, JPG, PDF e ter no máximo 1GB.</Message></p>
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+              <Message category='message' messageTitle="Data de início do afastamento inválida." type="danger" icon="fas fa-times-circle">O CPF deve conter apenas dígitos.</Message>
+              <Message category='message' messageTitle="Sucesso." type="success" icon="fas fa-check-circle">Campo correto.</Message>
+              <Message category='message' messageTitle="Informação." type="warning" icon="fas fa-exclamation-triangle">A tecla CAPS-LOCK está ativada.</Message>
+              <Message category='message' messageTitle="Atenção." type="info" icon="fas fa-check-circle">Os arquivos devem ser no formato PNG, JPG, PDF e ter no máximo 1GB.</Message>
+            </Col>
+          </Row>
+        </Container>
+
 
 
 
