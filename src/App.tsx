@@ -16,6 +16,7 @@ import Input from './components/react-dsgov/Input';
 import Radio from './components/react-dsgov/Radio';
 import Select from './components/react-dsgov/Select';
 import AnyAttribute, { asObject, asString } from 'react-any-attr';
+import Loading from './components/react-dsgov/Loading';
 
 
 function App() {
@@ -138,7 +139,7 @@ function App() {
         <Container fluid>
           <Row>
             <Col>
-              <Select id="select1" type="multiple" value={["2"]} label="Selecione abaixo" onChange={(evento : any) => console.log(evento)} options={[
+              <Select id="select1" type="single"  label="Selecione abaixo" onChange={(evento : any) => console.log(evento)} options={[
                 {label: "Teste 1", value: "1"},
                 {label: "Teste 2", value: "2"},
                 {label: "Teste 3", value: "3"},
@@ -148,6 +149,15 @@ function App() {
             </Col>
           </Row>
         </Container>
+
+        <Container>
+          <Row>
+            <Col>
+              <Loading progress={15} />
+            </Col>
+          </Row>
+        </Container>
+
 
         <br/><br/><br/><br/><br/>
        

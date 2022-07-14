@@ -7,10 +7,11 @@ import { useMtProps } from "./useMtProps";
 interface ItemProps  extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
     highlighted?: boolean;
     divider?: boolean;
+    disabled?: boolean;
 } 
 
 const Item = React.forwardRef<HTMLDivElement, ItemProps>(
-    ({className, children, highlighted, divider, ...props}, ref) => {
+    ({className, children, highlighted, divider, role = "listItem", disabled = false, ...props}, ref) => {
         const mtProps = useMtProps(props);
         const spreadProps = useSpreadProps(props);
 
@@ -24,6 +25,8 @@ const Item = React.forwardRef<HTMLDivElement, ItemProps>(
                     className,
                     ...mtProps
                 )}
+                {...role && {role: role}}
+                {...disabled && {disabled: true}}
                 {...spreadProps}
                 
             >

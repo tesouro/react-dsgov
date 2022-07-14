@@ -89,7 +89,7 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
                     ref={refWrapper}
                     {...spreadProps}
                     onChange={onChange(refBrSelect.current?.selectedValue)}
-
+ 
                     className={classNames(
                         "br-select",
                         className,
@@ -102,9 +102,9 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
                         <input id={`${id}_____select`} type="text" data-value={valor} />
                         <button className="br-button" type="button" aria-label="Exibir lista" tabIndex={-1} data-trigger="data-trigger"><i className="fas fa-angle-down" aria-hidden="true"></i></button>
                     </div>
-                    <List tabIndex={0}>
+                    <List tabIndex={0} role="">
                         {type === "multiple" && selectAllText &&
-                            <Item highlighted tabIndex={-1} divider data-all="data-all">
+                            <Item highlighted tabIndex={-1} divider data-all="data-all" role="">
                                 <Checkbox  
                                     id={`${id}____`}
                                     label="Selecionar todos"
@@ -113,7 +113,7 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
                             </Item>
                         }
                         {options.map((elemento) => (
-                            <Item key={elemento.value} tabIndex={-1} divider>
+                            <Item key={elemento.value} tabIndex={-1} divider role="">
                                 {type === "single" &&
                                     <Radio
                                         id={`${id}____${elemento.value}`}
@@ -124,28 +124,14 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
                                         onChange={(evento) => setValor(evento.currentTarget.value)}
                                     />}
                                 {type === "multiple" &&
-                                    <>
-                                        <div className="br-checkbox">
-                                        <input 
-                                                id={`${id}____${elemento.value}`} 
-                                                name={String(elemento.value)}
-                                                value={String(elemento.value)}
-                                                type="checkbox"
-                                                checked={valores.get(`${id}____${elemento.value}`)}
-                                                onChange={(evento) => { setValores((lista) => { lista.set(id, evento.currentTarget.checked); return lista; });  onChange(refBrSelect.current?.selectedValue) }}
-                                                />
-                                                <label htmlFor={`${id}____${elemento.value}`} >{elemento.label}</label>
-                                        </div>
-                                    </>
-                                    
-                                    /*<Checkbox
+                                    <Checkbox
                                         id={`${id}____${elemento.value}`}
                                         name={String(elemento.value)}
                                         label={elemento.label}
-                                        checked={valores.get(`${id}____${elemento.value}`)}
+                                        defaultChecked={valores.get(`${id}____${elemento.value}`)}
                                         value={String(elemento.value)}
                                         onChange={(evento) => { setValores((lista) => { lista.set(id, evento.currentTarget.checked); return lista; });  onChange(refBrSelect.current?.selectedValue) }}
-                                    />*/
+                                    />
                                 }
                             </Item>
                         ))}
