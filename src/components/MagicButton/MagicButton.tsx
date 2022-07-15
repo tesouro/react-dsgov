@@ -5,6 +5,7 @@ import { useSpreadProps } from "../Util/useSpreadProps";
 import { useMtProps } from "../Util/useMtProps";
 import Button from "../Button";
 
+
 interface MagicButtonProps  extends React.HTMLAttributes<HTMLButtonElement>, IMtProps {
 } 
 

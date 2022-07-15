@@ -1,4 +1,3 @@
-import PropTypes from "prop-types"
 import '@govbr-ds/core/dist/core.min.css'
 import '@govbr-ds/core/dist/core-init'
 
@@ -8,47 +7,30 @@ import IMtProps from '../IMtProps';
 import { useSpreadProps } from '../Util/useSpreadProps';
 import { useMtProps } from "../Util/useMtProps";
 
-
-
-
 interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement>, IMtProps {
+    /** Se o botão é do tipo "Primário". */
     primary?: boolean,
+    /** Se o botão é do tipo "Secundário".  */
     secondary?: boolean,
+    /** Se o botão é circular. */
     circle?: boolean,
+    /** Se o botão tem cor invertida. */
     inverted?: boolean,
+    /** Se o botão ocupa uma linha inteira. */
     block?: boolean,
+    /** Se o botão é grande. */
     large?: boolean,
+    /** Se o botão é pequeno. */
     small?: boolean,
+    /** Se o botão tem a propriedade "loading". */
     loading?: boolean,
+    /** Se o botão está desabilitado. */
     disabled?: boolean,
+    /** Classe de ícone FontAwesome para o botão. */
     icon?: string,
+    /** Tipo do botão. */
     type?: "button" | "submit" | "reset"
 }
-
-const propTypes = {
-    /**
-     * Se o button tem a propriedade "block" ativada, ou seja, ocupa
-     * todo o espaço da linha.
-     */
-    block: PropTypes.any,
-    children: PropTypes.any,
-    circle: PropTypes.any,
-    className: PropTypes.any,
-    disabled: PropTypes.any,
-    icon: PropTypes.any,
-    inverted: PropTypes.any,
-    large: PropTypes.any,
-    loading: PropTypes.any,
-    primary: PropTypes.any,
-    secondary: PropTypes.any,
-    small: PropTypes.any,
-    /**
-     * Tipo do botão.
-     * 
-     * @type {'button', 'submit', 'reset'}
-     */
-    type: PropTypes.any
-  }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     ({children, className, type = "submit", primary, secondary, circle, inverted, block, large, small, loading, disabled, icon, ...props}, ref) => {
@@ -83,8 +65,5 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     }
 
 ) 
-
-Button.propTypes = propTypes;
-
 
 export default Button;
