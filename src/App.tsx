@@ -1,28 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
 import './App.css';
-import Breadcrumb from './components/react-dsgov/Breadcrumb';
-import Button from './components/react-dsgov/Button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCoffee } from '@fortawesome/free-solid-svg-icons'
-import Card from './components/react-dsgov/Card';
-import Row from './components/react-dsgov/Row';
-import Container from './components/react-dsgov/Container';
-import Col from './components/react-dsgov/Col';
-import Carousel from './components/react-dsgov/Carousel';
-import Checkbox from './components/react-dsgov/Checkbox';
-import DateTimePicker from './components/react-dsgov/DateTimePicker';
-import Divider from './components/react-dsgov/Divider';
-import Input from './components/react-dsgov/Input';
-import Radio from './components/react-dsgov/Radio';
-import Select from './components/react-dsgov/Select';
-import AnyAttribute, { asObject, asString } from 'react-any-attr';
-import Loading from './components/react-dsgov/Loading';
-import MagicButton from './components/react-dsgov/MagicButton';
-import Message from './components/react-dsgov/Message';
-import Textarea from './components/react-dsgov/Textarea';
-import Switch from './components/react-dsgov/Switch';
-import Upload from './components/react-dsgov/Upload';
 
+import AnyAttribute, { asObject, asString } from 'react-any-attr';
+
+
+import { Breadcrumb, Button, Card, Row, Container, Col, Carousel, Checkbox, DateTimePicker, Divider, Input, Radio, Select, Loading, MagicButton, Message, Textarea, Switch, Upload, Wizard } from './components';
 
 function App() {
   const [teste, setTeste] = useState<boolean>(true);
