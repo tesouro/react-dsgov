@@ -17,37 +17,6 @@ const options = {
   }
 
 module.exports = {
-    sections: [
-    {
-        name: 'Introdução',
-        content: 'docs/Introducao.md'
-    },
-    {
-        name: 'Documentation',
-        sections: [
-        {
-            name: 'Instalação',
-            content: 'docs/Instalacao.md',
-            description: 'The description for the installation section'
-        },
-        {
-            name: 'Configuração',
-            content: 'docs/Configuracao.md'
-        }
-        ]
-    },
-    {
-        name: 'Componentes',
-        components: 'src/components/**/*.{jsx,tsx}',
-        exampleMode: 'expand', // 'hide' | 'collapse' | 'expand'
-        usageMode: 'expand' // 'hide' | 'collapse' | 'expand'
-    }
-    ],
-    propsParser: require("react-docgen-typescript").withCustomConfig(
-        "./tsconfig.json",
-        options
-    ).parse,
-
     dangerouslyUpdateWebpackConfig(config) { 
         config.module.rules.push({
             test: /.\.md$/,
@@ -66,5 +35,45 @@ module.exports = {
             )
             );
             return config;
+    },
+    title: "React-DSGOV - Documentação",
+    template: {
+        head: {
+            links: [
+                {
+                    rel: 'stylesheet',
+                    href: 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css'
+                }
+            ]
+        }
+    },
+    sections: [
+    {
+        name: 'Introdução',
+        content: 'docs/Introducao.md'
+    },
+    {
+        name: 'Documentation',
+        sections: [
+        {
+            name: 'Instalação',
+            content: 'docs/Instalacao.md'
+        },
+        {
+            name: 'Configuração',
+            content: 'docs/Configuracao.md'
+        }
+        ]
+    },
+    {
+        name: 'Componentes',
+        components: 'src/components/**/*.{jsx,tsx}',
+        exampleMode: 'expand', // 'hide' | 'collapse' | 'expand'
+        usageMode: 'expand' // 'hide' | 'collapse' | 'expand'
     }
+    ],
+    propsParser: require("react-docgen-typescript").withCustomConfig(
+        "./tsconfig.json",
+        options
+    ).parse
 };
