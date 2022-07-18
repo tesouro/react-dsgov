@@ -5,11 +5,26 @@ import { useSpreadProps } from "../Util/useSpreadProps";
 import { useMtProps } from "../Util/useMtProps";
 
 interface DateTimePickerProps extends React.HTMLAttributes<HTMLInputElement>, IMtProps {
+    /** Modo do Datetime.
+     * 
+     * - single: uma data apenas a escolher.
+     * - range: um intervalo de datas a escolher.
+     */
     dataMode?: "single" | "range";
+    /** Tipo do Datetime.
+     * 
+     * - text: seleciona data.
+     * - time: seleciona apenas hora.
+     * - datetime-local: seleciona data e hora.
+     */
     dataType?: "text" | "time" | "datetime-local";
+    /** Label do DatetimePicker. */
     label?: string | React.ReactElement;
+    /** Classe font awesome do ícone do botão. */
     buttonIcon?: string,
+    /** Data mínima selecionável. */
     minDate?: string,
+    /** Data máxima selecionável. */
     maxDate?: string
 }
 
