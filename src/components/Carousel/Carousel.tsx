@@ -51,7 +51,7 @@ const Carousel = React.forwardRef<HTMLDivElement, CarouselProps>(
                 if(refObjetoCarousel.current) {
                     refObjetoCarousel.current.shiftPage = () => {};
                 }                
-
+ 
                 // Define o novo objeto
                 refObjetoCarousel.current = new core.BRCarousel('br-carousel', refDiv.current);
                 refQtdChildren.current = qtdChildrenAtual;                      
