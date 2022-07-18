@@ -5,14 +5,25 @@ import { useSpreadProps } from "../Util/useSpreadProps";
 import { useMtProps } from "../Util/useMtProps";
 
 interface DividerProps  extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
+    /** Orientação.
+     * 
+     * - vertical
+     * - horizontal
+     */
     orientation?: "vertical" | "horizontal",
+    /** Se é tracejado ou não. */
     dashed?: boolean,
-    sm?: boolean;
-    lg?: boolean;
+    /** Tamanho.
+     * 
+     * - sm: 2x o tamanho original
+     * - md: 3x o tamanho original
+     * - lg: 4x o tamanho original
+     */
+    size?: string
 } 
 
 const Divider = React.forwardRef<HTMLDivElement, DividerProps>(
-    ({className, children, orientation = "horizontal", dashed = false, sm, lg, ...props}, ref) => {
+    ({className, children, orientation = "horizontal", dashed = false, size, ...props}, ref) => {
         const mtProps = useMtProps(props);
         const spreadProps = useSpreadProps(props);
 
@@ -23,8 +34,9 @@ const Divider = React.forwardRef<HTMLDivElement, DividerProps>(
                     "br-divider",
                     ((orientation === "vertical") && "vertical"),
                     (dashed && "dashed"),
-                    (sm && "sm"),
-                    (lg && "lg"),
+                    (size === "sm" && "sm"),
+                    (size === "md" && "md"),
+                    (size === "lg" && "lg"),
                     ...mtProps,
                     className
                 )}

@@ -112,7 +112,7 @@ function App() {
 
         <Row>
           <Col>
-          <Divider dashed lg mx="2" />
+          <Divider dashed size="lg" mx="2" />
           </Col>
           
         </Row>
