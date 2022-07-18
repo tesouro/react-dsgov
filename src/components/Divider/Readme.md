@@ -9,7 +9,7 @@ Divider, também conhecido como Divisor ou Separador, é uma linha neutra que se
 
 ### Vertical
 ```js
-<div class="d-flex">
+<div className="d-flex">
   <p>Voluptate ipsa iure placeat praesentium, sint deleniti consectetur quisquam neque veniam possimus, hic commodi?</p><Divider orientation="vertical" mx="3" />
   <p>A adipisci mollitia blanditiis itaque velit laudantium voluptatum molestiae quasi.</p>
 </div>
@@ -24,7 +24,7 @@ Divider, também conhecido como Divisor ou Separador, é uma linha neutra que se
 
 ### Tracejado vertical
 ```js
-<div class="d-flex">
+<div className="d-flex">
   <p>Voluptate ipsa iure placeat praesentium, sint deleniti consectetur quisquam neque veniam possimus, hic commodi?</p><Divider dashed orientation="vertical" mx="3" />
   <p>A adipisci mollitia blanditiis itaque velit laudantium voluptatum molestiae quasi.</p>
 </div>
