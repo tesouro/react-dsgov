@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React, { useEffect, useImperativeHandle, useRef, useState } from "react";
+import React, { useImperativeHandle, useRef, useState } from "react";
 import IMtProps from "../IMtProps";
 import { useSpreadProps } from "../Util/useSpreadProps";
 import { useMtProps } from "../Util/useMtProps";
