@@ -35,14 +35,14 @@ function App() {
         </Row>
         <br/>
         <Row>
-          <Col sm="4">
+          <Col sm={4}>
             <Card>
               <Card.Header cardImageUrl='https://picsum.photos/id/823/400' cardTitle='Título' cardSubtitle='Subtítulo'></Card.Header>
               <Card.Content>Conteúdo</Card.Content>
               <Card.Footer>Footer do Card</Card.Footer>
             </Card> 
           </Col>
-          <Col lg="2" sm="3">
+          <Col lg={2} sm={3}>
           </Col>
         </Row>
         <Row>
@@ -93,7 +93,7 @@ function App() {
 
         <Container fluid>
           <Row>
-            <Col sm="2">
+            <Col sm={2}>
               <Input id="testeInput" label="Teste de Input"/>
             </Col>
             <Col>

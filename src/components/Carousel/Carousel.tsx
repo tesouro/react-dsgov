@@ -10,14 +10,29 @@ import { useSpreadProps } from "../Util/useSpreadProps";
 const core = require('@govbr-ds/core/dist/core-init');
 
 interface CarouselProps extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
+    /** Se o carousel é circular, ou seja, ao pressionar o botão de "próximo" no último, ele volta pro primeiro. 
+     *  Se pressionar o botão de "anterior" no primeiro, ele vai pro último.
+     */
     circular?: boolean;
+
+    /**
+     * Se os botões de navegação e os botões dos passos aparecem dentro do carousel.
+     */
     interno?: boolean;
-    hibw?: boolean;
-    hibh?: boolean;
+
+    /**
+     * Elementos internos híbridos.
+     * - Se for "vertical", então os botões de navegação ficam dentro do carousel.
+     * - Se for "horizontal", então os botões de passos ficam dentro do carousel.
+     */
+    hybrid?: "vertical" | "horizontal";
+
+    /** Se os botões de passos são substituídos por um texto do estilo <Passo Atual>/<Total de Passos>. */
+    textual?: boolean;
 }
 
 const Carousel = React.forwardRef<HTMLDivElement, CarouselProps>(
-    ({ className, children, circular, interno, hibw, hibh, ...props }, ref) => {
+    ({ className, children, circular, interno, hybrid, textual = false, ...props }, ref) => {
         const refDiv = useRef<any>(ref);
         const refQtdChildren = useRef<number>(0);
         const refObjetoCarousel = useRef<any>(null);
@@ -54,7 +69,7 @@ const Carousel = React.forwardRef<HTMLDivElement, CarouselProps>(
                     ...mtProps,
                     className
                 )}
-                data-stage={interno ? "in" : hibw ? "hibw" : hibh ? "hibh" : ""}
+                data-stage={interno ? "in" : hybrid === "vertical" ? "hibw" : hybrid === "horizontal" ? "hibh" : ""}
                 {...spreadProps}
 
             >
@@ -70,7 +85,7 @@ const Carousel = React.forwardRef<HTMLDivElement, CarouselProps>(
                     </button>
                 </div>
                 <div className="carousel-step">
-                    <div className="br-step" data-initial="1" data-type="simple">
+                    <div className="br-step" data-initial="1" data-type={textual ? "text" : "simple"}>
                         <div className="step-progress">
                             {Children.map(children, (element: any, index) => (
                                 <button key={index} className="step-progress-btn" type="button"><span className="step-info">{element.props.stepName}</span></button>
