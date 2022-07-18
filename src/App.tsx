@@ -6,14 +6,16 @@ import { faCoffee } from '@fortawesome/free-solid-svg-icons'
 import AnyAttribute, { asObject, asString } from 'react-any-attr';
 
 
-import { Breadcrumb, Button, Card, Row, Container, Col, Carousel, Checkbox, DateTimePicker, Divider, Input, Radio, Select, Loading, MagicButton, Message, Textarea, Switch, Upload, Wizard } from './components';
+import { Breadcrumb, Button, Card, Row, Container, Col, Carousel, Checkbox, DateTimePicker, Divider, Input, Radio, Select, Loading, MagicButton, Message, Textarea, Switch, Upload, Wizard, List, Item } from './components';
+import CustomTag from './components/CustomTag';
 
 function App() {
   const [teste, setTeste] = useState<boolean>(true);
   const [teste2, setTeste2] = useState<string>("");
   const [radioSelecionado, setRadioSelecionado] = useState<string>("");
 
-  
+  const rotulos = ['RÓTULO 1', 'RÓTULO 2', 'RÓTULO 3'];
+  const linhas = ['Texto 1', 'Texto 2', 'Texto 2', 'Texto 3'];
   return (
     <>
       <Container fluid>
@@ -283,6 +285,38 @@ function App() {
                   </Wizard>
               </Col>
             </Row>
+        </Container>
+
+        <Container>
+        
+
+          
+          <List title="Título (opcional)">
+              {rotulos.map((rotulo, index) => (
+                  <CustomTag key={`grupo-${index}`}>
+                      <Item collapsable target={`lista-${index}`} showDividerAfter>{rotulo}</Item>
+                      <List hidden id={`lista-${index}`}>
+                          {linhas.map((linha, index2) => (
+                              <Item key={`item-${index}-${index2}`} >
+                                  <Row>
+                                      <Col auto>
+                                          <i className="fas fa-heartbeat" aria-hidden="true"></i>
+                                      </Col>
+                                      <Col>
+                                      ITEM
+                                      {linha}
+                                      </Col>
+                                      <Col auto>
+                                          META
+                                      </Col>
+                                  </Row>
+                              </Item>
+                          ))}
+                      </List>
+                  </CustomTag>
+              ))}
+              
+          </List>
         </Container>
 
         <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
