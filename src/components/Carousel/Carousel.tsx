@@ -22,6 +22,7 @@ interface CarouselProps extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
 
     /**
      * Elementos internos híbridos.
+     * 
      * - Se for "vertical", então os botões de navegação ficam dentro do carousel.
      * - Se for "horizontal", então os botões de passos ficam dentro do carousel.
      */
