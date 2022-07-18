@@ -6,11 +6,11 @@ import { useMtProps } from "../Util/useMtProps";
 
 interface ColProps  extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
     sz?: string,
-    sm?: string | boolean,
-    md?: string | boolean,
-    lg?: string | boolean,
-    xl?: string | boolean,
-    auto?: string | boolean
+    sm?: number | boolean,
+    md?: number | boolean,
+    lg?: number | boolean,
+    xl?: number | boolean,
+    auto?: number |boolean
 } 
 
 const Col = React.forwardRef<HTMLDivElement, ColProps>(
