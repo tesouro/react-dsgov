@@ -1,4 +1,4 @@
-export const listMtProps = ['mt', 'mt-sm', 'mx', 'my', 'py'];
+export const listMtProps = ['mt', 'mt-sm', 'mx', 'my', 'py', 'mb'];
 
 export const mapaIcones = new Map<string, string>([
     ["danger", "fas fa-times-circle"],

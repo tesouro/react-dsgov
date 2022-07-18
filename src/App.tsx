@@ -71,7 +71,36 @@ function App() {
         <Row></Row>
         <Row>
           <Col>
-            <Checkbox checked={teste || false} state="invalid" id="checkbox-1" onChange={(event) => {setTeste(event.currentTarget.checked);}} label="Teste"></Checkbox>
+            <Checkbox id="check-1" indeterminate parentGroup="checkgroup01" label="Selecionar Todos"></Checkbox>
+            <Checkbox id="check-2" childOf="checkgroup01" label="Opção 1"></Checkbox>
+            <Checkbox id="check-3" childOf="checkgroup01" label="Opção 2"></Checkbox>
+            <Checkbox id="check-4" childOf="checkgroup01" label="Opção 3"></Checkbox>
+
+            <div className="mb-1">
+              <div className="br-checkbox">
+                <AnyAttribute attributes={{indeterminate: "indeterminate"}}><input id="checkbox-ind1" name="checkbox-ind1" type="checkbox" aria-label="selecionar tudo" defaultChecked={true} data-parent="check-01"/></AnyAttribute> 
+                
+                <label htmlFor="checkbox-ind1">Selecionar tudo</label>
+              </div>
+            </div>
+            <div className="mb-1">
+              <div className="br-checkbox">
+                <input id="checkbox-01" name="checkbox-01" type="checkbox" aria-label="opção 1" defaultChecked={true} data-child="check-01"/>
+                <label htmlFor="checkbox-01">Opção 1</label>
+              </div>
+            </div>
+            <div className="mb-1">
+              <div className="br-checkbox">
+                <input id="checkbox-02" name="checkbox-02" type="checkbox" aria-label="opção 2" data-child="check-01"/>
+                <label htmlFor="checkbox-02">Opção 2</label>
+              </div>
+            </div>
+            <div className="mb-1">
+              <div className="br-checkbox">
+                <input id="checkbox-03" name="checkbox-03" type="checkbox" aria-label="opção 3" data-child="check-01"/>
+                <label htmlFor="checkbox-03">Opção 3</label>
+              </div>
+            </div>
           </Col>
         </Row>
         
