@@ -8,8 +8,11 @@ import Divider from "../Divider";
 const core = require('@govbr-ds/core/dist/core-init');
 
 interface ListProps extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
+    /** Título da lista, opcional. */
     title?: string;
+    /** Se a lista é horizontal. */
     horizontal?: boolean;
+    /** Se a lista está escondida inicialmente. */
     hidden?: boolean;
 }
 

@@ -321,6 +321,24 @@ function App() {
 
         <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
       
+        <List title="Título (opcional)">
+    {linhas.map((linha, index) => (
+        <Item key={`item-ex-1-${index}`} className="align-items-center" showDividerAfter>
+            <Row>
+                <Col auto>
+                    <i className="fas fa-heartbeat" aria-hidden="true"></i>
+                </Col>
+                <Col>
+                ITEM
+                {linha}
+                </Col>
+                <Col auto>
+                    <Checkbox id={`check-lista-${index}`} />
+                </Col>
+            </Row>
+        </Item>
+    ))}
+</List>
     </>
   );
 }

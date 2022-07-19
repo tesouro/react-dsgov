@@ -7,6 +7,7 @@ export { default as Col } from "./Col";
 export { default as Container } from "./Container";
 export { default as DateTimePicker } from "./DateTimePicker";
 export { default as Divider } from "./Divider";
+export { default as Group } from "./Group";
 export { default as Input } from "./Input";
 export { default as Item } from "./Item";
 export { default as List } from "./List";

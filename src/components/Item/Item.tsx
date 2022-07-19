@@ -1,9 +1,11 @@
 import classNames from "classnames";
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import IMtProps from "../IMtProps";
 import { useSpreadProps } from "../Util/useSpreadProps";
 import { useMtProps } from "../Util/useMtProps";
 import Divider from "../Divider";
+
+const core = require('@govbr-ds/core/dist/core-init');
 
 interface ItemProps  extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
     highlighted?: boolean;
@@ -18,11 +20,20 @@ const Item = React.forwardRef<HTMLDivElement, ItemProps>(
     ({className, children, highlighted, divider, role = "listItem", disabled = false, showDividerAfter = false, target, collapsable = false, ...props}, ref) => {
         const mtProps = useMtProps(props);
         const spreadProps = useSpreadProps(props);
+        const refDiv = useRef(ref);
+        const refElemento = useRef(null);
+
+        useEffect(() => {
+            if(refDiv.current && !refElemento.current) {
+                refElemento.current = new core.BRItem('br-item', refDiv.current);
+            }
+            
+        }, [])
 
         return (
             <>
                 <div
-                    ref={ref}
+                    ref={refDiv}
                     className={classNames(
                         "br-item",
                         (highlighted && "highlighted"),
