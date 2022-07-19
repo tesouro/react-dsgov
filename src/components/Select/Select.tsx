@@ -21,13 +21,13 @@ interface SelectProps extends React.HTMLAttributes<HTMLSelectElement>, IMtProps 
     id: string;
     value?: string | string[] | number | number[];
     options: SelectOptions[];
-    onChange: any;
+    onChange?: any;
     type?: "single" | "multiple";
     selectAllText?: string
 }
 
 const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
-    ({ className, children, id, label, options, value, onChange, type = "single", selectAllText = "Selecionar todos", ...props }, ref) => {
+    ({ className, children, id, label, options, value, onChange = () => {}, type = "single", selectAllText = "Selecionar todos", ...props }, ref) => {
         const mtProps = useMtProps(props);
         const spreadProps = useSpreadProps(props);
         const [valor, setValor] = useState<string | string[]>("");

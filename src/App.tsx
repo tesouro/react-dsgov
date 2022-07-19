@@ -8,6 +8,7 @@ import AnyAttribute, { asObject, asString } from 'react-any-attr';
 
 import { Breadcrumb, Button, Card, Row, Container, Col, Carousel, Checkbox, DateTimePicker, Divider, Input, Radio, Select, Loading, MagicButton, Message, Textarea, Switch, Upload, Wizard, List, Item } from './components';
 import CustomTag from './components/CustomTag';
+import Table from './components/Table';
 
 function App() {
   const [teste, setTeste] = useState<boolean>(true);
@@ -236,6 +237,7 @@ function App() {
             <Col>
               <Upload id="meuupload" label="Teste Upload" uploadTimeout={() => {return new Promise((resolve) => {
     
+                
               return setTimeout(resolve, 3000)
             })}}/>
             </Col>
@@ -319,7 +321,7 @@ function App() {
           </List>
         </Container>
 
-        <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+        <br/><br/><br/><br/>
       
         <List title="Título (opcional)">
     {linhas.map((linha, index) => (
@@ -339,6 +341,39 @@ function App() {
         </Item>
     ))}
 </List>
+
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+
+  <Container fluid>
+    <Row>
+      <Col>
+        <Table id="minhatabela01" headers={[
+          {
+            field: "id",
+            label: "ID"
+          },
+          {
+            field: "name",
+            label: "Name"
+          }
+        ]}
+          data={
+              [
+                {
+                  id: 1,
+                  name: "Maria"
+                },
+                {
+                  id: 2,
+                  name: "Josefina"
+                }
+              ]
+          }>
+         
+        </Table>
+      </Col>
+    </Row>
+  </Container>
     </>
   );
 }
