@@ -360,6 +360,7 @@ function App() {
       <Col>
           <Table
             id="minhatabela2" 
+            title="Minha Tabela"
             headers={[
               {field: "codigo", label: "Código"},
               {field: "endereco", label: "Endereço"},

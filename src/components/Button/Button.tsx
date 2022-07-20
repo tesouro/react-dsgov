@@ -32,10 +32,12 @@ interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement>, IMtProps 
     type?: "button" | "submit" | "reset"
     /** Se o botão é do tipo Sign-In, especificamente para o botão de logar */
     signIn?: boolean;
+    /** Se é um botão do tipo "br-item" */
+    isItem?: boolean;
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-    ({children, className, type = "submit", primary, secondary, circle, inverted, block, large, small, loading, disabled, icon, signIn = false, ...props}, ref) => {
+    ({children, className, type = "submit", primary, secondary, circle, inverted, block, large, small, loading, disabled, icon, signIn = false, isItem = false, ...props}, ref) => {
         
         const mtProps = useMtProps(props);
         const spreadProps = useSpreadProps(props);
@@ -44,7 +46,8 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
             <button
                 type={type}
                 className={classNames(
-                    (!signIn && "br-button"),
+                    (!signIn && !isItem && "br-button"),
+                    (isItem && "br-item"),
                     (signIn && "br-sign-in"),
                     {"primary" : primary},
                     {"secondary" : secondary},

@@ -11,6 +11,8 @@ import Select from "../Select";
 import { updateQueryStringParameter } from "../Util/Util";
 import { SelectOptions } from "../Select/Select";
 
+const core = require('@govbr-ds/core/dist/core-init');
+
 interface IHeader {
     field: string,
     label: string
@@ -23,13 +25,16 @@ interface IData {
     records: any[]
 }
 
+export interface ISearchEvent extends React.MouseEvent<HTMLButtonElement, MouseEvent> {
+    searchText: string;
+}
+
 
 interface TableProps  extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
     id: string,
     title?: string,
-    showOptions?: boolean;
+    showDensityButtons?: boolean;
     showSearch?: boolean;
-    onSearch?: () => void;
     showSelectedBar?: boolean;
 
     headers?: string[] | IHeader[];
@@ -38,6 +43,8 @@ interface TableProps  extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
     endpoint?: string;
 
     onClickNextPage?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {}
+    onClickPrevPage?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {}
+    onSearch?: (event: ISearchEvent) => {}
 
     showPageSelector?: boolean;
 } 
@@ -48,7 +55,7 @@ const Table = React.forwardRef<HTMLDivElement, TableProps>(
         children, 
         id,
         title,
-        showOptions = true,
+        showDensityButtons = true,
         showSearch = true,
         onSearch = () => {},
         showSelectedBar = true,
@@ -56,14 +63,14 @@ const Table = React.forwardRef<HTMLDivElement, TableProps>(
         data,
         endpoint,
         onClickNextPage = () => {},
+        onClickPrevPage = () => {},
         showPageSelector = false,
         ...props
     }, ref) => {
         const mtProps = useMtProps(props);
         const spreadProps = useSpreadProps(props);
 
-        const [paginacao, setPaginacao] = useState<string>("10");
-        const [pagina, setPagina] = useState<string>("1");
+
         const [tableData, setTableData] = useState<any[]>([]);
         const [defaultSearch, setDefaultSearch] = useState<string>("");
 
@@ -79,10 +86,13 @@ const Table = React.forwardRef<HTMLDivElement, TableProps>(
 
         const pageCount = useRef<number | null>(null);
 
+        const refDiv = useRef(ref);
+        const refElement = useRef<any>(ref);
+
         const handleClickNextPage = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
             onClickNextPage(event);
             
-            if(!atualizando) {
+            if(!atualizando && currentEndpoint) {
                 setPageNumber((currentOffset) => {
                     if(typeof currentOffset !== 'undefined') {
                         return currentOffset + 1;
@@ -95,8 +105,9 @@ const Table = React.forwardRef<HTMLDivElement, TableProps>(
         }
 
         const handleClickPreviousPage = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-            onClickNextPage(event);
-            if(!atualizando) {
+            onClickPrevPage(event);
+
+            if(!atualizando && currentEndpoint) {
                 setPageNumber((currentOffset) => {
                     if(typeof currentOffset !== 'undefined') {
                         return currentOffset - 1;
@@ -109,9 +120,17 @@ const Table = React.forwardRef<HTMLDivElement, TableProps>(
         }
 
         const handleTrocaBuscaPadrao = () => {
-            defaultSearch !== undefined && defaultSearch !== "" && setCurrentEndpoint((currentEndpoint) => 
+            onSearch({searchText: defaultSearch} as ISearchEvent);
+
+            defaultSearch !== undefined && setCurrentEndpoint((currentEndpoint) => 
                 updateQueryStringParameter(currentEndpoint, 'defaultSearch', String(defaultSearch)));
         }
+        
+        useEffect(() => {
+            if(!refElement.current && refDiv.current) {
+                refElement.current = new core.BRTable('br-table', refDiv.current, id);
+            }
+        }, [id]);
 
 
         useEffect(() => {
@@ -141,7 +160,6 @@ const Table = React.forwardRef<HTMLDivElement, TableProps>(
         // Ao trocar o endpoint, recarregar os dados
         useEffect(() => {
             if(currentEndpoint) {
-                console.log(currentEndpoint);
                 setAtualizando(true);
                 fetch(currentEndpoint).then(res => {
                     res.json().then(json => {
@@ -171,8 +189,6 @@ const Table = React.forwardRef<HTMLDivElement, TableProps>(
         pageSize !== undefined && setCurrentEndpoint((currentEndpoint) => 
                 updateQueryStringParameter(currentEndpoint, 'pageSize', String(pageSize)));
     }, [pageSize]);
-
-    
 
     // Ao mudar a quantidade de registros ou o tamanho da página
     useEffect(() => {
@@ -208,7 +224,7 @@ const Table = React.forwardRef<HTMLDivElement, TableProps>(
 
         return (
             <div
-                ref={ref}
+                ref={refDiv}
                 className={classNames(
                     "br-table",
                     className,
@@ -224,35 +240,40 @@ const Table = React.forwardRef<HTMLDivElement, TableProps>(
                 <div className="table-header">
                     <div className="top-bar">
                     <div className="table-title">{title}</div>
-                    <div className="actions-trigger text-nowrap">
+                    {showDensityButtons && <div className="actions-trigger text-nowrap">
                         <Button circle title="Ver mais opções" data-toggle="dropdown" data-target={`ver-mais-opcoes____${id}`} aria-label="Ver mais opções" icon="fas fa-ellipsis-v" />
-                        <List className="br-list" id={`ver-mais-opcoes____${id}`} hidden role="">
-                            <Button data-density="small">Densidade alta
+                        <List id={`ver-mais-opcoes____${id}`} hidden role="">
+                            <Button isItem data-density="small">Densidade alta
                             </Button><span className="br-divider"></span>
-                            <Button data-density="medium">Densidade média
+                            <Button isItem data-density="medium">Densidade média
                             </Button><span className="br-divider"></span>
-                            <Button data-density="large">Densidade baixa
+                            <Button isItem data-density="large">Densidade baixa
                             </Button>
                         </List>
-                    </div>
+                    </div>}
                     <div className="search-trigger">
-                        <Button circle data-toggle="search" aria-label="Abrir busca"><i className="fas fa-search" aria-hidden="true"></i>
-                        </Button>
+                        {showSearch && <Button circle data-toggle="search" aria-label="Abrir busca"><i className="fas fa-search" aria-hidden="true"></i>
+                        </Button>}
                     </div>
                     </div>
-                    <div className="search-bar">
-                    <div className="br-input">
-                        <Input 
-                            id={`table-searchbox-${id}`} 
-                            label="Buscar" 
-                            placeholder="Buscar na tabela" 
-                            value={defaultSearch}
-                            onChange={(event) => setDefaultSearch(event.currentTarget.value)}
-                            button={<Button circle aria-label="Buscar" icon="fas fa-search" onClick={() => handleTrocaBuscaPadrao()} />}/>
-                        
-                    </div>
-                    <Button circle data-dismiss="search" aria-label="Fechar busca" icon="fas fa-times" />
-                    </div>
+                    {showSearch && <div className="search-bar">
+                        <div className="br-input">
+                            <Input 
+                                id={`table-searchbox-${id}`} 
+                                label="Buscar" 
+                                placeholder="Buscar na tabela" 
+                                value={defaultSearch}
+                                onKeyDown={(event) => {
+                                    if(event.key === 'Enter') {
+                                        handleTrocaBuscaPadrao();
+                                    }
+                                }}
+                                onChange={(event) => setDefaultSearch(event.currentTarget.value)}
+                                button={<Button circle aria-label="Buscar" icon="fas fa-search" onClick={() => handleTrocaBuscaPadrao()} />}/>
+                            
+                        </div>
+                        <Button circle data-dismiss="search" aria-label="Fechar busca" icon="fas fa-times" />
+                    </div>}
                     <div className="selected-bar">
                     <div className="info"><span className="count">0</span><span className="text">item selecionado</span></div>
                     <div className="actions-trigger text-nowrap">
@@ -325,7 +346,7 @@ const Table = React.forwardRef<HTMLDivElement, TableProps>(
                     </div><span className="br-divider d-none d-sm-block mx-3"></span>
                     <div className="pagination-arrows ml-auto ml-sm-0">
                         <Button circle aria-label="Voltar página" icon="fas fa-angle-left" disabled={pageNumber === 0} onClick={(event) => handleClickPreviousPage(event)}/>
-                        <Button circle data-total={pageCount.current} aria-label="Avançar página" icon="fas fa-angle-right" data-pageNumber={pageNumber} disabled={pageNumber === ((pageCount.current || 0) - 1)} onClick={(event) => handleClickNextPage(event)} />
+                        <Button circle data-total={pageCount.current} aria-label="Avançar página" icon="fas fa-angle-right" disabled={pageNumber === ((pageCount.current || 0) - 1)} onClick={(event) => handleClickNextPage(event)} />
                     </div>
                     </nav>
                 </div>
