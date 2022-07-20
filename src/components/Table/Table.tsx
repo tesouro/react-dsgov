@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import IMtProps from "../IMtProps";
 import { useSpreadProps } from "../Util/useSpreadProps";
 import { useMtProps } from "../Util/useMtProps";
@@ -8,6 +8,8 @@ import Button from "../Button";
 import Input from "../Input";
 import Divider from "../Divider";
 import Select from "../Select";
+import { updateQueryStringParameter } from "../Util/Util";
+import { SelectOptions } from "../Select/Select";
 
 interface IHeader {
     field: string,
@@ -15,11 +17,12 @@ interface IHeader {
 }
 
 interface IData {
-    offset?: number,
+    pageNumber?: number,
     recordCount?: number,
     pageSize?: number,
     records: any[]
 }
+
 
 interface TableProps  extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
     id: string,
@@ -33,6 +36,10 @@ interface TableProps  extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
     data?: IData | object[];
 
     endpoint?: string;
+
+    onClickNextPage?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {}
+
+    showPageSelector?: boolean;
 } 
 
 const Table = React.forwardRef<HTMLDivElement, TableProps>(
@@ -48,6 +55,8 @@ const Table = React.forwardRef<HTMLDivElement, TableProps>(
         headers,
         data,
         endpoint,
+        onClickNextPage = () => {},
+        showPageSelector = false,
         ...props
     }, ref) => {
         const mtProps = useMtProps(props);
@@ -56,48 +65,146 @@ const Table = React.forwardRef<HTMLDivElement, TableProps>(
         const [paginacao, setPaginacao] = useState<string>("10");
         const [pagina, setPagina] = useState<string>("1");
         const [tableData, setTableData] = useState<any[]>([]);
+        const [defaultSearch, setDefaultSearch] = useState<string>("");
+
+        const [atualizando, setAtualizando] = useState<boolean>(false);
 
         const [currentEndpoint, setCurrentEndpoint] = useState<string>("");
 
-        const [offset, setOffset] = useState<number>();
+        const [pageNumber, setPageNumber] = useState<number>();
         const [pageSize, setPageSize] = useState<number>();
         const [recordCount, setRecordCount] = useState<number>();
+
+        const [pageOptions, setPageOptions] = useState<SelectOptions[]>();
+
+        const pageCount = useRef<number | null>(null);
+
+        const handleClickNextPage = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+            onClickNextPage(event);
+            
+            if(!atualizando) {
+                setPageNumber((currentOffset) => {
+                    if(typeof currentOffset !== 'undefined') {
+                        return currentOffset + 1;
+                    } else {
+                        return currentOffset;
+                    }                
+                })
+            }
+            
+        }
+
+        const handleClickPreviousPage = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+            onClickNextPage(event);
+            if(!atualizando) {
+                setPageNumber((currentOffset) => {
+                    if(typeof currentOffset !== 'undefined') {
+                        return currentOffset - 1;
+                    } else {
+                        return currentOffset;
+                    }                
+                })
+            }
+            
+        }
+
+        const handleTrocaBuscaPadrao = () => {
+            defaultSearch !== undefined && defaultSearch !== "" && setCurrentEndpoint((currentEndpoint) => 
+                updateQueryStringParameter(currentEndpoint, 'defaultSearch', String(defaultSearch)));
+        }
+
 
         useEffect(() => {
             // Se os dados tiverem sido informados manualmente, informa-os
             if(data && (data as IData).records) {
                 setTableData((data as IData).records);
 
-                setOffset((data as IData).offset);
+                setPageNumber((data as IData).pageNumber);
                 setPageSize((data as IData).pageSize);
                 setRecordCount((data as IData).recordCount);
             } else if(data) {
                 const dataLength = (data as any[]).length;
-                
+
                 setTableData(data as any[]);
                 setRecordCount(dataLength);
                 setPageSize(dataLength);
-                setOffset(0);
+                setPageNumber(0);
             }
 
             // Do contrário, seta os obtidos do endpoint
             if(endpoint) {
                 setCurrentEndpoint(endpoint);
+            }
+                        
+        }, [data, endpoint])
 
-                fetch(endpoint).then(res => {
+        // Ao trocar o endpoint, recarregar os dados
+        useEffect(() => {
+            if(currentEndpoint) {
+                console.log(currentEndpoint);
+                setAtualizando(true);
+                fetch(currentEndpoint).then(res => {
                     res.json().then(json => {
                         if(json?.records) {
                             setTableData(json.records);
                         }
-
-                        setOffset(json?.offset);
-                        setPageSize(json?.pageSize);
+    
+                        setPageNumber(json?.pageNumber);
+                        setPageSize(json?.pageSize);                       
                         setRecordCount(json?.recordCount);
+
+                        setAtualizando(false);
                     });
                 })
             }
+            
+        }, [currentEndpoint]);
+        
+    // Ao trocar a página, recarregar os dados
+    useEffect(() => {
+        pageNumber !== undefined && setCurrentEndpoint((currentEndpoint) => 
+                updateQueryStringParameter(currentEndpoint, 'pageNumber', String(pageNumber)))
+    }, [pageNumber]);
+
+    // Ao trocar o tamanho da página
+    useEffect(() => {
+        pageSize !== undefined && setCurrentEndpoint((currentEndpoint) => 
+                updateQueryStringParameter(currentEndpoint, 'pageSize', String(pageSize)));
+    }, [pageSize]);
+
+    
+
+    // Ao mudar a quantidade de registros ou o tamanho da página
+    useEffect(() => {
+        if(recordCount !== undefined && pageSize !== undefined) {
+            const currentPageCount = Math.ceil(recordCount/pageSize);
+            if(currentPageCount !== pageCount.current) {
+                pageCount.current = currentPageCount;
+
+                setPageOptions(pageOptions => {
+                    if(pageOptions?.length !== pageSize) {
+                        const currentPageOptions = [];
                         
-        }, [data, endpoint])
+
+                        for(let i = 0; i < currentPageCount; i++) {
+                            currentPageOptions.push(
+                                {
+                                    label: String(i+1),
+                                    value: String(i+1)
+                                }
+                            )
+                        }
+                        return currentPageOptions;
+                    } else {
+                        return pageOptions;
+                    }
+        
+                })
+            }
+        }
+        
+    }, [recordCount, pageSize])
+        
 
         return (
             <div
@@ -108,6 +215,10 @@ const Table = React.forwardRef<HTMLDivElement, TableProps>(
                     ...mtProps
                 )}
                 {...spreadProps}
+                data-search="data-search" 
+                data-selection="data-selection" 
+                data-collapse="data-collapse" 
+                data-random="data-random"
                 
             >
                 <div className="table-header">
@@ -131,16 +242,22 @@ const Table = React.forwardRef<HTMLDivElement, TableProps>(
                     </div>
                     <div className="search-bar">
                     <div className="br-input">
-                        <Input id={`table-searchbox-${id}`} label="Buscar" placeholder="Buscar na tabela" />
-                        <Button circle aria-label="Buscar" icon="fas fa-search" />
+                        <Input 
+                            id={`table-searchbox-${id}`} 
+                            label="Buscar" 
+                            placeholder="Buscar na tabela" 
+                            value={defaultSearch}
+                            onChange={(event) => setDefaultSearch(event.currentTarget.value)}
+                            button={<Button circle aria-label="Buscar" icon="fas fa-search" onClick={() => handleTrocaBuscaPadrao()} />}/>
+                        
                     </div>
                     <Button circle data-dismiss="search" aria-label="Fechar busca" icon="fas fa-times" />
                     </div>
                     <div className="selected-bar">
                     <div className="info"><span className="count">0</span><span className="text">item selecionado</span></div>
                     <div className="actions-trigger text-nowrap">
-                        <Button circle inverted type="button" data-toggle="dropdown" data-target="target02-72908" aria-label="Ver mais opções" icon="fas fa-ellipsis-v" />
-                        <List id="target02-72908" hidden>
+                        <Button circle inverted type="button" data-toggle="dropdown" data-target={`target02-${id}`} aria-label="Ver mais opções" icon="fas fa-ellipsis-v" />
+                        <List id={`target02-${id}`} hidden>
                             <Button data-toggle="">Ação 1</Button>
                             <Divider />
                             <Button>Ação 2</Button>
@@ -161,8 +278,8 @@ const Table = React.forwardRef<HTMLDivElement, TableProps>(
                     }
                     {tableData && !(headers as IHeader[])[0].label &&
                         <tbody>
-                            {tableData.map((linha) => (
-                                <tr>
+                            {tableData.map((linha, index) => (
+                                <tr key={linha}>
                                     {Object.keys(linha).map((key : string) => (
                                       <td key={key}>
                                         {linha[key]}
@@ -174,8 +291,8 @@ const Table = React.forwardRef<HTMLDivElement, TableProps>(
                     }
                     {tableData && (headers as IHeader[])[0].label &&
                         <tbody>
-                            {tableData.map((linha) => (
-                                <tr>
+                            {tableData.map((linha, index) => (
+                                <tr key={index}>
                                     {(headers as IHeader[]).map((header : IHeader, index : number) => (
                                       <td key={index}>
                                         {linha[header.field]}
@@ -191,26 +308,24 @@ const Table = React.forwardRef<HTMLDivElement, TableProps>(
                 <div className="table-footer">
                     <nav className="br-pagination" aria-label="Paginação de resultados" data-total="50" data-current="1" data-per-page="20">
                     <div className="pagination-per-page">
-                        <Select id="per-page-selection-random-88182" options={[
+                        <Select label="Itens por página" id={`per-page-selection-random-${id}`} options={[
                             {label: "10", value: "10"},
                             {label: "20", value: "20"},
                             {label: "30", value: "30"}
                         ]}
-                        onChange={(valor : any) => setPaginacao(valor)}
-                        value={paginacao} />
+                        onChange={(value : any) => setPageSize(value)}
+                        value={pageSize}
+                        />
                     </div><span className="br-divider d-none d-sm-block mx-3"></span>
-                    <div className="pagination-information d-none d-sm-flex"><span className="current">1</span>&ndash;<span className="per-page">20</span>&nbsp;de&nbsp;<span className="total">50</span>&nbsp;itens</div>
+                    <div className="pagination-information d-none d-sm-flex"><span className="current">{pageNumber != null && pageSize != null && pageNumber*pageSize+1}</span>&ndash;<span className="per-page">{pageNumber != null && pageSize != null && pageNumber*pageSize+pageSize}</span>&nbsp;de&nbsp;<span className="total">{recordCount}</span>&nbsp;itens</div>
                     <div className="pagination-go-to-page d-none d-sm-flex ml-auto">
-                        <Select id="go-to-selection-random-75889" options={[
-                            {label: "1", value: "1"},
-                            {label: "2", value: "2"},
-                            {label: "3", value: "3"}
-                        ]}
-                        onChange={(valor : string) => setPagina(valor)} value={pagina} />
+                        {showPageSelector &&
+                        <Select id={`go-to-selection-random-75889`} options={pageOptions || []}
+                         onChange={(valor : string) => setPageNumber(Number(valor)-1)} value={pageNumber} />}
                     </div><span className="br-divider d-none d-sm-block mx-3"></span>
                     <div className="pagination-arrows ml-auto ml-sm-0">
-                        <Button circle aria-label="Voltar página" icon="fas fa-angle-left" />
-                        <Button circle aria-label="Avançar página" icon="fas fa-angle-right" />
+                        <Button circle aria-label="Voltar página" icon="fas fa-angle-left" disabled={pageNumber === 0} onClick={(event) => handleClickPreviousPage(event)}/>
+                        <Button circle data-total={pageCount.current} aria-label="Avançar página" icon="fas fa-angle-right" data-pageNumber={pageNumber} disabled={pageNumber === ((pageCount.current || 0) - 1)} onClick={(event) => handleClickNextPage(event)} />
                     </div>
                     </nav>
                 </div>

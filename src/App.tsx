@@ -9,16 +9,27 @@ import AnyAttribute, { asObject, asString } from 'react-any-attr';
 import { Breadcrumb, Button, Card, Row, Container, Col, Carousel, Checkbox, DateTimePicker, Divider, Input, Radio, Select, Loading, MagicButton, Message, Textarea, Switch, Upload, Wizard, List, Item } from './components';
 import CustomTag from './components/CustomTag';
 import Table from './components/Table';
+import Teste from './pages/Teste';
 
 function App() {
   const [teste, setTeste] = useState<boolean>(true);
   const [teste2, setTeste2] = useState<string>("");
+  const [valorSelect, setValorSelect] = useState<string>("1");
   const [radioSelecionado, setRadioSelecionado] = useState<string>("");
+
+  const handleTeste = (valor : any) => {
+    setTeste2((teste2ant) => {
+      console.log('T2ant: ' + teste2ant);
+      setValorSelect(valor);
+      return teste2ant;
+    });
+  }
 
   const rotulos = ['RÓTULO 1', 'RÓTULO 2', 'RÓTULO 3'];
   const linhas = ['Texto 1', 'Texto 2', 'Texto 2', 'Texto 3'];
   return (
     <>
+    <Teste></Teste>
       <Container fluid>
         <Row>
           <Breadcrumb>
@@ -142,7 +153,7 @@ function App() {
           </Row>
           <Row>
             <Col>
-            <Input id="testeInput4" label="Teste de Input" inline value={teste2} onChange={(event) => setTeste2(event.currentTarget.value)}  />
+            <Input id="testeInput4" label="Teste de Input 4" inline value={teste2} onChange={(event) => setTeste2(event.currentTarget.value)}  />
             </Col>
           </Row>
         </Container>
@@ -160,7 +171,7 @@ function App() {
         <Container fluid>
           <Row>
             <Col>
-              <Select id="select1" type="single"  label="Selecione abaixo" onChange={(evento : any) => console.log(evento)} options={[
+              <Select id="select1" type="single"  label="Selecione abaixo" value={valorSelect} setValue={handleTeste} onChange={(evento : any) => {console.log(evento)}} options={[
                 {label: "Teste 1", value: "1"},
                 {label: "Teste 2", value: "2"},
                 {label: "Teste 3", value: "3"},
@@ -344,36 +355,23 @@ function App() {
 
 <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
 
-  <Container fluid>
+<Container>
     <Row>
       <Col>
-        <Table id="minhatabela01" headers={[
-          {
-            field: "id",
-            label: "ID"
-          },
-          {
-            field: "name",
-            label: "Name"
-          }
-        ]}
-          data={
-              [
-                {
-                  id: 1,
-                  name: "Maria"
-                },
-                {
-                  id: 2,
-                  name: "Josefina"
-                }
-              ]
-          }>
-         
-        </Table>
+          <Table
+            id="minhatabela2" 
+            headers={[
+              {field: "codigo", label: "Código"},
+              {field: "endereco", label: "Endereço"},
+              {field: "nome", label: "Nome"}
+              
+            ]} 
+            endpoint="https://sisweb.tesouro.gov.br/apex/cosis/public/sistemas?pageSize=10&pageNumber=0"
+            />
       </Col>
     </Row>
   </Container>
+
     </>
   );
 }

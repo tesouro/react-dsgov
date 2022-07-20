@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React, { useEffect, useRef, useState } from "react";
+import React, { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
 import IMtProps from "../IMtProps";
 import { useSpreadProps } from "../Util/useSpreadProps";
 import { useMtProps } from "../Util/useMtProps";
@@ -11,7 +11,7 @@ import AnyAttribute from "react-any-attr";
 
 const core = require('@govbr-ds/core/dist/core-init');
 
-interface SelectOptions {
+export interface SelectOptions {
     label: string,
     value: string | number
 }
@@ -23,14 +23,16 @@ interface SelectProps extends React.HTMLAttributes<HTMLSelectElement>, IMtProps 
     options: SelectOptions[];
     onChange?: any;
     type?: "single" | "multiple";
-    selectAllText?: string
+    selectAllText?: string,
+    setValue?: Dispatch<SetStateAction<any>>
 }
 
 const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
-    ({ className, children, id, label, options, value, onChange = () => {}, type = "single", selectAllText = "Selecionar todos", ...props }, ref) => {
+    ({ className, children, id, label, options, value, setValue = () => {}, onChange = () => {}, type = "single", selectAllText = "Selecionar todos", ...props }, ref) => {
         const mtProps = useMtProps(props);
         const spreadProps = useSpreadProps(props);
         const [valor, setValor] = useState<string | string[]>("");
+        const [displayValue, setDisplayValue] = useState("");
 
         const [valores, setValores] = useState<Map<string, boolean>>(new Map());
 
@@ -42,13 +44,24 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
         const customAttributes : any = {};
 
         useEffect(() => {
+            if(typeof valor === "string") {
+                setDisplayValue(valor);
+            } else if (typeof valor === "number") {
+                setDisplayValue(String(valor));
+            }
+
+            // TODO: fazer para os múltiplos
+        }, [valor]);
+        
+
+        useEffect(() => {
             if (refBrSelect.current) {
                 refBrSelect.current.resetOptionsList();
             } else {
                 refBrSelect.current = new core.BRSelect('br-select', refWrapper.current);
             }
 
-            setValores((valores) => {
+            setValores(bvalores => {
                 const elementos = refWrapper.current.getElementsByTagName("input");
                 for (let index = 0; index < elementos.length; index++) {
 
@@ -70,7 +83,6 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
                     
                 }
 
-                console.log(valores);
                 return valores;
             })
 
@@ -88,8 +100,7 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
                 <div
                     ref={refWrapper}
                     {...spreadProps}
-                    onChange={onChange(refBrSelect.current?.selectedValue)}
- 
+
                     className={classNames(
                         "br-select",
                         className,
@@ -99,7 +110,7 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
                 >
                     <div ref={refInputWrapper} className="br-input">
                         {label && <label htmlFor={id}>{label}</label>}
-                        <input id={`${id}_____select`} type="text" data-value={valor} />
+                        <input id={`${id}_____select`} type="text" data-value={value} value={displayValue} />
                         <button className="br-button" type="button" aria-label="Exibir lista" tabIndex={-1} data-trigger="data-trigger"><i className="fas fa-angle-down" aria-hidden="true"></i></button>
                     </div>
                     <List tabIndex={0} role="">
@@ -120,8 +131,9 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
                                         name={id}
                                         value={String(elemento.value)}
                                         label={elemento.label}
-                                        checked={elemento.value === value}
-                                        onChange={(evento) => setValor(evento.currentTarget.value)}
+                                        checked={String(elemento.value) === String(value)}
+                                        data-value={value}
+                                        onChange={() => {onChange(elemento.value); console.log('trocou')}}
                                     />}
                                 {type === "multiple" &&
                                     <Checkbox
