@@ -5,12 +5,18 @@ import { useSpreadProps } from "../Util/useSpreadProps";
 import { useMtProps } from "../Util/useMtProps";
 
 interface LoadingProps  extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
+    /** Número indicando o progresso do loading. Opcional. */
     progress?: number;
-    sz?: "medium" | "small"
+    /** Tamahnho do Loading.
+     * 
+     * - medium
+     * - small
+     */
+    size?: "medium" | "small"
 } 
 
 const Loading = React.forwardRef<HTMLDivElement, LoadingProps>(
-    ({className, children, progress, sz = "medium", ...props}, ref) => {
+    ({className, children, progress, size = "medium", ...props}, ref) => {
         const mtProps = useMtProps(props);
         const spreadProps = useSpreadProps(props);
 
@@ -20,7 +26,7 @@ const Loading = React.forwardRef<HTMLDivElement, LoadingProps>(
                 className={classNames(
                     (progress && "br-loading"),
                     (!progress && "loading"),
-                    (sz === "medium" && "medium"),
+                    (size === "medium" && "medium"),
                     className,
                     ...mtProps
                 )}
