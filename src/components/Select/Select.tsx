@@ -17,18 +17,30 @@ export interface SelectOptions {
 }
 
 interface SelectProps extends React.HTMLAttributes<HTMLSelectElement>, IMtProps {
+    /** Label do Select. */
     label?: string;
+    /** ID do Select. */
     id: string;
+    /** Valor do select. Pode ser um valor único ou um array, se for select múltiplo. */
     value?: string | string[] | number | number[];
+    /** Options do select. */
     options: SelectOptions[];
+    /** Função para detectar mudança de valor. O parâmetro não é um evento, e, sim, o valor em si. */
     onChange?: any;
+    /** Se é simples ou múltiple.
+     * 
+     * - single: simples.
+     * - multiple: múltiplo.
+     */
     type?: "single" | "multiple";
+    /** Se existe opção de selecionar todos, se o type="multiple". */
     selectAllText?: string,
+    /** Função pra setar o valor de um estado associado ao select. */
     setValue?: Dispatch<SetStateAction<any>>
 }
 
 const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
-    ({ className, children, id, label, options, value, setValue = () => {}, onChange = () => {}, type = "single", selectAllText = "Selecionar todos", ...props }, ref) => {
+    ({ className, children, id, label, options, value, setValue = () => {}, onChange = () => {}, placeholder, type = "single", selectAllText = "Selecionar todos", ...props }, ref) => {
         const mtProps = useMtProps(props);
         const spreadProps = useSpreadProps(props);
         const [valor, setValor] = useState<string | string[]>("");
@@ -61,16 +73,13 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
                 refBrSelect.current = new core.BRSelect('br-select', refWrapper.current);
             }
 
-            setValores(bvalores => {
+            setValores(valores => {
                 const elementos = refWrapper.current.getElementsByTagName("input");
-                for (let index = 0; index < elementos.length; index++) {
-
-                    const elemento = elementos[index];
+                for (const elemento of elementos) {
 
                     if(Array.isArray(value)) {
-                        for (let index = 0; index < value.length; index++) {
-                            const valor = value[index];
-                            if(valor === elemento.value) {
+                        for (const valorElemento of value as string[]) {
+                            if(valorElemento === elemento.value) {
                                 valores.set(elemento.id, true);
                                 let option = refBrSelect.current.optionsList.findIndex((obj : any) => obj.inputValue === elemento.value);
                                 refBrSelect.current.optionsList[option].selected = true;
@@ -110,7 +119,7 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
                 >
                     <div ref={refInputWrapper} className="br-input">
                         {label && <label htmlFor={id}>{label}</label>}
-                        <input id={`${id}_____select`} type="text" data-value={value} value={displayValue} />
+                        <input id={`${id}_____select`} type="text" data-value={value} value={displayValue} placeholder={placeholder} />
                         <button className="br-button" type="button" aria-label="Exibir lista" tabIndex={-1} data-trigger="data-trigger"><i className="fas fa-angle-down" aria-hidden="true"></i></button>
                     </div>
                     <List tabIndex={0} role="">
