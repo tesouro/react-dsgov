@@ -9,21 +9,41 @@ import Row from "../Row/Row";
 import uniqueId from "lodash.uniqueid";
 
 interface TextareaProps extends React.HTMLAttributes<HTMLTextAreaElement>, IMtProps {
+    /** Label do textarea. */
     label: string | React.ReactElement;
+    /** Placeholder do textarea. */
     placeholder?: string,
-    type?: string,
+    /** Densidade do textarea.
+     * 
+     * - small: pequena
+     * - normal: normal
+     * - large: grande
+     */
     density?: "small" | "normal" | "large",
+    /** Se a label é mostrada à esquerda do campo. */
     inline?: boolean,
+    /** Valor do textarea. */
     value?: string,
+    /** Quantidade máxima de caracteres possível. */
     maxLength?: number,
+    /** Se mostra ou não contador de caracteres. */
     showCharacterCounter?: boolean,
+    /** Status. Define a cor do textarea e do texto de feedback.
+     * 
+     * - success: verde
+     * - danger: vermelho
+     * - info: azul
+     * - warning: amarelo
+     */
     status?: "success" | "danger" | "info" | "warning",
+    /** Texto de feedback que aparece embaixo do textarea. */
     feedbackText?: string | React.ReactElement,
+    /** Se é invertido, para fundos escuros. */
     inverted?: boolean
 }
 
 const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
-    ({ className, children, label, id = uniqueId("textarea_____"), placeholder, type = "text", density = "normal", inline, value, maxLength, feedbackText, showCharacterCounter = false, status, inverted = false, onChange, ...props }, ref) => {
+    ({ className, children, label, id = uniqueId("textarea_____"), placeholder, density = "normal", inline, value, maxLength, feedbackText, showCharacterCounter = false, status, inverted = false, onChange, ...props }, ref) => {
         const mtProps = useMtProps(props);
         const spreadProps = useSpreadProps(props);
 
@@ -75,7 +95,6 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
                 id={id} 
                 value={value} 
                 ref={ref} 
-                type={type} 
                 {...maxLength && {maxLength: maxLength}}
                 placeholder={placeholder} 
                 onChange={(evento) => handleChange(evento)}
