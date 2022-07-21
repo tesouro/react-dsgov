@@ -13,7 +13,7 @@ interface MagicButtonProps  extends React.HTMLAttributes<HTMLButtonElement>, IMt
          * - medium: média
          * - small: pequena
          */
-        density: "large" | "small" | "medium";
+        density?: "large" | "small" | "medium";
         /** Se o botão é circular. */
         circle?: boolean,
         /** Classe de ícone FontAwesome para o botão. */
