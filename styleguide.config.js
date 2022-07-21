@@ -68,8 +68,8 @@ module.exports = {
     {
         name: 'Componentes',
         components: 'src/components/**/*.{jsx,tsx}',
-        exampleMode: 'expand',
-        usageMode: 'expand'
+        exampleMode: 'collapse',
+        usageMode: 'collapse'
     }
     ],
     propsParser: require("react-docgen-typescript").withCustomConfig(

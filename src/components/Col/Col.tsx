@@ -5,16 +5,22 @@ import { useSpreadProps } from "../Util/useSpreadProps";
 import { useMtProps } from "../Util/useMtProps";
 
 interface ColProps  extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
-    sz?: string,
+    /** Tamanho da coluna. */
+    size?: string,
+    /** Tamanho da coluna em dispositivos pequenos. */
     sm?: number | boolean,
+    /** Tamanho da coluna em dispositivos médios. */
     md?: number | boolean,
+    /** Tamanho da coluna em dispositivos grandes */
     lg?: number | boolean,
+    /** Tamanho da coluna em dispositivos extra-largos */
     xl?: number | boolean,
+    /** Tamanho automático */
     auto?: number |boolean
 } 
 
 const Col = React.forwardRef<HTMLDivElement, ColProps>(
-    ({className, children, sz, sm, md, lg, xl, auto, ...props}, ref) => {
+    ({className, children, size, sm, md, lg, xl, auto, ...props}, ref) => {
         const mtProps = useMtProps(props);
         const spreadProps = useSpreadProps(props);    
 
@@ -27,8 +33,8 @@ const Col = React.forwardRef<HTMLDivElement, ColProps>(
                     lg && (typeof sm === 'boolean' ? 'col-lg' : `col-md-${lg}`),
                     xl && (typeof xl === 'boolean' ? 'col-xl' : `col-xl-${xl}`),
                     auto && (typeof auto === 'boolean' ? 'col-auto' : `col-auto-${auto}`),
-                    sz && (typeof sz === 'boolean' ? 'col' : `col-${sz}`),
-                    (!sm && !md && !lg && !xl && !auto && !sz && "col"),
+                    size && (typeof size === 'boolean' ? 'col' : `col-${size}`),
+                    (!sm && !md && !lg && !xl && !auto && !size && "col"),
                     ...mtProps,
                     className
                 )}
