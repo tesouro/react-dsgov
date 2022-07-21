@@ -1,5 +1,7 @@
 Carousel é um componente que permite que vários conteúdos ocupem um único espaço na tela e que o usuário navegue por eles de forma sequencial e controlada.
 
+O ID é opcional. Pode ser explicitado por meio da propriedade "id", do contrário é gerado um id automático.
+
 ### Carousel padrão
 Neste caso, os botões de navegação e de passos são mostrados fora do terminal.
 ```js

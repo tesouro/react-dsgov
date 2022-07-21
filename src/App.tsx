@@ -17,7 +17,7 @@ function App() {
   const [valorSelect, setValorSelect] = useState<string>("1");
   const [radioSelecionado, setRadioSelecionado] = useState<string>("");
 
-  const handleTeste = (valor : any) => {
+  const handleTeste = (valor: any) => {
     setTeste2((teste2ant) => {
       console.log('T2ant: ' + teste2ant);
       setValorSelect(valor);
@@ -29,7 +29,7 @@ function App() {
   const linhas = ['Texto 1', 'Texto 2', 'Texto 2', 'Texto 3'];
   return (
     <>
-    <Teste></Teste>
+      <Teste></Teste>
       <Container fluid>
         <Row>
           <Breadcrumb>
@@ -47,14 +47,14 @@ function App() {
           <Button type="submit" onClick={() => alert("risos")} primary circle><FontAwesomeIcon icon={faCoffee} className="mr-1" /></Button>
           <Button primary inverted block>Invertido</Button>
         </Row>
-        <br/>
+        <br />
         <Row>
           <Col sm={4}>
             <Card>
               <Card.Header cardImageUrl='https://picsum.photos/id/823/400' cardTitle='Título' cardSubtitle='Subtítulo'></Card.Header>
               <Card.Content>Conteúdo</Card.Content>
               <Card.Footer>Footer do Card</Card.Footer>
-            </Card> 
+            </Card>
           </Col>
           <Col lg={2} sm={3}>
           </Col>
@@ -92,32 +92,32 @@ function App() {
 
             <div className="mb-1">
               <div className="br-checkbox">
-                <AnyAttribute attributes={{indeterminate: "indeterminate"}}><input id="checkbox-ind1" name="checkbox-ind1" type="checkbox" aria-label="selecionar tudo" defaultChecked={true} data-parent="check-01"/></AnyAttribute> 
-                
+                <AnyAttribute attributes={{ indeterminate: "indeterminate" }}><input id="checkbox-ind1" name="checkbox-ind1" type="checkbox" aria-label="selecionar tudo" defaultChecked={true} data-parent="check-01" /></AnyAttribute>
+
                 <label htmlFor="checkbox-ind1">Selecionar tudo</label>
               </div>
             </div>
             <div className="mb-1">
               <div className="br-checkbox">
-                <input id="checkbox-01" name="checkbox-01" type="checkbox" aria-label="opção 1" defaultChecked={true} data-child="check-01"/>
+                <input id="checkbox-01" name="checkbox-01" type="checkbox" aria-label="opção 1" defaultChecked={true} data-child="check-01" />
                 <label htmlFor="checkbox-01">Opção 1</label>
               </div>
             </div>
             <div className="mb-1">
               <div className="br-checkbox">
-                <input id="checkbox-02" name="checkbox-02" type="checkbox" aria-label="opção 2" data-child="check-01"/>
+                <input id="checkbox-02" name="checkbox-02" type="checkbox" aria-label="opção 2" data-child="check-01" />
                 <label htmlFor="checkbox-02">Opção 2</label>
               </div>
             </div>
             <div className="mb-1">
               <div className="br-checkbox">
-                <input id="checkbox-03" name="checkbox-03" type="checkbox" aria-label="opção 3" data-child="check-01"/>
+                <input id="checkbox-03" name="checkbox-03" type="checkbox" aria-label="opção 3" data-child="check-01" />
                 <label htmlFor="checkbox-03">Opção 3</label>
               </div>
             </div>
           </Col>
         </Row>
-        
+
         <Row>
           <Col>
             <DateTimePicker />
@@ -126,284 +126,284 @@ function App() {
 
         <Row>
           <Col>
-          <Divider dashed size="lg" mx="2" />
+            <Divider dashed size="lg" mx="2" />
           </Col>
-          
+
         </Row>
-        <br/><br/><br/><br/><br/>
+        <br /><br /><br /><br /><br />
 
-        </Container>
+      </Container>
 
-        <Container fluid>
-          <Row>
-            <Col sm={2}>
-              <Input id="testeInput" label="Teste de Input"/>
-            </Col>
-            <Col>
-              <Input id="testeInput2" label="Teste de Input 2" icon="fas fa-user-tie" button={<Button type="button" icon="fas fa-eye" />} />
-            </Col>
-            <Col>
-              <DateTimePicker id="inputDateTime" label="Informe a Data" />
-            </Col>
-          </Row>
-          <Row>
-            <Col> 
+      <Container fluid>
+        <Row>
+          <Col sm={2}>
+            <Input id="testeInput" label="Teste de Input" />
+          </Col>
+          <Col>
+            <Input id="testeInput2" label="Teste de Input 2" icon="fas fa-user-tie" button={<Button type="button" icon="fas fa-eye" />} />
+          </Col>
+          <Col>
+            <DateTimePicker id="inputDateTime" label="Informe a Data" />
+          </Col>
+        </Row>
+        <Row>
+          <Col>
             <Input id="testeInput3" label="Teste de Input 2" icon="fas fa-user-tie" highlight />
-            </Col>
-          </Row>
-          <Row>
-            <Col>
-            <Input id="testeInput4" label="Teste de Input 4" inline value={teste2} onChange={(event) => setTeste2(event.currentTarget.value)}  />
-            </Col>
-          </Row>
-        </Container>
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <Input id="testeInput4" label="Teste de Input 4" inline value={teste2} onChange={(event) => setTeste2(event.currentTarget.value)} />
+          </Col>
+        </Row>
+      </Container>
 
-        <Container fluid>
-          <Row>
-            <Col>
-              <Radio id="op-1" name="radio" value="op-1" label="opcao-1" checked={radioSelecionado === "op-1"} onChange={(event) => setRadioSelecionado(event.currentTarget.value)} />
-              <Radio id="op-2" name="radio" value="op-2" label="opcao-2" checked={radioSelecionado === "op-2"} onChange={(event) => setRadioSelecionado(event.currentTarget.value)} />
-              <Radio id="op-3" name="radio" value="op-3" label="opcao-3" checked={radioSelecionado === "op-3"} onChange={(event) => setRadioSelecionado(event.currentTarget.value)} />
-            </Col>
-          </Row>
-        </Container>
+      <Container fluid>
+        <Row>
+          <Col>
+            <Radio id="op-1" name="radio" value="op-1" label="opcao-1" checked={radioSelecionado === "op-1"} onChange={(event) => setRadioSelecionado(event.currentTarget.value)} />
+            <Radio id="op-2" name="radio" value="op-2" label="opcao-2" checked={radioSelecionado === "op-2"} onChange={(event) => setRadioSelecionado(event.currentTarget.value)} />
+            <Radio id="op-3" name="radio" value="op-3" label="opcao-3" checked={radioSelecionado === "op-3"} onChange={(event) => setRadioSelecionado(event.currentTarget.value)} />
+          </Col>
+        </Row>
+      </Container>
 
-        <Container fluid>
-          <Row>
-            <Col>
-              <Select id="select1" type="single"  label="Selecione abaixo" value={valorSelect} setValue={handleTeste} onChange={(evento : any) => {console.log(evento)}} options={[
-                {label: "Teste 1", value: "1"},
-                {label: "Teste 2", value: "2"},
-                {label: "Teste 3", value: "3"},
-                {label: "Teste 4", value: "4"}
-              ]} />
+      <Container fluid>
+        <Row>
+          <Col>
+            <Select id="select1" type="single" label="Selecione abaixo" value={valorSelect} setValue={handleTeste} onChange={(evento: any) => { console.log(evento) }} options={[
+              { label: "Teste 1", value: "1" },
+              { label: "Teste 2", value: "2" },
+              { label: "Teste 3", value: "3" },
+              { label: "Teste 4", value: "4" }
+            ]} />
 
-            </Col>
-          </Row>
-        </Container>
-       
-        <Container>
-          <Row>
-            <Col>
-              <Loading progress={15} />
-            </Col>
-          </Row>
-        </Container>
+          </Col>
+        </Row>
+      </Container>
 
-        <Container>
-          <Row>
-            <Col>
-              <MagicButton>Teste</MagicButton>
-            </Col>
-          </Row>
-        </Container>
-        <br/><br/><br/><br/><br/>
-        <Container>
-          <Row>
-            <Col>
-              <p><Message category='feedback' type="danger" icon="fas fa-times-circle">O CPF deve conter apenas dígitos.</Message></p>
-              <p><Message category='feedback' type="success" icon="fas fa-check-circle">Campo correto.</Message></p>
-              <p><Message category='feedback' type="warning" icon="fas fa-exclamation-triangle">A tecla CAPS-LOCK está ativada.</Message></p>
-              <p><Message category='feedback' type="info" icon="fas fa-check-circle">Os arquivos devem ser no formato PNG, JPG, PDF e ter no máximo 1GB.</Message></p>
-            </Col>
-          </Row>
-          <Row>
-            <Col>
-              <Message category='message' messageTitle="Data de início do afastamento inválida." type="danger" icon="fas fa-times-circle">O CPF deve conter apenas dígitos.</Message>
-              <Message category='message' messageTitle="Sucesso." type="success" icon="fas fa-check-circle">Campo correto.</Message>
-              <Message category='message' messageTitle="Informação." type="warning" icon="fas fa-exclamation-triangle">A tecla CAPS-LOCK está ativada.</Message>
-              <Message category='message' messageTitle="Atenção." type="info" icon="fas fa-check-circle">Os arquivos devem ser no formato PNG, JPG, PDF e ter no máximo 1GB.</Message>
-            </Col>
-          </Row>
-        </Container>
+      <Container>
+        <Row>
+          <Col>
+            <Loading progress={15} />
+          </Col>
+        </Row>
+      </Container>
 
-
+      <Container>
+        <Row>
+          <Col>
+            <MagicButton>Teste</MagicButton>
+          </Col>
+        </Row>
+      </Container>
+      <br /><br /><br /><br /><br />
+      <Container>
+        <Row>
+          <Col>
+            <p><Message category='feedback' type="danger" icon="fas fa-times-circle">O CPF deve conter apenas dígitos.</Message></p>
+            <p><Message category='feedback' type="success" icon="fas fa-check-circle">Campo correto.</Message></p>
+            <p><Message category='feedback' type="warning" icon="fas fa-exclamation-triangle">A tecla CAPS-LOCK está ativada.</Message></p>
+            <p><Message category='feedback' type="info" icon="fas fa-check-circle">Os arquivos devem ser no formato PNG, JPG, PDF e ter no máximo 1GB.</Message></p>
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <Message category='message' messageTitle="Data de início do afastamento inválida." type="danger" icon="fas fa-times-circle">O CPF deve conter apenas dígitos.</Message>
+            <Message category='message' messageTitle="Sucesso." type="success" icon="fas fa-check-circle">Campo correto.</Message>
+            <Message category='message' messageTitle="Informação." type="warning" icon="fas fa-exclamation-triangle">A tecla CAPS-LOCK está ativada.</Message>
+            <Message category='message' messageTitle="Atenção." type="info" icon="fas fa-check-circle">Os arquivos devem ser no formato PNG, JPG, PDF e ter no máximo 1GB.</Message>
+          </Col>
+        </Row>
+      </Container>
 
 
-        <br/><br/><br/><br/><br/>
-
-        <Container fluid>
-          <Row>
-            <Col>
-              <Textarea maxLength={100} showCharacterCounter label="teste" id="teste" status="success" feedbackText="Deu muito ruim kkkk"></Textarea>
-            </Col>
-          </Row>
-
-        </Container>
-
-        <br/><br/>
-
-        <Container>
-          <Row>
-            <Col>
-              <Switch id="testeSwitch" label="Teste" />
-            </Col>
-          </Row>
-        </Container>
-
-        <br/><br/><br/><br/><br/><br/>
-
-        <Container>
-          <Row>
-            <Col>
-              <Upload id="meuupload" label="Teste Upload" uploadTimeout={() => {return new Promise((resolve) => {
-    
-                
-              return setTimeout(resolve, 3000)
-            })}}/>
-            </Col>
-          </Row>
-        </Container>
 
 
-        <br/><br/><br/><br/>
-       
-        <Container>
-            <Row>
-              <Col>
-                  <Wizard height="400px" onConclude={(event) => alert("risos")}>
-                    <Wizard.Panel title="Dados Pessoais">
-                      Conteúdo aqui - Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. 
-                    </Wizard.Panel>
-                    <Wizard.Panel title="Validar Dados">
-                      Conteúdo aqui - Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. 
-                    </Wizard.Panel>
-                    <Wizard.Panel title="Habilitar Cadastro">
-                      Conteúdo aqui - Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. 
-                    </Wizard.Panel>
-                    <Wizard.Panel title="Cadastrar Senha">
-                      Conteúdo aqui - Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. 
-                    </Wizard.Panel>
-                    <Wizard.Panel title="Finalizar">
-                      Conteúdo aqui - Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. 
-                    </Wizard.Panel>
-                  </Wizard>
+      <br /><br /><br /><br /><br />
 
-                  <Wizard vertical height="400px" onConclude={(event) => alert("risos")}>
-                    <Wizard.Panel title="Dados Pessoais">
-                      Conteúdo aqui - Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. 
-                    </Wizard.Panel>
-                    <Wizard.Panel title="Validar Dados">
-                      Conteúdo aqui - Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. 
-                    </Wizard.Panel>
-                    <Wizard.Panel title="Habilitar Cadastro">
-                      Conteúdo aqui - Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. 
-                    </Wizard.Panel>
-                    <Wizard.Panel title="Cadastrar Senha">
-                      Conteúdo aqui - Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. 
-                    </Wizard.Panel>
-                    <Wizard.Panel title="Finalizar">
-                      Conteúdo aqui - Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. 
-                    </Wizard.Panel>
-                  </Wizard>
-              </Col>
-            </Row>
-        </Container>
+      <Container fluid>
+        <Row>
+          <Col>
+            <Textarea maxLength={100} showCharacterCounter label="teste" id="teste" status="success" feedbackText="Deu muito ruim kkkk"></Textarea>
+          </Col>
+        </Row>
 
-        <Container>
-        
+      </Container>
 
-          
-          <List title="Título (opcional)">
-              {rotulos.map((rotulo, index) => (
-                  <CustomTag key={`grupo-${index}`}>
-                      <Item collapsable target={`lista-${index}`} showDividerAfter>{rotulo}</Item>
-                      <List hidden id={`lista-${index}`}>
-                          {linhas.map((linha, index2) => (
-                              <Item key={`item-${index}-${index2}`} >
-                                  <Row>
-                                      <Col auto>
-                                          <i className="fas fa-heartbeat" aria-hidden="true"></i>
-                                      </Col>
-                                      <Col>
-                                      ITEM
-                                      {linha}
-                                      </Col>
-                                      <Col auto>
-                                          META
-                                      </Col>
-                                  </Row>
-                              </Item>
-                          ))}
-                      </List>
-                  </CustomTag>
-              ))}
-              
-          </List>
-        </Container>
+      <br /><br />
 
-        <br/><br/><br/><br/>
-      
+      <Container>
+        <Row>
+          <Col>
+            <Switch id="testeSwitch" label="Teste" />
+          </Col>
+        </Row>
+      </Container>
+
+      <br /><br /><br /><br /><br /><br />
+
+      <Container>
+        <Row>
+          <Col>
+            <Upload id="meuupload" label="Teste Upload" uploadTimeout={() => {
+              return new Promise((resolve) => {
+                return setTimeout(resolve, 3000)
+              })
+            }} />
+          </Col>
+        </Row>
+      </Container>
+
+
+      <br /><br /><br /><br />
+
+      <Container>
+        <Row>
+          <Col>
+            <Wizard height="400px" onConclude={(event) => alert("risos")}>
+              <Wizard.Panel title="Dados Pessoais">
+                Conteúdo aqui - Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
+              </Wizard.Panel>
+              <Wizard.Panel title="Validar Dados">
+                Conteúdo aqui - Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
+              </Wizard.Panel>
+              <Wizard.Panel title="Habilitar Cadastro">
+                Conteúdo aqui - Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
+              </Wizard.Panel>
+              <Wizard.Panel title="Cadastrar Senha">
+                Conteúdo aqui - Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
+              </Wizard.Panel>
+              <Wizard.Panel title="Finalizar">
+                Conteúdo aqui - Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
+              </Wizard.Panel>
+            </Wizard>
+
+            <Wizard vertical height="400px" onConclude={(event) => alert("risos")}>
+              <Wizard.Panel title="Dados Pessoais">
+                Conteúdo aqui - Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
+              </Wizard.Panel>
+              <Wizard.Panel title="Validar Dados">
+                Conteúdo aqui - Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
+              </Wizard.Panel>
+              <Wizard.Panel title="Habilitar Cadastro">
+                Conteúdo aqui - Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
+              </Wizard.Panel>
+              <Wizard.Panel title="Cadastrar Senha">
+                Conteúdo aqui - Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
+              </Wizard.Panel>
+              <Wizard.Panel title="Finalizar">
+                Conteúdo aqui - Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
+              </Wizard.Panel>
+            </Wizard>
+          </Col>
+        </Row>
+      </Container>
+
+      <Container>
+
+
+
         <List title="Título (opcional)">
-    {linhas.map((linha, index) => (
-        <Item key={`item-ex-1-${index}`} className="align-items-center" showDividerAfter>
+          {rotulos.map((rotulo, index) => (
+            <CustomTag key={`grupo-${index}`}>
+              <Item collapsable target={`lista-${index}`} showDividerAfter>{rotulo}</Item>
+              <List hidden id={`lista-${index}`}>
+                {linhas.map((linha, index2) => (
+                  <Item key={`item-${index}-${index2}`} >
+                    <Row>
+                      <Col auto>
+                        <i className="fas fa-heartbeat" aria-hidden="true"></i>
+                      </Col>
+                      <Col>
+                        ITEM
+                        {linha}
+                      </Col>
+                      <Col auto>
+                        META
+                      </Col>
+                    </Row>
+                  </Item>
+                ))}
+              </List>
+            </CustomTag>
+          ))}
+
+        </List>
+      </Container>
+
+      <br /><br /><br /><br />
+
+      <List title="Título (opcional)">
+        {linhas.map((linha, index) => (
+          <Item key={`item-ex-1-${index}`} className="align-items-center" showDividerAfter>
             <Row>
-                <Col auto>
-                    <i className="fas fa-heartbeat" aria-hidden="true"></i>
-                </Col>
-                <Col>
+              <Col auto>
+                <i className="fas fa-heartbeat" aria-hidden="true"></i>
+              </Col>
+              <Col>
                 ITEM
                 {linha}
-                </Col>
-                <Col auto>
-                    <Checkbox id={`check-lista-${index}`} />
-                </Col>
+              </Col>
+              <Col auto>
+                <Checkbox id={`check-lista-${index}`} />
+              </Col>
             </Row>
-        </Item>
-    ))}
-</List>
+          </Item>
+        ))}
+      </List>
 
-<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+      <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
 
-<Container>
-  <Row>
-    <Col>
-      <Table
-        title="Minha Tabela JSON"
-        headers={["ID", "Nome"]}
-        data={[
-          {
-            id: 1,
-            nome: "Josué"
-          },
-          {
-            id: 2,
-            nome: "Jacinda"
-          },
-          {
-            id: 3,
-            nome: "Cláudia"
-          }
-        ]}
-      />
-
-
-      
-    </Col>
-  </Row>
-
-</Container>
-
-<Container>
-    <Row>
-      <Col>
-          <Table
-            id="minhatabela2" 
-            title="Minha Tabela"
-            headers={[
-              {field: "codigo", label: "Código"},
-              {field: "endereco", label: "Endereço"},
-              {field: "nome", label: "Nome"}
-              
-            ]} 
-            endpoint="https://sisweb.tesouro.gov.br/apex/cosis/public/sistemas?pageSize=10&pageNumber=0"
+      <Container>
+        <Row>
+          <Col>
+            <Table
+              title="Minha Tabela JSON"
+              headers={["ID", "Nome"]}
+              data={[
+                {
+                  id: 1,
+                  nome: "Josué"
+                },
+                {
+                  id: 2,
+                  nome: "Jacinda"
+                },
+                {
+                  id: 3,
+                  nome: "Cláudia"
+                }
+              ]}
             />
 
 
 
-      </Col>
-    </Row>
-  </Container>
+          </Col>
+        </Row>
+
+      </Container>
+
+      <Container>
+        <Row>
+          <Col>
+            <Table
+              id="minhatabela2"
+              title="Minha Tabela"
+              headers={[
+                { field: "codigo", label: "Código" },
+                { field: "endereco", label: "Endereço" },
+                { field: "nome", label: "Nome" }
+
+              ]}
+              endpoint="https://sisweb.tesouro.gov.br/apex/cosis/public/sistemas?pageSize=10&pageNumber=0"
+            />
+
+
+
+          </Col>
+        </Row>
+      </Container>
 
     </>
   );
