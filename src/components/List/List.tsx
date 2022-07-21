@@ -4,6 +4,7 @@ import IMtProps from "../IMtProps";
 import { useSpreadProps } from "../Util/useSpreadProps";
 import { useMtProps } from "../Util/useMtProps";
 import Divider from "../Divider";
+import uniqueId from "lodash.uniqueid";
 
 const core = require('@govbr-ds/core/dist/core-init');
 
@@ -17,7 +18,7 @@ interface ListProps extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
 }
 
 const List = React.forwardRef<HTMLDivElement, ListProps>(
-    ({ className, children, role = "list", title, horizontal = false, hidden = false, ...props }, ref) => {
+    ({ className, id = uniqueId("list_____"), children, role = "list", title, horizontal = false, hidden = false, ...props }, ref) => {
         const mtProps = useMtProps(props);
         const spreadProps = useSpreadProps(props);
         const refElemento = useRef(null);
@@ -33,6 +34,7 @@ const List = React.forwardRef<HTMLDivElement, ListProps>(
         return (
             <div
                 ref={refDiv}
+                id={id}
                 className={classNames(
                     "br-list",
                     (horizontal && "horizontal"),

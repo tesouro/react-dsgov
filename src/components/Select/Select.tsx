@@ -8,6 +8,7 @@ import Item from "../Item/Item";
 import Radio from "../Radio/Radio";
 import Checkbox from "../Checkbox";
 import AnyAttribute from "react-any-attr";
+import uniqueId from "lodash.uniqueid";
 
 const core = require('@govbr-ds/core/dist/core-init');
 
@@ -20,7 +21,7 @@ interface SelectProps extends React.HTMLAttributes<HTMLSelectElement>, IMtProps 
     /** Label do Select. */
     label?: string;
     /** ID do Select. */
-    id: string;
+    id?: string;
     /** Valor do select. Pode ser um valor único ou um array, se for select múltiplo. */
     value?: string | string[] | number | number[];
     /** Options do select. */
@@ -40,7 +41,7 @@ interface SelectProps extends React.HTMLAttributes<HTMLSelectElement>, IMtProps 
 }
 
 const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
-    ({ className, children, id, label, options, value, setValue = () => {}, onChange = () => {}, placeholder, type = "single", selectAllText = "Selecionar todos", ...props }, ref) => {
+    ({ className, children, id = uniqueId("select_____"), label, options, value, setValue = () => {}, onChange = () => {}, placeholder, type = "single", selectAllText = "Selecionar todos", ...props }, ref) => {
         const mtProps = useMtProps(props);
         const spreadProps = useSpreadProps(props);
         const [valor, setValor] = useState<string | string[]>("");

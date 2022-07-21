@@ -3,6 +3,7 @@ import React from "react";
 import IMtProps from "../IMtProps";
 import { useSpreadProps } from "../Util/useSpreadProps";
 import { useMtProps } from "../Util/useMtProps";
+import uniqueId from "lodash.uniqueid";
 
 interface LoadingProps  extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
     /** Número indicando o progresso do loading. Opcional. */
@@ -16,13 +17,14 @@ interface LoadingProps  extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
 } 
 
 const Loading = React.forwardRef<HTMLDivElement, LoadingProps>(
-    ({className, children, progress, size = "medium", ...props}, ref) => {
+    ({className, id = uniqueId("loading_____"), children, progress, size = "medium", ...props}, ref) => {
         const mtProps = useMtProps(props);
         const spreadProps = useSpreadProps(props);
 
         return (
             <div
                 ref={ref}
+                id={id}
                 className={classNames(
                     (progress && "br-loading"),
                     (!progress && "loading"),

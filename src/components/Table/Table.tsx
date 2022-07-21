@@ -10,6 +10,7 @@ import Divider from "../Divider";
 import Select from "../Select";
 import { updateQueryStringParameter } from "../Util/Util";
 import { SelectOptions } from "../Select/Select";
+import uniqueId from "lodash.uniqueid";
 
 const core = require('@govbr-ds/core/dist/core-init');
 
@@ -31,7 +32,7 @@ export interface ISearchEvent extends React.MouseEvent<HTMLButtonElement, MouseE
 
 
 interface TableProps extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
-    id: string,
+    id?: string,
     title?: string,
     showDensityButtons?: boolean;
     showSearch?: boolean;
@@ -53,7 +54,7 @@ const Table = React.forwardRef<HTMLDivElement, TableProps>(
     ({
         className,
         children,
-        id,
+        id = uniqueId("table_____"),
         title,
         showDensityButtons = true,
         showSearch = true,

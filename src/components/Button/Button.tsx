@@ -6,6 +6,7 @@ import React from "react";
 import IMtProps from '../IMtProps';
 import { useSpreadProps } from '../Util/useSpreadProps';
 import { useMtProps } from "../Util/useMtProps";
+import uniqueId from 'lodash.uniqueid';
 
 interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement>, IMtProps {
     /** Se o botão é do tipo "Primário". */
@@ -37,7 +38,7 @@ interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement>, IMtProps 
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-    ({children, className, type = "submit", primary, secondary, circle, inverted, block, large, small, loading, disabled, icon, signIn = false, isItem = false, ...props}, ref) => {
+    ({children, className, id = uniqueId("button_____"), type = "submit", primary, secondary, circle, inverted, block, large, small, loading, disabled, icon, signIn = false, isItem = false, ...props}, ref) => {
         
         const mtProps = useMtProps(props);
         const spreadProps = useSpreadProps(props);
@@ -45,6 +46,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         return (
             <button
                 type={type}
+                id={id}
                 className={classNames(
                     (!signIn && !isItem && "br-button"),
                     (isItem && "br-item"),

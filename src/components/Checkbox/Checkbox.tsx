@@ -3,6 +3,7 @@ import React, { useEffect, useImperativeHandle, useRef } from "react";
 import IMtProps from "../IMtProps";
 import { useSpreadProps } from "../Util/useSpreadProps";
 import { useMtProps } from "../Util/useMtProps";
+import uniqueId from "lodash.uniqueid";
 
 const core = require('@govbr-ds/core/dist/core-init');
 
@@ -33,7 +34,7 @@ interface CheckboxProps  extends React.HTMLAttributes<HTMLInputElement>, IMtProp
 } 
 
 const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
-    ({className, children, inline, state, disabled, defaultChecked = false, checked = false, name, label, value, indeterminate = false, parentGroup, childOf, ...props}, ref) => {
+    ({className, id = uniqueId("checkbox_____"), children, inline, state, disabled, defaultChecked = false, checked = false, name, label, value, indeterminate = false, parentGroup, childOf, ...props}, ref) => {
         const mtProps = useMtProps(props);
         const spreadProps = useSpreadProps(props);
 
@@ -77,6 +78,7 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
                     )}
                     name={name}
                     type="checkbox"
+                    id={id}
                     {...value && {value: value}}
                     {...checked && {checked: checked}}
                     {...defaultChecked && {defaultChecked: defaultChecked}}
@@ -85,7 +87,7 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
                     {...childOf && {"data-child": childOf}}
                     {...spreadProps}
                 />
-                <label htmlFor={props.id}>{label}</label>
+                <label htmlFor={id}>{label}</label>
                 {children}
             </div>
         );

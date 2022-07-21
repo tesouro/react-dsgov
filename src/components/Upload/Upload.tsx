@@ -3,6 +3,7 @@ import React, { useEffect, useRef } from "react";
 import IMtProps from "../IMtProps";
 import { useSpreadProps } from "../Util/useSpreadProps";
 import { useMtProps } from "../Util/useMtProps";
+import uniqueId from "lodash.uniqueid";
 
 const core = require('@govbr-ds/core/dist/core-init');
 
@@ -13,7 +14,7 @@ interface UploadProps  extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
 } 
 
 const Upload = React.forwardRef<HTMLDivElement, UploadProps>(
-    ({className, children, id, label, multiple = false, uploadTimeout, ...props}, ref) => {
+    ({className, children, id = uniqueId("upload_____"), label, multiple = false, uploadTimeout, ...props}, ref) => {
         const mtProps = useMtProps(props);
         const spreadProps = useSpreadProps(props);
 

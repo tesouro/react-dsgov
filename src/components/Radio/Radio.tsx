@@ -4,6 +4,7 @@ import IMtProps from "../IMtProps";
 import { useSpreadProps } from "../Util/useSpreadProps";
 import { useMtProps } from "../Util/useMtProps";
 import CustomTag from "../CustomTag";
+import uniqueId from "lodash.uniqueid";
 
 interface RadioProps  extends React.HTMLAttributes<HTMLInputElement>, IMtProps {
     /** Label do radio. */
@@ -32,7 +33,7 @@ interface RadioProps  extends React.HTMLAttributes<HTMLInputElement>, IMtProps {
 
 const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
     
-    ({className, children, id, label, name, value, checked, state, disabled = false, inline = false, ...props}, ref) => {
+    ({className, children, id = uniqueId("radio_____"), label, name, value, checked, state, disabled = false, inline = false, ...props}, ref) => {
         const mtProps = useMtProps(props);
         const spreadProps = useSpreadProps(props);
 

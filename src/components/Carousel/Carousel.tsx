@@ -6,6 +6,7 @@ import CarouselPage from "./CarouselPage";
 import IMtProps from "../IMtProps";
 import { useMtProps } from '../Util/useMtProps';
 import { useSpreadProps } from "../Util/useSpreadProps";
+import uniqueId from 'lodash.uniqueid';
 
 const core = require('@govbr-ds/core/dist/core-init');
 
@@ -33,7 +34,7 @@ interface CarouselProps extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
 }
 
 const Carousel = React.forwardRef<HTMLDivElement, CarouselProps>(
-    ({ className, children, circular, interno, hybrid, textual = false, ...props }, ref) => {
+    ({ className, id = uniqueId("carousel_____"), children, circular, interno, hybrid, textual = false, ...props }, ref) => {
         const refDiv = useRef<any>(ref);
         const refQtdChildren = useRef<number>(0);
         const refObjetoCarousel = useRef<any>(null);
@@ -64,6 +65,7 @@ const Carousel = React.forwardRef<HTMLDivElement, CarouselProps>(
 
             <div
                 ref={refDiv}
+                id={id}
                 data-circular={circular}
                 className={classNames(
                     "br-carousel",

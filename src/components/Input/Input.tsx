@@ -5,6 +5,7 @@ import { useSpreadProps } from "../Util/useSpreadProps";
 import { useMtProps } from "../Util/useMtProps";
 import Message from "../Message/Message";
 import { mapaIcones } from "../Util/Util";
+import uniqueId from "lodash.uniqueid";
 
 interface InputProps  extends React.HTMLAttributes<HTMLInputElement>, IMtProps {
     /** Label do input. */
@@ -43,7 +44,7 @@ interface InputProps  extends React.HTMLAttributes<HTMLInputElement>, IMtProps {
 } 
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
-    ({className, children, label, id, placeholder, type = "text", density = "normal", icon, button, highlight, inline, value, status, feedbackText, ...props}, ref) => {
+    ({className, id = uniqueId("input_____"), children, label, placeholder, type = "text", density = "normal", icon, button, highlight, inline, value, status, feedbackText, ...props}, ref) => {
         const mtProps = useMtProps(props);
         const spreadProps = useSpreadProps(props);
 

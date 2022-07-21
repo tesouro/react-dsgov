@@ -6,6 +6,7 @@ import { useMtProps } from "../Util/useMtProps";
 import Message from "../Message/Message";
 import { mapaIcones } from "../Util/Util";
 import Row from "../Row/Row";
+import uniqueId from "lodash.uniqueid";
 
 interface TextareaProps extends React.HTMLAttributes<HTMLTextAreaElement>, IMtProps {
     label: string | React.ReactElement;
@@ -22,7 +23,7 @@ interface TextareaProps extends React.HTMLAttributes<HTMLTextAreaElement>, IMtPr
 }
 
 const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
-    ({ className, children, label, id, placeholder, type = "text", density = "normal", inline, value, maxLength, feedbackText, showCharacterCounter = false, status, inverted = false, onChange, ...props }, ref) => {
+    ({ className, children, label, id = uniqueId("textarea_____"), placeholder, type = "text", density = "normal", inline, value, maxLength, feedbackText, showCharacterCounter = false, status, inverted = false, onChange, ...props }, ref) => {
         const mtProps = useMtProps(props);
         const spreadProps = useSpreadProps(props);
 
