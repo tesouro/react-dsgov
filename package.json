@@ -16,6 +16,7 @@
     "@types/react-dom": "^18.0.6",
     "classnames": "^2.3.1",
     "font-awesome": "^4.7.0",
+    "lodash.uniqueid": "^4.0.1",
     "react": "^18.2.0",
     "react-any-attr": "^1.1.2",
     "react-dom": "^18.2.0",
@@ -53,6 +54,7 @@
     ]
   },
   "devDependencies": {
+    "@types/lodash.uniqueid": "^4.0.7",
     "react-docgen-typescript": "^2.2.2",
     "react-styleguidist": "^11.2.0",
     "webpack": "^5.73.0"
