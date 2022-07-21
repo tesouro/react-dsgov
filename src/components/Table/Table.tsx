@@ -30,7 +30,7 @@ export interface ISearchEvent extends React.MouseEvent<HTMLButtonElement, MouseE
 }
 
 
-interface TableProps  extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
+interface TableProps extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
     id: string,
     title?: string,
     showDensityButtons?: boolean;
@@ -47,23 +47,23 @@ interface TableProps  extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
     onSearch?: (event: ISearchEvent) => {}
 
     showPageSelector?: boolean;
-} 
+}
 
 const Table = React.forwardRef<HTMLDivElement, TableProps>(
     ({
-        className, 
-        children, 
+        className,
+        children,
         id,
         title,
         showDensityButtons = true,
         showSearch = true,
-        onSearch = () => {},
+        onSearch = () => { },
         showSelectedBar = true,
         headers,
         data,
         endpoint,
-        onClickNextPage = () => {},
-        onClickPrevPage = () => {},
+        onClickNextPage = () => { },
+        onClickPrevPage = () => { },
         showPageSelector = false,
         ...props
     }, ref) => {
@@ -91,43 +91,43 @@ const Table = React.forwardRef<HTMLDivElement, TableProps>(
 
         const handleClickNextPage = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
             onClickNextPage(event);
-            
-            if(!atualizando && currentEndpoint) {
+
+            if (!atualizando && currentEndpoint) {
                 setPageNumber((currentOffset) => {
-                    if(typeof currentOffset !== 'undefined') {
+                    if (typeof currentOffset !== 'undefined') {
                         return currentOffset + 1;
                     } else {
                         return currentOffset;
-                    }                
+                    }
                 })
             }
-            
+
         }
 
         const handleClickPreviousPage = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
             onClickPrevPage(event);
 
-            if(!atualizando && currentEndpoint) {
+            if (!atualizando && currentEndpoint) {
                 setPageNumber((currentOffset) => {
-                    if(typeof currentOffset !== 'undefined') {
+                    if (typeof currentOffset !== 'undefined') {
                         return currentOffset - 1;
                     } else {
                         return currentOffset;
-                    }                
+                    }
                 })
             }
-            
+
         }
 
         const handleTrocaBuscaPadrao = () => {
-            onSearch({searchText: defaultSearch} as ISearchEvent);
+            onSearch({ searchText: defaultSearch } as ISearchEvent);
 
-            defaultSearch !== undefined && setCurrentEndpoint((currentEndpoint) => 
+            defaultSearch !== undefined && setCurrentEndpoint((currentEndpoint) =>
                 updateQueryStringParameter(currentEndpoint, 'defaultSearch', String(defaultSearch)));
         }
-        
+
         useEffect(() => {
-            if(!refElement.current && refDiv.current) {
+            if (!refElement.current && refDiv.current) {
                 refElement.current = new core.BRTable('br-table', refDiv.current, id);
             }
         }, [id]);
@@ -135,13 +135,13 @@ const Table = React.forwardRef<HTMLDivElement, TableProps>(
 
         useEffect(() => {
             // Se os dados tiverem sido informados manualmente, informa-os
-            if(data && (data as IData).records) {
+            if (data && (data as IData).records) {
                 setTableData((data as IData).records);
 
                 setPageNumber((data as IData).pageNumber);
                 setPageSize((data as IData).pageSize);
                 setRecordCount((data as IData).recordCount);
-            } else if(data) {
+            } else if (data) {
                 const dataLength = (data as any[]).length;
 
                 setTableData(data as any[]);
@@ -151,76 +151,76 @@ const Table = React.forwardRef<HTMLDivElement, TableProps>(
             }
 
             // Do contrário, seta os obtidos do endpoint
-            if(endpoint) {
+            if (endpoint) {
                 setCurrentEndpoint(endpoint);
             }
-                        
+
         }, [data, endpoint])
 
         // Ao trocar o endpoint, recarregar os dados
         useEffect(() => {
-            if(currentEndpoint) {
+            if (currentEndpoint) {
                 setAtualizando(true);
                 fetch(currentEndpoint).then(res => {
                     res.json().then(json => {
-                        if(json?.records) {
+                        if (json?.records) {
                             setTableData(json.records);
                         }
-    
+
                         setPageNumber(json?.pageNumber);
-                        setPageSize(json?.pageSize);                       
+                        setPageSize(json?.pageSize);
                         setRecordCount(json?.recordCount);
 
                         setAtualizando(false);
                     });
                 })
             }
-            
+
         }, [currentEndpoint]);
-        
-    // Ao trocar a página, recarregar os dados
-    useEffect(() => {
-        pageNumber !== undefined && setCurrentEndpoint((currentEndpoint) => 
+
+        // Ao trocar a página, recarregar os dados
+        useEffect(() => {
+            pageNumber !== undefined && setCurrentEndpoint((currentEndpoint) =>
                 updateQueryStringParameter(currentEndpoint, 'pageNumber', String(pageNumber)))
-    }, [pageNumber]);
+        }, [pageNumber]);
 
-    // Ao trocar o tamanho da página
-    useEffect(() => {
-        pageSize !== undefined && setCurrentEndpoint((currentEndpoint) => 
+        // Ao trocar o tamanho da página
+        useEffect(() => {
+            pageSize !== undefined && setCurrentEndpoint((currentEndpoint) =>
                 updateQueryStringParameter(currentEndpoint, 'pageSize', String(pageSize)));
-    }, [pageSize]);
+        }, [pageSize]);
 
-    // Ao mudar a quantidade de registros ou o tamanho da página
-    useEffect(() => {
-        if(recordCount !== undefined && pageSize !== undefined) {
-            const currentPageCount = Math.ceil(recordCount/pageSize);
-            if(currentPageCount !== pageCount.current) {
-                pageCount.current = currentPageCount;
+        // Ao mudar a quantidade de registros ou o tamanho da página
+        useEffect(() => {
+            if (recordCount !== undefined && pageSize !== undefined) {
+                const currentPageCount = Math.ceil(recordCount / pageSize);
+                if (currentPageCount !== pageCount.current) {
+                    pageCount.current = currentPageCount;
 
-                setPageOptions(pageOptions => {
-                    if(pageOptions?.length !== pageSize) {
-                        const currentPageOptions = [];
-                        
+                    setPageOptions(pageOptions => {
+                        if (pageOptions?.length !== pageSize) {
+                            const currentPageOptions = [];
 
-                        for(let i = 0; i < currentPageCount; i++) {
-                            currentPageOptions.push(
-                                {
-                                    label: String(i+1),
-                                    value: String(i+1)
-                                }
-                            )
+
+                            for (let i = 0; i < currentPageCount; i++) {
+                                currentPageOptions.push(
+                                    {
+                                        label: String(i + 1),
+                                        value: String(i + 1)
+                                    }
+                                )
+                            }
+                            return currentPageOptions;
+                        } else {
+                            return pageOptions;
                         }
-                        return currentPageOptions;
-                    } else {
-                        return pageOptions;
-                    }
-        
-                })
+
+                    })
+                }
             }
-        }
-        
-    }, [recordCount, pageSize])
-        
+
+        }, [recordCount, pageSize])
+
 
         return (
             <div
@@ -231,64 +231,64 @@ const Table = React.forwardRef<HTMLDivElement, TableProps>(
                     ...mtProps
                 )}
                 {...spreadProps}
-                data-search="data-search" 
-                data-selection="data-selection" 
-                data-collapse="data-collapse" 
+                data-search="data-search"
+                data-selection="data-selection"
+                data-collapse="data-collapse"
                 data-random="data-random"
-                
+
             >
                 <div className="table-header">
                     <div className="top-bar">
-                    <div className="table-title">{title}</div>
-                    {showDensityButtons && <div className="actions-trigger text-nowrap">
-                        <Button circle title="Ver mais opções" data-toggle="dropdown" data-target={`ver-mais-opcoes____${id}`} aria-label="Ver mais opções" icon="fas fa-ellipsis-v" />
-                        <List id={`ver-mais-opcoes____${id}`} hidden role="">
-                            <Button isItem data-density="small">Densidade alta
-                            </Button><span className="br-divider"></span>
-                            <Button isItem data-density="medium">Densidade média
-                            </Button><span className="br-divider"></span>
-                            <Button isItem data-density="large">Densidade baixa
-                            </Button>
-                        </List>
-                    </div>}
-                    <div className="search-trigger">
-                        {showSearch && <Button circle data-toggle="search" aria-label="Abrir busca"><i className="fas fa-search" aria-hidden="true"></i>
-                        </Button>}
-                    </div>
+                        <div className="table-title">{title}</div>
+                        {showDensityButtons && <div className="actions-trigger text-nowrap">
+                            <Button circle title="Ver mais opções" data-toggle="dropdown" data-target={`ver-mais-opcoes____${id}`} aria-label="Ver mais opções" icon="fas fa-ellipsis-v" />
+                            <List id={`ver-mais-opcoes____${id}`} hidden role="">
+                                <Button isItem data-density="small">Densidade alta
+                                </Button><span className="br-divider"></span>
+                                <Button isItem data-density="medium">Densidade média
+                                </Button><span className="br-divider"></span>
+                                <Button isItem data-density="large">Densidade baixa
+                                </Button>
+                            </List>
+                        </div>}
+                        <div className="search-trigger">
+                            {showSearch && <Button circle data-toggle="search" aria-label="Abrir busca"><i className="fas fa-search" aria-hidden="true"></i>
+                            </Button>}
+                        </div>
                     </div>
                     {showSearch && <div className="search-bar">
                         <div className="br-input">
-                            <Input 
-                                id={`table-searchbox-${id}`} 
-                                label="Buscar" 
-                                placeholder="Buscar na tabela" 
+                            <Input
+                                id={`table-searchbox-${id}`}
+                                label="Buscar"
+                                placeholder="Buscar na tabela"
                                 value={defaultSearch}
                                 onKeyDown={(event) => {
-                                    if(event.key === 'Enter') {
+                                    if (event.key === 'Enter') {
                                         handleTrocaBuscaPadrao();
                                     }
                                 }}
                                 onChange={(event) => setDefaultSearch(event.currentTarget.value)}
-                                button={<Button circle aria-label="Buscar" icon="fas fa-search" onClick={() => handleTrocaBuscaPadrao()} />}/>
-                            
+                                button={<Button circle aria-label="Buscar" icon="fas fa-search" onClick={() => handleTrocaBuscaPadrao()} />} />
+
                         </div>
                         <Button circle data-dismiss="search" aria-label="Fechar busca" icon="fas fa-times" />
                     </div>}
                     <div className="selected-bar">
-                    <div className="info"><span className="count">0</span><span className="text">item selecionado</span></div>
-                    <div className="actions-trigger text-nowrap">
-                        <Button circle inverted type="button" data-toggle="dropdown" data-target={`target02-${id}`} aria-label="Ver mais opções" icon="fas fa-ellipsis-v" />
-                        <List id={`target02-${id}`} hidden>
-                            <Button data-toggle="">Ação 1</Button>
-                            <Divider />
-                            <Button>Ação 2</Button>
-                        </List>
-                    </div>
+                        <div className="info"><span className="count">0</span><span className="text">item selecionado</span></div>
+                        <div className="actions-trigger text-nowrap">
+                            <Button circle inverted type="button" data-toggle="dropdown" data-target={`target02-${id}`} aria-label="Ver mais opções" icon="fas fa-ellipsis-v" />
+                            <List id={`target02-${id}`} hidden>
+                                <Button data-toggle="">Ação 1</Button>
+                                <Divider />
+                                <Button>Ação 2</Button>
+                            </List>
+                        </div>
                     </div>
                 </div>
                 <table>
                     <caption>{title}</caption>
-                    {headers && 
+                    {headers &&
                         <thead>
                             <tr>
                                 {headers.map((header, index) => (
@@ -301,10 +301,10 @@ const Table = React.forwardRef<HTMLDivElement, TableProps>(
                         <tbody>
                             {tableData.map((linha, index) => (
                                 <tr key={linha}>
-                                    {Object.keys(linha).map((key : string) => (
-                                      <td key={key}>
-                                        {linha[key]}
-                                      </td>  
+                                    {Object.keys(linha).map((key: string) => (
+                                        <td key={key}>
+                                            {linha[key]}
+                                        </td>
                                     ))}
                                 </tr>
                             ))}
@@ -314,45 +314,45 @@ const Table = React.forwardRef<HTMLDivElement, TableProps>(
                         <tbody>
                             {tableData.map((linha, index) => (
                                 <tr key={index}>
-                                    {(headers as IHeader[]).map((header : IHeader, index : number) => (
-                                      <td key={index}>
-                                        {linha[header.field]}
-                                      </td>  
+                                    {(headers as IHeader[]).map((header: IHeader, index: number) => (
+                                        <td key={index}>
+                                            {linha[header.field]}
+                                        </td>
                                     ))}
                                 </tr>
                             ))}
                         </tbody>
                     }
-                    
+
                     {children}
                 </table>
                 <div className="table-footer">
                     <nav className="br-pagination" aria-label="Paginação de resultados" data-total="50" data-current="1" data-per-page="20">
-                    <div className="pagination-per-page">
-                        <Select label="Itens por página" id={`per-page-selection-random-${id}`} options={[
-                            {label: "10", value: "10"},
-                            {label: "20", value: "20"},
-                            {label: "30", value: "30"}
-                        ]}
-                        onChange={(value : any) => setPageSize(value)}
-                        value={pageSize}
-                        />
-                    </div><span className="br-divider d-none d-sm-block mx-3"></span>
-                    <div className="pagination-information d-none d-sm-flex"><span className="current">{pageNumber != null && pageSize != null && pageNumber*pageSize+1}</span>&ndash;<span className="per-page">{pageNumber != null && pageSize != null && pageNumber*pageSize+pageSize}</span>&nbsp;de&nbsp;<span className="total">{recordCount}</span>&nbsp;itens</div>
-                    <div className="pagination-go-to-page d-none d-sm-flex ml-auto">
-                        {showPageSelector &&
-                        <Select id={`go-to-selection-random-75889`} options={pageOptions || []}
-                         onChange={(valor : string) => setPageNumber(Number(valor)-1)} value={pageNumber} />}
-                    </div><span className="br-divider d-none d-sm-block mx-3"></span>
-                    <div className="pagination-arrows ml-auto ml-sm-0">
-                        <Button circle aria-label="Voltar página" icon="fas fa-angle-left" disabled={pageNumber === 0} onClick={(event) => handleClickPreviousPage(event)}/>
-                        <Button circle data-total={pageCount.current} aria-label="Avançar página" icon="fas fa-angle-right" disabled={pageNumber === ((pageCount.current || 0) - 1)} onClick={(event) => handleClickNextPage(event)} />
-                    </div>
+                        <div className="pagination-per-page">
+                            <Select label="Itens por página" id={`per-page-selection-random-${id}`} options={[
+                                { label: "10", value: "10" },
+                                { label: "20", value: "20" },
+                                { label: "30", value: "30" }
+                            ]}
+                                onChange={(value: any) => setPageSize(value)}
+                                value={pageSize}
+                            />
+                        </div><span className="br-divider d-none d-sm-block mx-3"></span>
+                        <div className="pagination-information d-none d-sm-flex"><span className="current">{pageNumber != null && pageSize != null && pageNumber * pageSize + 1}</span>&ndash;<span className="per-page">{pageNumber != null && pageSize != null && pageNumber * pageSize + pageSize}</span>&nbsp;de&nbsp;<span className="total">{recordCount}</span>&nbsp;itens</div>
+                        <div className="pagination-go-to-page d-none d-sm-flex ml-auto">
+                            {showPageSelector &&
+                                <Select id={`go-to-selection-random-75889`} options={pageOptions || []}
+                                    onChange={(valor: string) => setPageNumber(Number(valor) - 1)} value={pageNumber} />}
+                        </div><span className="br-divider d-none d-sm-block mx-3"></span>
+                        <div className="pagination-arrows ml-auto ml-sm-0">
+                            <Button circle aria-label="Voltar página" icon="fas fa-angle-left" disabled={pageNumber === 0} onClick={(event) => handleClickPreviousPage(event)} />
+                            <Button circle data-total={pageCount.current} aria-label="Avançar página" icon="fas fa-angle-right" disabled={pageNumber === ((pageCount.current || 0) - 1)} onClick={(event) => handleClickNextPage(event)} />
+                        </div>
                     </nav>
                 </div>
             </div>
         );
     }
-) 
+)
 
 export default Table;

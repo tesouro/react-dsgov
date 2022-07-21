@@ -3,5 +3,6 @@ export default interface IMtProps {
     "mt-sm"?: string,
     mx?: string,
     my?: string,
-    mb?: number
+    mb?: number,
+    "align-items-center"?: boolean
 }
