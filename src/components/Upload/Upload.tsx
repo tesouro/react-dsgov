@@ -8,13 +8,18 @@ import uniqueId from "lodash.uniqueid";
 const core = require('@govbr-ds/core/dist/core-init');
 
 interface UploadProps  extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
+    /** Label do upload */
     label: string,
+    /** Se permite enviar múltiplos arquivos. */
     multiple?: boolean,
+    /** Função pra tratar o upload do arquivo. */
     uploadTimeout: () => Promise<any>
+    /** Se está desabilitado */
+    disabled?: boolean
 } 
 
 const Upload = React.forwardRef<HTMLDivElement, UploadProps>(
-    ({className, children, id = uniqueId("upload_____"), label, multiple = false, uploadTimeout, ...props}, ref) => {
+    ({className, children, id = uniqueId("upload_____"), label, multiple = false, disabled = false, uploadTimeout, ...props}, ref) => {
         const mtProps = useMtProps(props);
         const spreadProps = useSpreadProps(props);
 
@@ -36,6 +41,7 @@ const Upload = React.forwardRef<HTMLDivElement, UploadProps>(
                     className,
                     ...mtProps
                 )}
+                {...disabled && {disabled: "disabled"}}
                 {...spreadProps}
                 
             >
