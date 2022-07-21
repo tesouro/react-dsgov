@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import IMtProps from "../IMtProps";
 import { useSpreadProps } from "../Util/useSpreadProps";
 import { useMtProps } from "../Util/useMtProps";
@@ -19,6 +19,12 @@ interface IHeader {
     label: string
 }
 
+interface IItemPage {
+    label: string,
+    value: string
+}
+
+
 interface IData {
     pageNumber?: number,
     recordCount?: number,
@@ -33,21 +39,51 @@ export interface ISearchEvent extends React.MouseEvent<HTMLButtonElement, MouseE
 
 interface TableProps extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
     id?: string,
+    /** Título da tabela */
     title?: string,
+    /** Se mostra ou não o menu de densidade. */
     showDensityButtons?: boolean;
+
+    /** Se mostra ou não o menu de busca. */
     showSearch?: boolean;
+    
+    /** Se mostra ou não a barra de selecionados. */
     showSelectedBar?: boolean;
 
+    /** Mostra ou não o seletor de página. */
+    showPageSelector?: boolean;
+
+    /** Headers da tabela. */
     headers?: string[] | IHeader[];
+
+    /** Dados da tabela. */
     data?: IData | object[];
 
+    /** Endpoint com os dados da tabela. */
     endpoint?: string;
 
+    /** Ao clicar no botão de ir para a próxima página. */
     onClickNextPage?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {}
+
+    /** Ao clicar no botão de ir para a página anterior. */
     onClickPrevPage?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {}
+
+    /** Ao realizar busca. */
     onSearch?: (event: ISearchEvent) => {}
 
-    showPageSelector?: boolean;
+    /** Array para preencher a combo de itens por página. */
+    arrayItemsPerPage?: number[]
+
+    /** Sobrescreve o marcador da página atual na área de paginação. */
+    currentPageNumber?: number;
+
+    /** Sobrescreve o marcador de quantidade de páginas na área de paginação. */
+    currentPerPageNumber?: number;
+
+    /** Sobrescreve o marcador de total de registros na área de paginação. */
+    currentTotalRegistros?: number;
+
+    
 }
 
 const Table = React.forwardRef<HTMLDivElement, TableProps>(
@@ -66,6 +102,10 @@ const Table = React.forwardRef<HTMLDivElement, TableProps>(
         onClickNextPage = () => { },
         onClickPrevPage = () => { },
         showPageSelector = false,
+        arrayItemsPerPage = [10, 20, 30, 50, 100],
+        currentPageNumber,
+        currentPerPageNumber,
+        currentTotalRegistros,
         ...props
     }, ref) => {
         const mtProps = useMtProps(props);
@@ -126,7 +166,7 @@ const Table = React.forwardRef<HTMLDivElement, TableProps>(
             defaultSearch !== undefined && setCurrentEndpoint((currentEndpoint) =>
                 updateQueryStringParameter(currentEndpoint, 'defaultSearch', String(defaultSearch)));
         }
-
+       
         useEffect(() => {
             if (!refElement.current && refDiv.current) {
                 refElement.current = new core.BRTable('br-table', refDiv.current, id);
@@ -222,6 +262,19 @@ const Table = React.forwardRef<HTMLDivElement, TableProps>(
 
         }, [recordCount, pageSize])
 
+        const getItemsPerPage = useCallback(() => {
+            const newItemsPerPage : IItemPage[] = [];
+
+            for (const index in arrayItemsPerPage) {
+                newItemsPerPage.push({
+                    label: String(arrayItemsPerPage[index]),
+                    value: String(arrayItemsPerPage[index])
+                })
+            }
+
+            return newItemsPerPage;
+        }, [arrayItemsPerPage]);
+
 
         return (
             <div
@@ -298,7 +351,7 @@ const Table = React.forwardRef<HTMLDivElement, TableProps>(
                             </tr>
                         </thead>
                     }
-                    {tableData && !(headers as IHeader[])[0].label &&
+                    {headers && tableData && !(headers as IHeader[])[0].label &&
                         <tbody>
                             {tableData.map((linha, index) => (
                                 <tr key={linha}>
@@ -311,7 +364,7 @@ const Table = React.forwardRef<HTMLDivElement, TableProps>(
                             ))}
                         </tbody>
                     }
-                    {tableData && (headers as IHeader[])[0].label &&
+                    {headers && tableData && (headers as IHeader[])[0].label &&
                         <tbody>
                             {tableData.map((linha, index) => (
                                 <tr key={index}>
@@ -330,16 +383,12 @@ const Table = React.forwardRef<HTMLDivElement, TableProps>(
                 <div className="table-footer">
                     <nav className="br-pagination" aria-label="Paginação de resultados" data-total="50" data-current="1" data-per-page="20">
                         <div className="pagination-per-page">
-                            <Select label="Itens por página" id={`per-page-selection-random-${id}`} options={[
-                                { label: "10", value: "10" },
-                                { label: "20", value: "20" },
-                                { label: "30", value: "30" }
-                            ]}
+                            <Select label="Itens por página" id={`per-page-selection-random-${id}`} options={getItemsPerPage()}
                                 onChange={(value: any) => setPageSize(value)}
                                 value={pageSize}
                             />
                         </div><span className="br-divider d-none d-sm-block mx-3"></span>
-                        <div className="pagination-information d-none d-sm-flex"><span className="current">{pageNumber != null && pageSize != null && pageNumber * pageSize + 1}</span>&ndash;<span className="per-page">{pageNumber != null && pageSize != null && pageNumber * pageSize + pageSize}</span>&nbsp;de&nbsp;<span className="total">{recordCount}</span>&nbsp;itens</div>
+                        <div className="pagination-information d-none d-sm-flex"><span className="current">{currentPageNumber || (pageNumber != null && pageSize != null && pageNumber * pageSize + 1)}</span>&ndash;<span className="per-page">{currentPerPageNumber || (pageNumber != null && pageSize != null && pageNumber * pageSize + pageSize)}</span>&nbsp;de&nbsp;<span className="total">{currentTotalRegistros || recordCount}</span>&nbsp;itens</div>
                         <div className="pagination-go-to-page d-none d-sm-flex ml-auto">
                             {showPageSelector &&
                                 <Select id={`go-to-selection-random-75889`} options={pageOptions || []}

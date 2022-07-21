@@ -356,6 +356,35 @@ function App() {
 <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
 
 <Container>
+  <Row>
+    <Col>
+      <Table
+        title="Minha Tabela JSON"
+        headers={["ID", "Nome"]}
+        data={[
+          {
+            id: 1,
+            nome: "Josué"
+          },
+          {
+            id: 2,
+            nome: "Jacinda"
+          },
+          {
+            id: 3,
+            nome: "Cláudia"
+          }
+        ]}
+      />
+
+
+      
+    </Col>
+  </Row>
+
+</Container>
+
+<Container>
     <Row>
       <Col>
           <Table
@@ -369,6 +398,9 @@ function App() {
             ]} 
             endpoint="https://sisweb.tesouro.gov.br/apex/cosis/public/sistemas?pageSize=10&pageNumber=0"
             />
+
+
+
       </Col>
     </Row>
   </Container>

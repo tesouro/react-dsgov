@@ -73,15 +73,17 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
             } else {
                 refBrSelect.current = new core.BRSelect('br-select', refWrapper.current);
             }
+        }, [options])
 
-            setValores(valores => {
+        useEffect(() => {
+            setValores(oldValores => {
                 const elementos = refWrapper.current.getElementsByTagName("input");
                 for (const elemento of elementos) {
 
                     if(Array.isArray(value)) {
                         for (const valorElemento of value as string[]) {
                             if(valorElemento === elemento.value) {
-                                valores.set(elemento.id, true);
+                                oldValores.set(elemento.id, true);
                                 let option = refBrSelect.current.optionsList.findIndex((obj : any) => obj.inputValue === elemento.value);
                                 refBrSelect.current.optionsList[option].selected = true;
                             }
@@ -90,16 +92,11 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
                         
                     }
                     
-                    
                 }
 
-                return valores;
+                return oldValores;
             })
-
-            
-
-
-        }, [options, value])
+        }, [value])
 
         if(type === "multiple") {
             customAttributes["multiple"] = "multiple";
