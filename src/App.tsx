@@ -12,6 +12,7 @@ import CustomTag from './components/CustomTag';
 import Table from './components/Table';
 import Teste from './pages/Teste';
 import Menu from './components/Menu';
+import SkipLink from './components/SkipLink';
 
 function App() {
   const [teste, setTeste] = useState<boolean>(true);
@@ -33,6 +34,27 @@ function App() {
   const linhas = ['Texto 1', 'Texto 2', 'Texto 2', 'Texto 3'];
   return (
     <>
+      <SkipLink 
+        data={[
+          {
+            label: "Ir para o conteúdo (1/4)",
+            link: "#main-component"
+          },
+          {
+            label: "Ir para o conteúdo (2/4)",
+            link: "#main-component"
+          },
+          {
+            label: "Ir para o conteúdo (3/4)",
+            link: "#main-component"
+          },
+          {
+            label: "Ir para o conteúdo (4/4)",
+            link: "#main-component"
+          }
+        ]}        
+      />
+
       <Teste></Teste>
       <Container fluid>
         <Row>

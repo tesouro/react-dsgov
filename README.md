@@ -28,6 +28,7 @@ A seguinte lista de componentes foi implementada:
 - [Radio](src/components/Radio/Readme.md)
 - [Row](src/components/Row/Readme.md)
 - [Select](src/components/Select/Readme.md)
+- [SkipLink](src/components/SkipLink/Readme.md)
 - [Switch](src/components/Switch/Readme.md)
 - [Table](src/components/Table/Readme.md)
 - [Textarea](src/components/Textarea/Readme.md)
