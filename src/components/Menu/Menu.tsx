@@ -1,0 +1,134 @@
+import classNames from "classnames";
+import React, { useEffect, useRef } from "react";
+import IMtProps from "../IMtProps";
+import { useSpreadProps } from "../Util/useSpreadProps";
+import { useMtProps } from "../Util/useMtProps";
+import IMenuItem from "./IMenuItem";
+import MenuItem from "./MenuItem";
+import uniqueId from "lodash.uniqueid";
+import { IMenuLogo } from "./IMenuLogo";
+import IMenuLink from "./IMenuLink";
+import ISocialNetwork from "./ISocialNetwork";
+
+const core = require('@govbr-ds/core/dist/core-init');
+
+interface MenuProps extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
+    systemLogoUrl?: string,
+    systemName?: string,
+    data: IMenuItem[]
+    logos?: IMenuLogo[]
+    externalLinks?: IMenuLink[]
+    socialNetworks?: ISocialNetwork[]
+    info?: React.ReactNode,
+    type?: "normal" | "push" | "contextual",
+    active?: boolean,
+    shadow?: boolean,
+    density?: "small" | "normal" | "large"
+}
+
+const Menu = React.forwardRef<HTMLDivElement, MenuProps>(
+    ({ className, children, id = uniqueId("menu_____"), data, logos, externalLinks, socialNetworks, info, systemLogoUrl, systemName, type = "normal", density = "normal", active, shadow, ...props }, ref) => {
+        const mtProps = useMtProps(props);
+        const spreadProps = useSpreadProps(props);
+
+        const refElemento = useRef();
+        const refDiv = useRef<any>(ref);
+
+        useEffect(() => {
+            if (refDiv.current && !refElemento.current) {
+                refElemento.current = new core.BRMenu('br-menu', refDiv.current);
+            }
+        }, [])
+
+        return (
+            <div
+                ref={refDiv}
+                id={id}
+                className={classNames(
+                    "br-menu",
+                    (type === "push" && "push"),
+                    (type === "contextual" && "contextual"),
+                    (density === "small" && "small"),
+                    (density === "large" && "large"),
+                    (active && "active"),
+                    className,
+                    ...mtProps
+                )}
+                {...spreadProps}
+
+            >
+                <div className={classNames(
+                    "menu-container"
+                )}>
+                    <div className={classNames(
+                        "menu-panel",
+                        (shadow && "h-auto position-static shadow-lg-right")
+                    )}>
+                        {(systemLogoUrl || systemName) && <div className="menu-header">
+                            <div className="menu-title">
+                                {systemLogoUrl && <img src={systemLogoUrl} alt={`Logo do sistema ${systemLogoUrl}`} />}{systemName && <span>{systemName}</span>}
+                            </div>
+                            <div className="menu-close">
+                                <button className="br-button circle" type="button" aria-label="Fechar o menu" data-dismiss="menu">
+                                    <i className="fas fa-times" aria-hidden="true"></i>
+                                </button>
+                            </div>
+                        </div>}
+                        <div className="menu-body">
+                            {data &&
+                                <>
+                                    {data.map((item, index) => (
+                                        <MenuItem
+                                            key={index}
+                                            href={item.link}
+                                            icon={item.icon}
+                                            label={item.label}
+                                            submenu={item.submenu}
+                                            level={2}
+                                            divider={item.divider}
+                                            expanded={item.expanded}
+                                        />
+                                    ))}
+                                </>
+                            }
+                        </div>
+                        <div className="menu-footer">
+                            {logos && <div className="menu-logos">
+                                {logos.map((logo, index) => (
+                                    <img key={index} src={logo.src} alt={logo.alt} />
+                                ))}
+                            </div>}
+                            {externalLinks && <div className="menu-links">
+                                {externalLinks.map((externalLink, index) => (
+                                    <a key={index} href={externalLink.link}>
+                                        <span className="mr-1">{externalLink.label}</span>
+                                        <i className="fas fa-external-link-square-alt" aria-hidden="true"></i>
+                                    </a>
+                                ))}
+                            </div>}
+                            {socialNetworks && <div className="menu-social">
+                                <div className="text-semi-bold mb-1">Redes Sociais</div>
+                                <div className="sharegroup">
+                                    {socialNetworks.map((socialNetwork, index) => (
+                                        <div key={index} className="share">
+                                            <a className="br-button circle" href={socialNetwork.link} aria-label={`Compartilhar por ${socialNetwork.name}`}>
+                                                <i className={socialNetwork.icon} aria-hidden="true"></i>
+                                            </a>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>}
+                            {info && <div className="menu-info">
+                                {info}
+                            </div>}
+
+                        </div>
+                    </div>
+                </div>
+                {children}
+            </div>
+        );
+    }
+)
+
+export default Menu;
