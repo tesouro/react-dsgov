@@ -4,5 +4,9 @@ export default interface IMtProps {
     mx?: string,
     my?: string,
     mb?: number,
-    "align-items-center"?: boolean
+    "align-items-center"?: boolean,
+    "justify-content"?: string,
+    p?: number,
+    "p-sm"?: number,
+    m?: number
 }

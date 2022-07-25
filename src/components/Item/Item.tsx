@@ -4,6 +4,7 @@ import IMtProps from "../IMtProps";
 import { useSpreadProps } from "../Util/useSpreadProps";
 import { useMtProps } from "../Util/useMtProps";
 import Divider from "../Divider";
+import CustomTag from "../CustomTag";
 
 const core = require('@govbr-ds/core/dist/core-init');
 
@@ -20,10 +21,12 @@ interface ItemProps  extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
     target?: string;
     /** Se abre/fecha. */
     collapsable?: boolean;
+    /** Link do item */
+    link?: string;
 } 
 
 const Item = React.forwardRef<HTMLDivElement, ItemProps>(
-    ({className, children, highlighted, divider, role = "listItem", disabled = false, showDividerAfter = false, target, collapsable = false, ...props}, ref) => {
+    ({className, children, highlighted, divider, role = "listItem", disabled = false, showDividerAfter = false, target, collapsable = false, link, ...props}, ref) => {
         const mtProps = useMtProps(props);
         const spreadProps = useSpreadProps(props);
         const refDiv = useRef(ref);
@@ -38,8 +41,9 @@ const Item = React.forwardRef<HTMLDivElement, ItemProps>(
 
         return (
             <>
-                <div
+                <CustomTag
                     ref={refDiv}
+                    tagName={link ? "a" : "div"}
                     className={classNames(
                         "br-item",
                         (highlighted && "highlighted"),
@@ -52,11 +56,12 @@ const Item = React.forwardRef<HTMLDivElement, ItemProps>(
                     {...target && {"data-target": target}}
                     {...collapsable && {"data-toggle": "collapse"}}
                     {...spreadProps}
+                    {...link && {href: link}}
                     
                 >
                     {children}
                     {collapsable && <i className="fas fa-angle-down" aria-hidden="true"></i>}
-                </div>
+                </CustomTag>
                 {showDividerAfter && <Divider />}
             </>
         );

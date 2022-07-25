@@ -12,6 +12,7 @@ export { default as Input } from "./Input";
 export { default as Item } from "./Item";
 export { default as List } from "./List";
 export { default as Loading } from "./Loading";
+export { default as Modal } from "./Modal";
 export { default as MagicButton } from "./MagicButton";
 export { default as Message } from "./Message";
 export { default as Radio } from "./Radio";

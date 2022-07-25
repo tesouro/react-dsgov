@@ -13,6 +13,7 @@ import Table from './components/Table';
 import Teste from './pages/Teste';
 import Menu from './components/Menu';
 import SkipLink from './components/SkipLink';
+import Modal from './components/Modal';
 
 function App() {
   const [teste, setTeste] = useState<boolean>(true);
@@ -527,6 +528,22 @@ function App() {
           </Col>
         </Row>
 
+      </Container>
+
+      <Container>
+        <Row>
+          <Col>
+              <Modal title="Retornar para página inicial?" showCloseButton>
+                <Modal.Body>
+                  Você está sendo redirecionado para a página inicial do sistema
+                </Modal.Body>
+                <Modal.Footer justify-content='end'>
+                  <Button secondary small m={2}>Ação 1</Button>
+                  <Button secondary small m={2}>Ação 2</Button>
+                </Modal.Footer>
+              </Modal>
+          </Col>
+        </Row>
       </Container>
 
     </>
