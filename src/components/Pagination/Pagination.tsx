@@ -1,21 +1,21 @@
 /* eslint-disable no-script-url */
-/* eslint-disable jsx-a11y/anchor-is-valid */
-import classNames from "classnames";
-import React, { useCallback, useEffect, useRef } from "react";
-import IMtProps from "../IMtProps";
-import { useSpreadProps } from "../Util/useSpreadProps";
-import { useMtProps } from "../Util/useMtProps";
-import Button from "../Button";
-import List from "../List";
-import Item from "../Item";
-import uniqueId from "lodash.uniqueid";
-import CustomTag from "../CustomTag";
+import classNames from 'classnames';
+import React, { useCallback, useEffect, useRef } from 'react';
+import IMtProps from '../IMtProps';
+import { useSpreadProps } from '../Util/useSpreadProps';
+import { useMtProps } from '../Util/useMtProps';
+import Button from '../Button';
+import List from '../List';
+import Item from '../Item';
+import uniqueId from 'lodash.uniqueid';
+import CustomTag from '../CustomTag';
 
 interface IEllipsis {
     start: number,
     end: number
 }
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const core = require('@govbr-ds/core/dist/core-init');
 
 
@@ -23,19 +23,19 @@ interface PaginationProps  extends Omit<React.HTMLAttributes<HTMLElement>, 'onCh
     pageCount: number,
     ellipsis?: IEllipsis[],
     links?: string[]
-    density?: "small" | "normal" | "large"
+    density?: 'small' | 'normal' | 'large'
     currentPage?: number,
     onChange?: (pageNumber: number) => void
 } 
 
 interface IList {
-    type: "normal" | "ellipsis",
+    type: 'normal' | 'ellipsis',
     pages: number[]
 }
 
 
 const Pagination = React.forwardRef<HTMLElement, PaginationProps>(
-    ({className, children, id = uniqueId("pagination_____"), pageCount, ellipsis, density, currentPage, onChange = () => {}, ...props}, ref) => {
+    ({className, children, id = uniqueId('pagination_____'), pageCount, ellipsis, density, currentPage, onChange = () => {/**/}, ...props}, ref) => {
         const mtProps = useMtProps(props);
         const spreadProps = useSpreadProps(props);
 
@@ -44,45 +44,45 @@ const Pagination = React.forwardRef<HTMLElement, PaginationProps>(
 
         core.BRPagination.prototype.thisObject = function() {
             return this;
-        }
+        };
 
         core.BRPagination.prototype.removeDropdownBehavior = function() {
             for (const dropdown of this.component.querySelectorAll(
-              '[data-toggle="dropdown"]'
+                '[data-toggle="dropdown"]'
             )) {
-              this._dropdownToggleRemove(dropdown)
+                this._dropdownToggleRemove(dropdown);
             }
-        }
+        };
         
         core.BRPagination.prototype.closeAllDropdowns = function() {
             for (const dropdown of this.component.querySelectorAll(
                 '[data-toggle="dropdown"]'
-              )) {
-                this._dropdownClose(dropdown)
-              }
-        }
+            )) {
+                this._dropdownClose(dropdown);
+            }
+        };
         
         core.BRPagination.prototype._handleDropdownClick = function() {
             if (this.element.getAttribute('aria-expanded') === 'false') {
-                this.thisObject._dropdownOpen(this.element)
-                return
+                this.thisObject._dropdownOpen(this.element);
+                return;
             }
-            this._dropdownClose(this.element)
-        }
+            this._dropdownClose(this.element);
+        };
                 
         
         core.BRPagination.prototype._dropdownToggle = function(element : HTMLElement) {
             element.addEventListener('click', this._handleDropdownClick.bind({element: element, thisObject: this}));
             window.document.addEventListener('click', (event) => {
                 if (!this.component.contains(event.target)) {
-                  this._dropdownClose(element)
+                    this._dropdownClose(element);
                 }
-              })
-          }
+            });
+        };
 
         core.BRPagination.prototype._dropdownToggleRemove = function(element : HTMLElement) {
             element.removeEventListener('click', this._handleDropdownClick);
-        }
+        };
 
         useEffect(() => {
             if(refElement.current) {
@@ -90,12 +90,12 @@ const Pagination = React.forwardRef<HTMLElement, PaginationProps>(
             }   
             refElement.current = new core.BRPagination('br-pagination', refDiv.current);
             
-        }, [pageCount, ellipsis, id])
+        }, [pageCount, ellipsis, id]);
         
         const handleClickItem = (page : number) => {
             refElement.current.closeAllDropdowns();
             onChange(page);
-        }
+        };
 
         const generateList = useCallback(() => {
             const isInsideEllipsis = (pageNumber : number) : boolean => {
@@ -109,18 +109,18 @@ const Pagination = React.forwardRef<HTMLElement, PaginationProps>(
     
                 return false;
                 
-            }
+            };
 
             const pageList : IList[] = [];
-            let currentPageList : IList = {type: "normal", pages: []};
+            let currentPageList : IList = {type: 'normal', pages: []};
 
             for (let index = 0; index < pageCount; index++) {
-                if(currentPageList.type === "normal" && isInsideEllipsis(index+1)) {
+                if(currentPageList.type === 'normal' && isInsideEllipsis(index+1)) {
                     pageList.push(currentPageList);
-                    currentPageList = {type: "ellipsis", pages: []};
+                    currentPageList = {type: 'ellipsis', pages: []};
                 } else if(!isInsideEllipsis(index+1)) {
                     pageList.push(currentPageList);
-                    currentPageList = {type: "normal", pages: []};
+                    currentPageList = {type: 'normal', pages: []};
                 }
 
                 currentPageList.pages.push(index+1);
@@ -132,17 +132,17 @@ const Pagination = React.forwardRef<HTMLElement, PaginationProps>(
                 <>
                     {pageList.map((page, index) => (
                         <CustomTag key={index}>
-                            {page.type === "normal" &&
+                            {page.type === 'normal' &&
                                 <>
                                     {page.pages.map((item, index) => (
                                         <li key={item}><a className={classNames(
-                                            "page",
-                                            (currentPage === item && "active")
+                                            'page',
+                                            (currentPage === item && 'active')
                                         )} href="javascript:void(0)" onClick={() => onChange(item)}>{item}</a></li>
                                     ))}
                                 </>
                             }
-                            {page.type === "ellipsis" &&
+                            {page.type === 'ellipsis' &&
                                 <>
                                     {page.pages.length > 0 &&
                                         <>
@@ -164,17 +164,17 @@ const Pagination = React.forwardRef<HTMLElement, PaginationProps>(
                         </CustomTag>
                     ))}
                 </>
-            )
-        }, [currentPage, ellipsis, onChange, pageCount])
+            );
+        }, [currentPage, ellipsis, onChange, pageCount]);
 
         return (
             <nav
                 ref={refDiv}
                 id={id}
                 className={classNames(
-                    "br-pagination",
-                    (density === "small" && "small"),
-                    (density === "large" && "large"),
+                    'br-pagination',
+                    (density === 'small' && 'small'),
+                    (density === 'large' && 'large'),
                     className,
                     ...mtProps
                 )}
@@ -196,6 +196,8 @@ const Pagination = React.forwardRef<HTMLElement, PaginationProps>(
             </nav>
         );
     }
-) 
+); 
+
+Pagination.displayName = 'Pagination';
 
 export default Pagination;

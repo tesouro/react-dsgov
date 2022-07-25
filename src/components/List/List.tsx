@@ -1,11 +1,12 @@
-import classNames from "classnames";
-import React, { useEffect, useRef } from "react";
-import IMtProps from "../IMtProps";
-import { useSpreadProps } from "../Util/useSpreadProps";
-import { useMtProps } from "../Util/useMtProps";
-import Divider from "../Divider";
-import uniqueId from "lodash.uniqueid";
+import classNames from 'classnames';
+import React, { useEffect, useRef } from 'react';
+import IMtProps from '../IMtProps';
+import { useSpreadProps } from '../Util/useSpreadProps';
+import { useMtProps } from '../Util/useMtProps';
+import Divider from '../Divider';
+import uniqueId from 'lodash.uniqueid';
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const core = require('@govbr-ds/core/dist/core-init');
 
 interface ListProps extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
@@ -18,7 +19,7 @@ interface ListProps extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
 }
 
 const List = React.forwardRef<HTMLDivElement, ListProps>(
-    ({ className, id = uniqueId("list_____"), children, role = "list", title, horizontal = false, hidden = false, ...props }, ref) => {
+    ({ className, id = uniqueId('list_____'), children, role = 'list', title, horizontal = false, hidden = false, ...props }, ref) => {
         const mtProps = useMtProps(props);
         const spreadProps = useSpreadProps(props);
         const refElemento = useRef(null);
@@ -29,21 +30,21 @@ const List = React.forwardRef<HTMLDivElement, ListProps>(
                 refElemento.current = new core.BRList('br-list', refDiv.current);
             }
             
-        }, [])
+        }, []);
 
         return (
             <div
                 ref={refDiv}
                 id={id}
                 className={classNames(
-                    "br-list",
-                    (horizontal && "horizontal"),
+                    'br-list',
+                    (horizontal && 'horizontal'),
                     className,
 
                     ...mtProps
                 )}
                 {...role && { role: role }}
-                {...hidden && { hidden: "hidden" }}
+                {...hidden && { hidden: 'hidden' }}
                 {...spreadProps}
 
             >
@@ -58,6 +59,8 @@ const List = React.forwardRef<HTMLDivElement, ListProps>(
             </div>
         );
     }
-)
+);
+
+List.displayName = 'List';
 
 export default List;

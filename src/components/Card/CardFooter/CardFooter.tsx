@@ -1,8 +1,8 @@
-import classNames from "classnames";
-import React from "react";
-import IMtProps from "../../IMtProps";
-import { useSpreadProps } from "../../Util/useSpreadProps";
-import { useMtProps } from "../../Util/useMtProps";
+import classNames from 'classnames';
+import React from 'react';
+import IMtProps from '../../IMtProps';
+import { useSpreadProps } from '../../Util/useSpreadProps';
+import { useMtProps } from '../../Util/useMtProps';
 
 interface CardFooterProps  extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
 
@@ -17,7 +17,7 @@ const CardFooter = React.forwardRef<HTMLDivElement, CardFooterProps>(
             <div
                 ref={ref}
                 className={classNames(
-                    "card-footer",
+                    'card-footer',
                     ...mtProps,
                     className
                 )}
@@ -28,6 +28,8 @@ const CardFooter = React.forwardRef<HTMLDivElement, CardFooterProps>(
             </div>
         );
     }
-) 
+); 
+
+CardFooter.displayName = 'CardFooter';
 
 export default CardFooter;

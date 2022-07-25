@@ -1,10 +1,11 @@
-import classNames from "classnames";
-import React, { useEffect, useImperativeHandle, useRef } from "react";
-import IMtProps from "../IMtProps";
-import { useSpreadProps } from "../Util/useSpreadProps";
-import { useMtProps } from "../Util/useMtProps";
-import uniqueId from "lodash.uniqueid";
+import classNames from 'classnames';
+import React, { useEffect, useImperativeHandle, useRef } from 'react';
+import IMtProps from '../IMtProps';
+import { useSpreadProps } from '../Util/useSpreadProps';
+import { useMtProps } from '../Util/useMtProps';
+import uniqueId from 'lodash.uniqueid';
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const core = require('@govbr-ds/core/dist/core-init');
 
 interface CheckboxProps  extends React.HTMLAttributes<HTMLInputElement>, IMtProps {
@@ -34,7 +35,7 @@ interface CheckboxProps  extends React.HTMLAttributes<HTMLInputElement>, IMtProp
 } 
 
 const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
-    ({className, id = uniqueId("checkbox_____"), children, inline, state, disabled, defaultChecked = false, checked = false, name, label, value, indeterminate = false, parentGroup, childOf, ...props}, ref) => {
+    ({className, id = uniqueId('checkbox_____'), children, inline, state, disabled, defaultChecked = false, checked = false, name, label, value, indeterminate = false, parentGroup, childOf, ...props}, ref) => {
         const mtProps = useMtProps(props);
         const spreadProps = useSpreadProps(props);
 
@@ -55,17 +56,17 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
                 refElement.current = new core.BRCheckbox('br-checkbox', refWrapper.current);
             }
             
-        }, [])
+        }, []);
 
         return (
             <div 
-                {...(state === "valid") && {valid: "valid"}}
-                {...(state === "invalid") && {invalid: "invalid"}}
-                {...indeterminate && {indeterminate: "indeterminate"}}
+                {...(state === 'valid') && {valid: 'valid'}}
+                {...(state === 'invalid') && {invalid: 'invalid'}}
+                {...indeterminate && {indeterminate: 'indeterminate'}}
                 ref={refWrapper}
                 
                 className={classNames(
-                    "br-checkbox",
+                    'br-checkbox',
                     ...mtProps,
                     (inline && 'd-inline')
                 )}
@@ -82,9 +83,9 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
                     {...value && {value: value}}
                     {...checked && {checked: checked}}
                     {...defaultChecked && {defaultChecked: defaultChecked}}
-                    {...disabled && {disabled: "disabled"}}
-                    {...parentGroup && {"data-parent": parentGroup}}
-                    {...childOf && {"data-child": childOf}}
+                    {...disabled && {disabled: 'disabled'}}
+                    {...parentGroup && {'data-parent': parentGroup}}
+                    {...childOf && {'data-child': childOf}}
                     {...spreadProps}
                 />
                 <label htmlFor={id}>{label}</label>
@@ -92,6 +93,8 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
             </div>
         );
     }
-) 
+); 
+
+Checkbox.displayName = 'Checkbox';
 
 export default Checkbox;

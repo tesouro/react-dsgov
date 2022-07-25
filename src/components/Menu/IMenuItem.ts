@@ -1,4 +1,4 @@
-export default interface IMenuItem {
+interface IMenuItem {
     label?: string,
     link?: string,
     submenu?: IMenuItem[]
@@ -6,3 +6,5 @@ export default interface IMenuItem {
     divider?: boolean,
     expanded?: boolean
 }
+
+export default IMenuItem;

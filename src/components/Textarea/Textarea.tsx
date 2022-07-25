@@ -1,12 +1,12 @@
-import classNames from "classnames";
-import React, { useImperativeHandle, useRef, useState } from "react";
-import IMtProps from "../IMtProps";
-import { useSpreadProps } from "../Util/useSpreadProps";
-import { useMtProps } from "../Util/useMtProps";
-import Message from "../Message/Message";
-import { mapaIcones } from "../Util/Util";
-import Row from "../Row/Row";
-import uniqueId from "lodash.uniqueid";
+import classNames from 'classnames';
+import React, { useImperativeHandle, useRef, useState } from 'react';
+import IMtProps from '../IMtProps';
+import { useSpreadProps } from '../Util/useSpreadProps';
+import { useMtProps } from '../Util/useMtProps';
+import Message from '../Message/Message';
+import { mapaIcones } from '../Util/Util';
+import Row from '../Row/Row';
+import uniqueId from 'lodash.uniqueid';
 
 interface TextareaProps extends React.HTMLAttributes<HTMLTextAreaElement>, IMtProps {
     /** Label do textarea. */
@@ -19,7 +19,7 @@ interface TextareaProps extends React.HTMLAttributes<HTMLTextAreaElement>, IMtPr
      * - normal: normal
      * - large: grande
      */
-    density?: "small" | "normal" | "large",
+    density?: 'small' | 'normal' | 'large',
     /** Se a label é mostrada à esquerda do campo. */
     inline?: boolean,
     /** Valor do textarea. */
@@ -35,7 +35,7 @@ interface TextareaProps extends React.HTMLAttributes<HTMLTextAreaElement>, IMtPr
      * - info: azul
      * - warning: amarelo
      */
-    status?: "success" | "danger" | "info" | "warning",
+    status?: 'success' | 'danger' | 'info' | 'warning',
     /** Texto de feedback que aparece embaixo do textarea. */
     feedbackText?: string | React.ReactElement,
     /** Se é invertido, para fundos escuros. */
@@ -43,7 +43,7 @@ interface TextareaProps extends React.HTMLAttributes<HTMLTextAreaElement>, IMtPr
 }
 
 const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
-    ({ className, children, label, id = uniqueId("textarea_____"), placeholder, density = "normal", inline, value, maxLength, feedbackText, showCharacterCounter = false, status, inverted = false, onChange, ...props }, ref) => {
+    ({ className, children, label, id = uniqueId('textarea_____'), placeholder, density = 'normal', inline, value, maxLength, feedbackText, showCharacterCounter = false, status, inverted = false, onChange, ...props }, ref) => {
         const mtProps = useMtProps(props);
         const spreadProps = useSpreadProps(props);
 
@@ -86,7 +86,7 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
 
             // Seta a quantidade de Caracteres
             setQtdCaracteres(evento.target.value.length);
-        }
+        };
 
 
         const labelElement = label && <label ref={refLabel} htmlFor={id}>{label}</label>;
@@ -105,19 +105,19 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
                 {!maxLength && <div className="text-base mt-1"><span className="limit"><strong>{qtdCaracteres}</strong> caracteres digitados</span><span className="current"></span></div>}
             </>
             }
-            {feedbackText && <Message category="feedback" type={status ? status : "success"} icon={status && mapaIcones.get(status)}>{feedbackText}</Message>}
+            {feedbackText && <Message category="feedback" type={status ? status : 'success'} icon={status && mapaIcones.get(status)}>{feedbackText}</Message>}
             
             {children}
-        </>
+        </>;
 
         return (
             <div
                 ref={refTextareaWrapper}
                 className={classNames(
-                    "br-textarea",
-                    ((density === "small") && "small"),
-                    ((density === "large") && "large"),
-                    (inverted && "inverted"),
+                    'br-textarea',
+                    ((density === 'small') && 'small'),
+                    ((density === 'large') && 'large'),
+                    (inverted && 'inverted'),
                     status,
                     className,
                     ...mtProps
@@ -146,6 +146,8 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
             </div>
         );
     }
-)
+);
+
+Textarea.displayName = 'Textarea';
 
 export default Textarea;

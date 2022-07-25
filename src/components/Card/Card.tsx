@@ -1,12 +1,12 @@
-import classNames from "classnames";
-import React from "react";
-import CardContent from "./CardContent";
-import CardFooter from "./CardFooter";
-import CardHeader from "./CardHeader";
-import IMtProps from "../IMtProps";
-import { useSpreadProps } from "../Util/useSpreadProps";
-import { useMtProps } from "../Util/useMtProps";
-import uniqueId from "lodash.uniqueid";
+import classNames from 'classnames';
+import React from 'react';
+import CardContent from './CardContent';
+import CardFooter from './CardFooter';
+import CardHeader from './CardHeader';
+import IMtProps from '../IMtProps';
+import { useSpreadProps } from '../Util/useSpreadProps';
+import { useMtProps } from '../Util/useMtProps';
+import uniqueId from 'lodash.uniqueid';
 
 interface CardProps extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
     /** Se o card mostra muda de comportamento ao passar o mouse em cima. */
@@ -20,7 +20,7 @@ interface CardProps extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
 } 
 
 const Card = React.forwardRef<HTMLDivElement, CardProps>(
-    ({className, id = uniqueId("card_____"), children, hover, hFixed, disabled, ...props}, ref) => {
+    ({className, id = uniqueId('card_____'), children, hover, hFixed, disabled, ...props}, ref) => {
         const mtProps = useMtProps(props);
         const spreadProps = useSpreadProps(props);
 
@@ -29,10 +29,10 @@ const Card = React.forwardRef<HTMLDivElement, CardProps>(
                 ref={ref}
                 id={id}
                 className={classNames(
-                    "br-card",
-                    hover && "hover",
-                    hFixed && "h-fixed",
-                    disabled && "disabled",
+                    'br-card',
+                    hover && 'hover',
+                    hFixed && 'h-fixed',
+                    disabled && 'disabled',
                     ...mtProps,
                     className
                 )}
@@ -42,7 +42,9 @@ const Card = React.forwardRef<HTMLDivElement, CardProps>(
             </div>
         );
     }
-) 
+); 
+
+Card.displayName = 'Card';
 
 export default Object.assign(Card, {
     Header: CardHeader,

@@ -1,10 +1,11 @@
-import classNames from "classnames";
-import React, { useEffect, useRef } from "react";
-import IMtProps from "../IMtProps";
-import { useSpreadProps } from "../Util/useSpreadProps";
-import { useMtProps } from "../Util/useMtProps";
-import CustomTag from "../CustomTag";
+import classNames from 'classnames';
+import React, { useEffect, useRef } from 'react';
+import IMtProps from '../IMtProps';
+import { useSpreadProps } from '../Util/useSpreadProps';
+import { useMtProps } from '../Util/useMtProps';
+import CustomTag from '../CustomTag';
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const core = require('@govbr-ds/core/dist/core-init');
 
 interface MessageProps extends React.HTMLAttributes<HTMLElement>, IMtProps {
@@ -14,7 +15,7 @@ interface MessageProps extends React.HTMLAttributes<HTMLElement>, IMtProps {
      * - message: tipo "Mensagem". Maior e ocupa a linha inteira.
      * - feedback: tipo "Feedback". Menor e inline.
      */
-    category: "feedback" | "message",
+    category: 'feedback' | 'message',
     /** Tipo. Vai definir a cor da mensagem.
      * 
      * - danger: vermelho
@@ -22,7 +23,7 @@ interface MessageProps extends React.HTMLAttributes<HTMLElement>, IMtProps {
      * - info: azul
      * - warning: amarelo
      */
-    type: "danger" | "success" | "info" | "warning",
+    type: 'danger' | 'success' | 'info' | 'warning',
     /** Classe FontAwesome do ícone associado à mensagem. */
     icon?: string,
     /** Título da mensagem. */
@@ -32,7 +33,7 @@ interface MessageProps extends React.HTMLAttributes<HTMLElement>, IMtProps {
 }
 
 const Message = React.forwardRef<HTMLElement, MessageProps>(
-    ({ className, children, category, type, role = "alert", icon, messageTitle, hasCloseButton = true, ...props }, ref) => {
+    ({ className, children, category, type, role = 'alert', icon, messageTitle, hasCloseButton = true, ...props }, ref) => {
         const mtProps = useMtProps(props);
         const spreadProps = useSpreadProps(props);
         const refWrapper = useRef(ref);
@@ -47,11 +48,11 @@ const Message = React.forwardRef<HTMLElement, MessageProps>(
         
         return (
             <CustomTag
-                tagName={category === "feedback" ? "span" : "div"}
+                tagName={category === 'feedback' ? 'span' : 'div'}
                 ref={refWrapper}
                 className={classNames(
-                    (category === "feedback" && "feedback"),
-                    (category === "message" && "br-message"),
+                    (category === 'feedback' && 'feedback'),
+                    (category === 'message' && 'br-message'),
                     type,
                     className,
                     ...mtProps
@@ -60,13 +61,13 @@ const Message = React.forwardRef<HTMLElement, MessageProps>(
                 {...spreadProps}
 
             >
-                {category === "feedback" &&
+                {category === 'feedback' &&
                     <>
                         {icon && <i className={icon} aria-hidden="true"></i>}
                         {children}
                     </>
                 }
-                {category === "message" &&
+                {category === 'message' &&
                     <>
                         {icon && <div className="icon"><i className={icon} aria-hidden="true"></i>
                         </div>}
@@ -82,6 +83,8 @@ const Message = React.forwardRef<HTMLElement, MessageProps>(
             </CustomTag>
         );
     }
-)
+);
+
+Message.displayName = 'Message';
 
 export default Message;

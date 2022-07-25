@@ -1,15 +1,16 @@
-import classNames from "classnames";
-import React, { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
-import IMtProps from "../IMtProps";
-import { useSpreadProps } from "../Util/useSpreadProps";
-import { useMtProps } from "../Util/useMtProps";
-import List from "../List/List";
-import Item from "../Item/Item";
-import Radio from "../Radio/Radio";
-import Checkbox from "../Checkbox";
-import AnyAttribute from "react-any-attr";
-import uniqueId from "lodash.uniqueid";
+import classNames from 'classnames';
+import React, { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
+import IMtProps from '../IMtProps';
+import { useSpreadProps } from '../Util/useSpreadProps';
+import { useMtProps } from '../Util/useMtProps';
+import List from '../List/List';
+import Item from '../Item/Item';
+import Radio from '../Radio/Radio';
+import Checkbox from '../Checkbox';
+import AnyAttribute from 'react-any-attr';
+import uniqueId from 'lodash.uniqueid';
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const core = require('@govbr-ds/core/dist/core-init');
 
 export interface SelectOptions {
@@ -33,7 +34,7 @@ interface SelectProps extends React.HTMLAttributes<HTMLSelectElement>, IMtProps 
      * - single: simples.
      * - multiple: múltiplo.
      */
-    type?: "single" | "multiple";
+    type?: 'single' | 'multiple';
     /** Se existe opção de selecionar todos, se o type="multiple". */
     selectAllText?: string,
     /** Função pra setar o valor de um estado associado ao select. */
@@ -41,11 +42,11 @@ interface SelectProps extends React.HTMLAttributes<HTMLSelectElement>, IMtProps 
 }
 
 const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
-    ({ className, children, id = uniqueId("select_____"), label, options, value, setValue = () => {}, onChange = () => {}, placeholder, type = "single", selectAllText = "Selecionar todos", ...props }, ref) => {
+    ({ className, children, id = uniqueId('select_____'), label, options, value, setValue = () => {/* */}, onChange = () => {/* */}, placeholder, type = 'single', selectAllText = 'Selecionar todos', ...props }, ref) => {
         const mtProps = useMtProps(props);
         const spreadProps = useSpreadProps(props);
-        const [valor, setValor] = useState<string | string[]>("");
-        const [displayValue, setDisplayValue] = useState("");
+        const [valor, setValor] = useState<string | string[]>('');
+        const [displayValue, setDisplayValue] = useState('');
 
         const [valores, setValores] = useState<Map<string, boolean>>(new Map());
 
@@ -57,9 +58,9 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
         const customAttributes : any = {};
 
         useEffect(() => {
-            if(typeof valor === "string") {
+            if(typeof valor === 'string') {
                 setDisplayValue(valor);
-            } else if (typeof valor === "number") {
+            } else if (typeof valor === 'number') {
                 setDisplayValue(String(valor));
             }
 
@@ -73,18 +74,18 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
             } else {
                 refBrSelect.current = new core.BRSelect('br-select', refWrapper.current);
             }
-        }, [options])
+        }, [options]);
 
         useEffect(() => {
             setValores(oldValores => {
-                const elementos = refWrapper.current.getElementsByTagName("input");
+                const elementos = refWrapper.current.getElementsByTagName('input');
                 for (const elemento of elementos) {
 
                     if(Array.isArray(value)) {
                         for (const valorElemento of value as string[]) {
                             if(valorElemento === elemento.value) {
                                 oldValores.set(elemento.id, true);
-                                let option = refBrSelect.current.optionsList.findIndex((obj : any) => obj.inputValue === elemento.value);
+                                const option = refBrSelect.current.optionsList.findIndex((obj : any) => obj.inputValue === elemento.value);
                                 refBrSelect.current.optionsList[option].selected = true;
                             }
                             
@@ -95,11 +96,11 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
                 }
 
                 return oldValores;
-            })
-        }, [value])
+            });
+        }, [value]);
 
-        if(type === "multiple") {
-            customAttributes["multiple"] = "multiple";
+        if(type === 'multiple') {
+            customAttributes['multiple'] = 'multiple';
         }
 
         return (
@@ -109,7 +110,7 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
                     {...spreadProps}
 
                     className={classNames(
-                        "br-select",
+                        'br-select',
                         className,
                         ...mtProps
                     )}
@@ -121,7 +122,7 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
                         <button className="br-button" type="button" aria-label="Exibir lista" tabIndex={-1} data-trigger="data-trigger"><i className="fas fa-angle-down" aria-hidden="true"></i></button>
                     </div>
                     <List tabIndex={0} role="">
-                        {type === "multiple" && selectAllText &&
+                        {type === 'multiple' && selectAllText &&
                             <Item highlighted tabIndex={-1} divider data-all="data-all" role="">
                                 <Checkbox  
                                     id={`${id}____`}
@@ -132,7 +133,7 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
                         }
                         {options.map((elemento) => (
                             <Item key={elemento.value} tabIndex={-1} divider role="">
-                                {type === "single" &&
+                                {type === 'single' &&
                                     <Radio
                                         id={`${id}____${elemento.value}`}
                                         name={id}
@@ -140,16 +141,16 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
                                         label={elemento.label}
                                         checked={String(elemento.value) === String(value)}
                                         data-value={value}
-                                        onChange={() => {onChange(elemento.value); console.log('trocou')}}
+                                        onChange={() => {onChange(elemento.value); console.log('trocou');}}
                                     />}
-                                {type === "multiple" &&
+                                {type === 'multiple' &&
                                     <Checkbox
                                         id={`${id}____${elemento.value}`}
                                         name={String(elemento.value)}
                                         label={elemento.label}
                                         defaultChecked={valores.get(`${id}____${elemento.value}`)}
                                         value={String(elemento.value)}
-                                        onChange={(evento) => { setValores((lista) => { lista.set(id, evento.currentTarget.checked); return lista; });  onChange(refBrSelect.current?.selectedValue) }}
+                                        onChange={(evento) => { setValores((lista) => { lista.set(id, evento.currentTarget.checked); return lista; });  onChange(refBrSelect.current?.selectedValue); }}
                                     />
                                 }
                             </Item>
@@ -161,6 +162,8 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
             </AnyAttribute>
         );
     }
-)
+);
+
+Select.displayName = 'Select';
 
 export default Select;

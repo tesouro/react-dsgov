@@ -5,13 +5,21 @@
   "version": "0.6.0",
   "private": false,
   "repository": {
-      "type": "git",
-      "url": "git+https://github.com/cosis-stn/react-dsgov.git"
-  },  
-  "keywords": ["react", "components", "ui", "dsgov"],
+    "type": "git",
+    "url": "git+https://github.com/cosis-stn/react-dsgov.git"
+  },
+  "keywords": [
+    "react",
+    "components",
+    "ui",
+    "dsgov"
+  ],
   "main": "dist/index.js",
   "module": "dist/index.js",
-  "files": ["dist", "README.md"],
+  "files": [
+    "dist",
+    "README.md"
+  ],
   "dependencies": {
     "@babel/polyfill": "^7.12.1",
     "@fortawesome/fontawesome-svg-core": "^6.1.1",
@@ -70,6 +78,10 @@
     "@babel/core": "^7.18.9",
     "@babel/preset-env": "^7.18.9",
     "@types/lodash.uniqueid": "^4.0.7",
+    "@typescript-eslint/eslint-plugin": "^5.31.0",
+    "@typescript-eslint/parser": "^5.31.0",
+    "eslint": "^8.20.0",
+    "eslint-plugin-react": "^7.30.1",
     "react-docgen-typescript": "^2.2.2",
     "react-styleguidist": "^11.2.0",
     "webpack": "^5.73.0"

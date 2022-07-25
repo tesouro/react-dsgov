@@ -1,10 +1,9 @@
-/* eslint-disable jsx-a11y/no-access-key */
-import classNames from "classnames";
-import React from "react";
-import IMtProps from "../IMtProps";
-import { useSpreadProps } from "../Util/useSpreadProps";
-import { useMtProps } from "../Util/useMtProps";
-import ISkipLink from "./ISkipLink";
+import classNames from 'classnames';
+import React from 'react';
+import IMtProps from '../IMtProps';
+import { useSpreadProps } from '../Util/useSpreadProps';
+import { useMtProps } from '../Util/useMtProps';
+import ISkipLink from './ISkipLink';
 
 interface SkipLinkProps  extends React.HTMLAttributes<HTMLElement>, IMtProps {
     /** Lista de elementos do skiplink. */
@@ -22,8 +21,8 @@ const SkipLink = React.forwardRef<HTMLElement, SkipLinkProps>(
             <nav
                 ref={ref}
                 className={classNames(
-                    "br-skiplink",
-                    (full && "full"),
+                    'br-skiplink',
+                    (full && 'full'),
                     className,
                     ...mtProps
                 )}
@@ -31,7 +30,7 @@ const SkipLink = React.forwardRef<HTMLElement, SkipLinkProps>(
                 
             >
                 {data.map((link, index) => (
-                    <a className="br-item" href={link.link} accessKey={String(index)}>
+                    <a key={index} className="br-item" href={link.link} accessKey={String(index)}>
                         {link.label}
                         <span className="br-tag text ml-1">{index}</span>
                     </a>
@@ -40,6 +39,8 @@ const SkipLink = React.forwardRef<HTMLElement, SkipLinkProps>(
             </nav>
         );
     }
-) 
+); 
+
+SkipLink.displayName = 'SkipLink';
 
 export default SkipLink;

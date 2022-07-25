@@ -1,10 +1,10 @@
-import classNames from "classnames";
-import React, { useImperativeHandle, useRef } from "react";
-import IMtProps from "../IMtProps";
-import { useSpreadProps } from "../Util/useSpreadProps";
-import { useMtProps } from "../Util/useMtProps";
-import Button from "../Button";
-import uniqueId from "lodash.uniqueid";
+import classNames from 'classnames';
+import React, { useImperativeHandle, useRef } from 'react';
+import IMtProps from '../IMtProps';
+import { useSpreadProps } from '../Util/useSpreadProps';
+import { useMtProps } from '../Util/useMtProps';
+import Button from '../Button';
+import uniqueId from 'lodash.uniqueid';
 
 
 interface MagicButtonProps  extends React.HTMLAttributes<HTMLButtonElement>, IMtProps {
@@ -14,7 +14,7 @@ interface MagicButtonProps  extends React.HTMLAttributes<HTMLButtonElement>, IMt
          * - medium: média
          * - small: pequena
          */
-        density?: "large" | "small" | "medium";
+        density?: 'large' | 'small' | 'medium';
         /** Se o botão é circular. */
         circle?: boolean,
         /** Classe de ícone FontAwesome para o botão. */
@@ -22,7 +22,7 @@ interface MagicButtonProps  extends React.HTMLAttributes<HTMLButtonElement>, IMt
 }
 
 const MagicButton = React.forwardRef<HTMLButtonElement, MagicButtonProps>(
-    ({className, id = uniqueId("magicbutton_____"), children, density = "medium", ...props}, ref) => {
+    ({className, id = uniqueId('magicbutton_____'), children, density = 'medium', ...props}, ref) => {
         const mtProps = useMtProps(props);
         const spreadProps = useSpreadProps(props);
         const refWrapper = useRef(null);
@@ -38,7 +38,7 @@ const MagicButton = React.forwardRef<HTMLButtonElement, MagicButtonProps>(
                 
                 ref={refWrapper}
                 className={classNames(
-                    "br-magic-button",
+                    'br-magic-button',
                     density,
                     className,
                     ...mtProps
@@ -55,6 +55,8 @@ const MagicButton = React.forwardRef<HTMLButtonElement, MagicButtonProps>(
             </div>
         );
     }
-) 
+); 
+
+MagicButton.displayName = 'MagicButton';
 
 export default MagicButton;

@@ -1,8 +1,8 @@
-import classNames from "classnames";
-import React from "react";
-import IMtProps from "../../IMtProps";
-import { useSpreadProps } from "../../Util/useSpreadProps";
-import { useMtProps } from "../../Util/useMtProps";
+import classNames from 'classnames';
+import React from 'react';
+import IMtProps from '../../IMtProps';
+import { useSpreadProps } from '../../Util/useSpreadProps';
+import { useMtProps } from '../../Util/useMtProps';
 
 interface ModalBodyProps  extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
     /** Se a modal está carregando. */
@@ -18,8 +18,8 @@ const ModalBody = React.forwardRef<HTMLDivElement, ModalBodyProps>(
             <div
                 ref={ref}
                 className={classNames(
-                    "br-modal-body",
-                    (loading && "is-loading"),
+                    'br-modal-body',
+                    (loading && 'is-loading'),
                     className,
                     ...mtProps
                 )}
@@ -30,6 +30,8 @@ const ModalBody = React.forwardRef<HTMLDivElement, ModalBodyProps>(
             </div>
         );
     }
-) 
+); 
+
+ModalBody.displayName = 'ModalBody';
 
 export default ModalBody;

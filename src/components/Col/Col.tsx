@@ -1,8 +1,8 @@
-import classNames from "classnames";
-import React from "react";
-import IMtProps from "../IMtProps";
-import { useSpreadProps } from "../Util/useSpreadProps";
-import { useMtProps } from "../Util/useMtProps";
+import classNames from 'classnames';
+import React from 'react';
+import IMtProps from '../IMtProps';
+import { useSpreadProps } from '../Util/useSpreadProps';
+import { useMtProps } from '../Util/useMtProps';
 
 interface ColProps  extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
     /** Tamanho da coluna. */
@@ -34,7 +34,7 @@ const Col = React.forwardRef<HTMLDivElement, ColProps>(
                     xl && (typeof xl === 'boolean' ? 'col-xl' : `col-xl-${xl}`),
                     auto && (typeof auto === 'boolean' ? 'col-auto' : `col-auto-${auto}`),
                     size && (typeof size === 'boolean' ? 'col' : `col-${size}`),
-                    (!sm && !md && !lg && !xl && !auto && !size && "col"),
+                    (!sm && !md && !lg && !xl && !auto && !size && 'col'),
                     ...mtProps,
                     className
                 )}
@@ -45,6 +45,8 @@ const Col = React.forwardRef<HTMLDivElement, ColProps>(
             </div>
         );
     }
-) 
+); 
+
+Col.displayName = 'Col';
 
 export default Col;

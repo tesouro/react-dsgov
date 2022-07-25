@@ -1,11 +1,11 @@
-import classNames from "classnames";
-import React, { useImperativeHandle, useRef } from "react";
-import IMtProps from "../IMtProps";
-import { useSpreadProps } from "../Util/useSpreadProps";
-import { useMtProps } from "../Util/useMtProps";
-import Message from "../Message/Message";
-import { mapaIcones } from "../Util/Util";
-import uniqueId from "lodash.uniqueid";
+import classNames from 'classnames';
+import React, { useImperativeHandle, useRef } from 'react';
+import IMtProps from '../IMtProps';
+import { useSpreadProps } from '../Util/useSpreadProps';
+import { useMtProps } from '../Util/useMtProps';
+import Message from '../Message/Message';
+import { mapaIcones } from '../Util/Util';
+import uniqueId from 'lodash.uniqueid';
 
 interface InputProps  extends React.HTMLAttributes<HTMLInputElement>, IMtProps {
     /** Label do input. */
@@ -20,7 +20,7 @@ interface InputProps  extends React.HTMLAttributes<HTMLInputElement>, IMtProps {
      * - normal: normal
      * - large: largo.
      */
-    density?: "small" | "normal" | "large",
+    density?: 'small' | 'normal' | 'large',
     /** Classe font awesome do ícone do input. */
     icon?: string,
     /** Botão no canto direito do input. */
@@ -38,13 +38,13 @@ interface InputProps  extends React.HTMLAttributes<HTMLInputElement>, IMtProps {
      * - info: azul
      * - warning: amarelo
      */
-    status?: "success" | "danger" | "info" | "warning",
+    status?: 'success' | 'danger' | 'info' | 'warning',
     /** Texto de feedback que aparece embaixo do item, com a cor de fundo de acordo com o status escolhido. */
     feedbackText?: string
 } 
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
-    ({className, id = uniqueId("input_____"), children, label, placeholder, type = "text", density = "normal", icon, button, highlight, inline, value, status, feedbackText, ...props}, ref) => {
+    ({className, id = uniqueId('input_____'), children, label, placeholder, type = 'text', density = 'normal', icon, button, highlight, inline, value, status, feedbackText, ...props}, ref) => {
         const mtProps = useMtProps(props);
         const spreadProps = useSpreadProps(props);
 
@@ -79,11 +79,11 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
                 
                 ref={refInputWrapper}
                 className={classNames(
-                    "br-input",
-                    ((density === "small") && "small"),
-                    ((density === "large") && "large"),
-                    (highlight && "input-highlight"),
-                    (inline && "input-inline"),
+                    'br-input',
+                    ((density === 'small') && 'small'),
+                    ((density === 'large') && 'large'),
+                    (highlight && 'input-highlight'),
+                    (inline && 'input-inline'),
                     status,
                     className,
                     ...mtProps
@@ -97,7 +97,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
                         {icon && <div ref={refIconGroup} className="input-icon"><i ref={refIcon} className={icon} aria-hidden="true"></i></div>}
                         <input id={id} ref={ref} type={type} placeholder={placeholder} value={value} {...spreadProps} />
                         {button}
-                        {feedbackText && <Message category="feedback" type={status ? status : "success"} icon={status && mapaIcones.get(status)}>{feedbackText}</Message>}
+                        {feedbackText && <Message category="feedback" type={status ? status : 'success'} icon={status && mapaIcones.get(status)}>{feedbackText}</Message>}
                         {children}
                     </div>
                 </div>
@@ -105,6 +105,8 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
             </div>
         );
     }
-) 
+); 
+
+Input.displayName = 'Input';
 
 export default Input;

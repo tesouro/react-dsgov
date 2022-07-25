@@ -1,8 +1,8 @@
-import classNames from "classnames";
-import React from "react";
-import IMtProps from "../../IMtProps";
-import { useSpreadProps } from "../../Util/useSpreadProps";
-import { useMtProps } from "../../Util/useMtProps";
+import classNames from 'classnames';
+import React from 'react';
+import IMtProps from '../../IMtProps';
+import { useSpreadProps } from '../../Util/useSpreadProps';
+import { useMtProps } from '../../Util/useMtProps';
 
 interface CardHeaderProps extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
     cardTitle?: string,
@@ -22,7 +22,7 @@ const CardHeader = React.forwardRef<HTMLDivElement, CardHeaderProps>(
             <div
                 ref={ref}
                 className={classNames(
-                    "card-header",
+                    'card-header',
                     ...mtProps,
                     className
                 )}
@@ -45,6 +45,8 @@ const CardHeader = React.forwardRef<HTMLDivElement, CardHeaderProps>(
             </div>
         );
     }
-)
+);
+
+CardHeader.displayName = 'CardHeader';
 
 export default CardHeader;

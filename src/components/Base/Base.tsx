@@ -1,8 +1,8 @@
-import classNames from "classnames";
-import React from "react";
-import IMtProps from "../IMtProps";
-import { useSpreadProps } from "../Util/useSpreadProps";
-import { useMtProps } from "../Util/useMtProps";
+import classNames from 'classnames';
+import React from 'react';
+import IMtProps from '../IMtProps';
+import { useSpreadProps } from '../Util/useSpreadProps';
+import { useMtProps } from '../Util/useMtProps';
 
 interface BaseProps  extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
 
@@ -27,6 +27,8 @@ const Base = React.forwardRef<HTMLDivElement, BaseProps>(
             </div>
         );
     }
-) 
+); 
+
+Base.displayName = 'Base';
 
 export default Base;

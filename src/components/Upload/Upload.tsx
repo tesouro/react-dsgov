@@ -1,10 +1,11 @@
-import classNames from "classnames";
-import React, { useEffect, useRef } from "react";
-import IMtProps from "../IMtProps";
-import { useSpreadProps } from "../Util/useSpreadProps";
-import { useMtProps } from "../Util/useMtProps";
-import uniqueId from "lodash.uniqueid";
+import classNames from 'classnames';
+import React, { useEffect, useRef } from 'react';
+import IMtProps from '../IMtProps';
+import { useSpreadProps } from '../Util/useSpreadProps';
+import { useMtProps } from '../Util/useMtProps';
+import uniqueId from 'lodash.uniqueid';
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const core = require('@govbr-ds/core/dist/core-init');
 
 interface UploadProps  extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
@@ -19,7 +20,7 @@ interface UploadProps  extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
 } 
 
 const Upload = React.forwardRef<HTMLDivElement, UploadProps>(
-    ({className, children, id = uniqueId("upload_____"), label, multiple = false, disabled = false, uploadTimeout, ...props}, ref) => {
+    ({className, children, id = uniqueId('upload_____'), label, multiple = false, disabled = false, uploadTimeout, ...props}, ref) => {
         const mtProps = useMtProps(props);
         const spreadProps = useSpreadProps(props);
 
@@ -29,19 +30,19 @@ const Upload = React.forwardRef<HTMLDivElement, UploadProps>(
 
         useEffect(() => {
             if(refWrapper.current && uploadTimeout && !refElement.current) {
-                refElement.current = new core.BRUpload('br-upload', refWrapper.current, uploadTimeout)
+                refElement.current = new core.BRUpload('br-upload', refWrapper.current, uploadTimeout);
             }            
-        }, [uploadTimeout])
+        }, [uploadTimeout]);
 
         return (
             <div
                 ref={refWrapper}
                 className={classNames(
-                    "br-upload",
+                    'br-upload',
                     className,
                     ...mtProps
                 )}
-                {...disabled && {disabled: "disabled"}}
+                {...disabled && {disabled: 'disabled'}}
                 {...spreadProps}
                 
             >
@@ -50,7 +51,7 @@ const Upload = React.forwardRef<HTMLDivElement, UploadProps>(
                     className="upload-input" 
                     id={id} 
                     type="file"
-                    {...multiple && {multiple: "multiple"}}
+                    {...multiple && {multiple: 'multiple'}}
                     {...spreadProps}
                 />
                 <div className="upload-list"></div>
@@ -58,6 +59,8 @@ const Upload = React.forwardRef<HTMLDivElement, UploadProps>(
             </div>
         );
     }
-) 
+); 
+
+Upload.displayName = 'Upload';
 
 export default Upload;

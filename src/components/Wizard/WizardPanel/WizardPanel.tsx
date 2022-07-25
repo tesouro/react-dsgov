@@ -1,10 +1,10 @@
-import '@govbr-ds/core/dist/core.min.css'
+import '@govbr-ds/core/dist/core.min.css';
 
-import classNames from "classnames";
-import React from "react";
-import IMtProps from "../../IMtProps";
-import { useSpreadProps } from "../../Util/useSpreadProps";
-import { useMtProps } from "../../Util/useMtProps";
+import classNames from 'classnames';
+import React from 'react';
+import IMtProps from '../../IMtProps';
+import { useSpreadProps } from '../../Util/useSpreadProps';
+import { useMtProps } from '../../Util/useMtProps';
 
 
 interface WizardPanelProps  extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
@@ -24,7 +24,7 @@ const WizardPanel = React.forwardRef<HTMLDivElement, WizardPanelProps>(
             <div
                 ref={ref}
                 className={classNames(
-                    "wizard-panel-content",
+                    'wizard-panel-content',
                     className,
                     ...mtProps
                 )}
@@ -40,6 +40,8 @@ const WizardPanel = React.forwardRef<HTMLDivElement, WizardPanelProps>(
             </div>
         );
     }
-) 
+); 
+
+WizardPanel.displayName = 'WizardPanel';
 
 export default WizardPanel;

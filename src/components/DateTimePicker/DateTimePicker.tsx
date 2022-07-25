@@ -1,9 +1,9 @@
-import classNames from "classnames";
-import React, { useEffect, useImperativeHandle, useRef } from "react";
-import IMtProps from "../IMtProps";
-import { useSpreadProps } from "../Util/useSpreadProps";
-import { useMtProps } from "../Util/useMtProps";
-import uniqueId from "lodash.uniqueid";
+import classNames from 'classnames';
+import React, { useEffect, useImperativeHandle, useRef } from 'react';
+import IMtProps from '../IMtProps';
+import { useSpreadProps } from '../Util/useSpreadProps';
+import { useMtProps } from '../Util/useMtProps';
+import uniqueId from 'lodash.uniqueid';
 
 interface DateTimePickerProps extends React.HTMLAttributes<HTMLInputElement>, IMtProps {
     /** Modo do Datetime.
@@ -11,14 +11,14 @@ interface DateTimePickerProps extends React.HTMLAttributes<HTMLInputElement>, IM
      * - single: uma data apenas a escolher.
      * - range: um intervalo de datas a escolher.
      */
-    dataMode?: "single" | "range";
+    dataMode?: 'single' | 'range';
     /** Tipo do Datetime.
      * 
      * - text: seleciona data.
      * - time: seleciona apenas hora.
      * - datetime-local: seleciona data e hora.
      */
-    dataType?: "text" | "time" | "datetime-local";
+    dataType?: 'text' | 'time' | 'datetime-local';
     /** Label do DatetimePicker. */
     label?: string | React.ReactElement;
     /** Classe font awesome do ícone do botão. */
@@ -30,7 +30,7 @@ interface DateTimePickerProps extends React.HTMLAttributes<HTMLInputElement>, IM
 }
 
 const DateTimePicker = React.forwardRef<HTMLInputElement, DateTimePickerProps>(
-    ({ className, id = uniqueId("datetimepicker_____"), children, dataMode = "single", dataType = "text", label, placeholder = "dd/mm/aaaa", buttonIcon = "fas fa-calendar-alt", minDate, maxDate, ...props }, ref) => {
+    ({ className, id = uniqueId('datetimepicker_____'), children, dataMode = 'single', dataType = 'text', label, placeholder = 'dd/mm/aaaa', buttonIcon = 'fas fa-calendar-alt', minDate, maxDate, ...props }, ref) => {
         // Implementando os refs de cada um dos elementos
         const refWrapper = useRef(null);
         const refInputWrapper = useRef(null);
@@ -55,9 +55,10 @@ const DateTimePicker = React.forwardRef<HTMLInputElement, DateTimePickerProps>(
 
         // Inicializando o datetimepicker
         useEffect(() => {
+            // eslint-disable-next-line @typescript-eslint/no-var-requires
             const core = require('@govbr-ds/core/dist/core-init');
             refElement.current = new core.BRDateTimePicker('br-datetimepicker', refWrapper.current, { minDate: minDate, maxDate: maxDate });
-        }, [minDate, maxDate])
+        }, [minDate, maxDate]);
 
         const mtProps = useMtProps(props);
         const spreadProps = useSpreadProps(props);
@@ -65,7 +66,7 @@ const DateTimePicker = React.forwardRef<HTMLInputElement, DateTimePickerProps>(
         return (
             <div
                 className={classNames(
-                    "br-datetimepicker",
+                    'br-datetimepicker',
                     ...mtProps,
                     className
                 )}
@@ -92,6 +93,8 @@ const DateTimePicker = React.forwardRef<HTMLInputElement, DateTimePickerProps>(
             </div>
         );
     }
-)
+);
+
+DateTimePicker.displayName = 'DateTimePicker';
 
 export default DateTimePicker;

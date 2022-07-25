@@ -1,8 +1,8 @@
-import classNames from "classnames";
-import React, { useEffect } from "react";
-import IMtProps from "../../IMtProps";
-import { useSpreadProps } from "../../Util/useSpreadProps";
-import { useMtProps } from "../../Util/useMtProps";
+import classNames from 'classnames';
+import React, { useEffect } from 'react';
+import IMtProps from '../../IMtProps';
+import { useSpreadProps } from '../../Util/useSpreadProps';
+import { useMtProps } from '../../Util/useMtProps';
 
 interface CarouselPageProps  extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
     /** Cor de background. */
@@ -22,22 +22,19 @@ const CarouselPage = React.forwardRef<HTMLDivElement, CarouselPageProps>(
 
         const bgColorClass = backgroundColor && `bg-${backgroundColor}`;
 
-        useEffect(() => {
-            
-        }, []);
 
         return (
             <div
                 ref={ref}
                 className={classNames(
-                    "carousel-page",
+                    'carousel-page',
                     ...mtProps,
                     className
                 )}
                 data-page="Teste"
                 data-step-name={stepName}
                 {...spreadProps}
-                {...active && {active: "true"}}
+                {...active && {active: 'true'}}
                 
                 
             >
@@ -49,6 +46,8 @@ const CarouselPage = React.forwardRef<HTMLDivElement, CarouselPageProps>(
             </div>
         );
     }
-) 
+); 
+
+CarouselPage.displayName = 'CarouselPage';
 
 export default CarouselPage;

@@ -1,13 +1,15 @@
-import '@govbr-ds/core/dist/core.min.css'
+/* eslint-disable @typescript-eslint/no-empty-function */
+import '@govbr-ds/core/dist/core.min.css';
 
-import classNames from "classnames";
-import React, { Children, useEffect, useRef } from "react";
-import CarouselPage from "./CarouselPage";
-import IMtProps from "../IMtProps";
+import classNames from 'classnames';
+import React, { Children, useEffect, useRef } from 'react';
+import CarouselPage from './CarouselPage';
+import IMtProps from '../IMtProps';
 import { useMtProps } from '../Util/useMtProps';
-import { useSpreadProps } from "../Util/useSpreadProps";
+import { useSpreadProps } from '../Util/useSpreadProps';
 import uniqueId from 'lodash.uniqueid';
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const core = require('@govbr-ds/core/dist/core-init');
 
 interface CarouselProps extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
@@ -27,14 +29,14 @@ interface CarouselProps extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
      * - Se for "vertical", então os botões de navegação ficam dentro do carousel.
      * - Se for "horizontal", então os botões de passos ficam dentro do carousel.
      */
-    hybrid?: "vertical" | "horizontal";
+    hybrid?: 'vertical' | 'horizontal';
 
     /** Se os botões de passos são substituídos por um texto do estilo <Passo Atual>/<Total de Passos>. */
     textual?: boolean;
 }
 
 const Carousel = React.forwardRef<HTMLDivElement, CarouselProps>(
-    ({ className, id = uniqueId("carousel_____"), children, circular, interno, hybrid, textual = false, ...props }, ref) => {
+    ({ className, id = uniqueId('carousel_____'), children, circular, interno, hybrid, textual = false, ...props }, ref) => {
         const refDiv = useRef<any>(ref);
         const refQtdChildren = useRef<number>(0);
         const refObjetoCarousel = useRef<any>(null);
@@ -59,7 +61,7 @@ const Carousel = React.forwardRef<HTMLDivElement, CarouselProps>(
                 refQtdChildren.current = qtdChildrenAtual;                      
             }
 
-        }, [children])
+        }, [children]);
         
         return (
 
@@ -68,11 +70,11 @@ const Carousel = React.forwardRef<HTMLDivElement, CarouselProps>(
                 id={id}
                 data-circular={circular}
                 className={classNames(
-                    "br-carousel",
+                    'br-carousel',
                     ...mtProps,
                     className
                 )}
-                data-stage={interno ? "in" : hybrid === "vertical" ? "hibw" : hybrid === "horizontal" ? "hibh" : ""}
+                data-stage={interno ? 'in' : hybrid === 'vertical' ? 'hibw' : hybrid === 'horizontal' ? 'hibh' : ''}
                 {...spreadProps}
 
             >
@@ -88,7 +90,7 @@ const Carousel = React.forwardRef<HTMLDivElement, CarouselProps>(
                     </button>
                 </div>
                 <div className="carousel-step">
-                    <div className="br-step" data-initial="1" data-type={textual ? "text" : "simple"}>
+                    <div className="br-step" data-initial="1" data-type={textual ? 'text' : 'simple'}>
                         <div className="step-progress">
                             {Children.map(children, (element: any, index) => (
                                 <button key={index} className="step-progress-btn" type="button"><span className="step-info">{element.props.stepName}</span></button>
@@ -99,8 +101,9 @@ const Carousel = React.forwardRef<HTMLDivElement, CarouselProps>(
             </div>
         );
     }
-)
+);
 
+Carousel.displayName = 'Carousel';
 
 export default Object.assign(Carousel, {
     Page: CarouselPage

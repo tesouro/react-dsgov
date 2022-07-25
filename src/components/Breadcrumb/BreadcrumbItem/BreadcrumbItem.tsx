@@ -1,6 +1,6 @@
-import PropTypes from "prop-types"
-import classNames from "classnames";
-import React from "react";
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
+import React from 'react';
 
 export interface BreadcrumbItemProps extends React.HTMLAttributes<HTMLLIElement> {
     href?: string,
@@ -30,7 +30,7 @@ const propTypes = {
      * O target do link do item de breadcrumb.
      */
     target: PropTypes.string
-}
+};
 
 
 export const BreadcrumbItem = React.forwardRef<HTMLLIElement, BreadcrumbItemProps>(
@@ -48,20 +48,20 @@ export const BreadcrumbItem = React.forwardRef<HTMLLIElement, BreadcrumbItemProp
                     )
                     :
                     (
-                        <li className={classNames("crumb", className)} ref={ref} {...props}>
+                        <li className={classNames('crumb', className)} ref={ref} {...props}>
                             {href ? 
-                            ( 
-                                <a href={href} target={target}>
-                                    {children}
-                                </a>
-                            )
-                            :
-                            (
-                                <span>
-                                    {children}
-                                </span>
-                            )
-                        }
+                                ( 
+                                    <a href={href} target={target}>
+                                        {children}
+                                    </a>
+                                )
+                                :
+                                (
+                                    <span>
+                                        {children}
+                                    </span>
+                                )
+                            }
                         </li>
                     )
                 }
@@ -72,8 +72,9 @@ export const BreadcrumbItem = React.forwardRef<HTMLLIElement, BreadcrumbItemProp
     }
 
 
-) 
+); 
 
 BreadcrumbItem.propTypes = propTypes;
+BreadcrumbItem.displayName = 'BreadcrumbItem';
 
 export default BreadcrumbItem;

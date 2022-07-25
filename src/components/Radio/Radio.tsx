@@ -1,10 +1,10 @@
-import classNames from "classnames";
-import React, { useEffect, useImperativeHandle, useRef } from "react";
-import IMtProps from "../IMtProps";
-import { useSpreadProps } from "../Util/useSpreadProps";
-import { useMtProps } from "../Util/useMtProps";
-import CustomTag from "../CustomTag";
-import uniqueId from "lodash.uniqueid";
+import classNames from 'classnames';
+import React, { useEffect, useImperativeHandle, useRef } from 'react';
+import IMtProps from '../IMtProps';
+import { useSpreadProps } from '../Util/useSpreadProps';
+import { useMtProps } from '../Util/useMtProps';
+import CustomTag from '../CustomTag';
+import uniqueId from 'lodash.uniqueid';
 
 interface RadioProps  extends React.HTMLAttributes<HTMLInputElement>, IMtProps {
     /** Label do radio. */
@@ -24,7 +24,7 @@ interface RadioProps  extends React.HTMLAttributes<HTMLInputElement>, IMtProps {
      * - invalid: fica vermelho.
      * - valid: fica verde.
      */
-    state?: "invalid" | "valid"
+    state?: 'invalid' | 'valid'
     /** Se está desabilitado. */
     disabled?: boolean;
     /** Se for inline, para fazer listagem horizontal. */
@@ -33,7 +33,7 @@ interface RadioProps  extends React.HTMLAttributes<HTMLInputElement>, IMtProps {
 
 const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
     
-    ({className, children, id = uniqueId("radio_____"), label, name, value, checked, state, disabled = false, inline = false, ...props}, ref) => {
+    ({className, children, id = uniqueId('radio_____'), label, name, value, checked, state, disabled = false, inline = false, ...props}, ref) => {
         const mtProps = useMtProps(props);
         const spreadProps = useSpreadProps(props);
 
@@ -48,7 +48,7 @@ const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
                 refInput.current.removeAttribute('checked');
             }
             
-        }, [checked])
+        }, [checked]);
 
         useImperativeHandle<HTMLInputElement, any>(ref, () => ({
             get inputWrapper() {
@@ -61,19 +61,19 @@ const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
 
         return (
             <CustomTag
-                {...inline && {tagName: "div"}}
+                {...inline && {tagName: 'div'}}
                 className={classNames(
-                    (inline && "d-inline-block"),
-                    (inline && "mr-5")
+                    (inline && 'd-inline-block'),
+                    (inline && 'mr-5')
                 )}
             >
                 <div
                     ref={refInputWrapper}
                     className={classNames(
-                        "br-radio",
-                        (disabled && "disabled"),
-                        ((state === "invalid") && "invalid"),
-                        ((state === "valid") && "valid"),
+                        'br-radio',
+                        (disabled && 'disabled'),
+                        ((state === 'invalid') && 'invalid'),
+                        ((state === 'valid') && 'valid'),
                         className,
                         ...mtProps
                     )}
@@ -92,6 +92,8 @@ const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
             </CustomTag>
         );
     }
-) 
+); 
+
+Radio.displayName = 'Radio';
 
 export default Radio;

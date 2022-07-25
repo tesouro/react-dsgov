@@ -1,4 +1,6 @@
-export default interface IMenuLink {
+interface IMenuLink {
     link: string,
     label: string
 }
+
+export default IMenuLink;

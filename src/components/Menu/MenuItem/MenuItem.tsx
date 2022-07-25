@@ -1,12 +1,12 @@
 /* eslint-disable no-script-url */
-import classNames from "classnames";
-import React from "react";
-import IMtProps from "../../IMtProps";
-import { useSpreadProps } from "../../Util/useSpreadProps";
-import { useMtProps } from "../../Util/useMtProps";
-import CustomTag from "../../CustomTag";
-import IMenuItem from "../IMenuItem";
-import uniqueId from "lodash.uniqueid";
+import classNames from 'classnames';
+import React from 'react';
+import IMtProps from '../../IMtProps';
+import { useSpreadProps } from '../../Util/useSpreadProps';
+import { useMtProps } from '../../Util/useMtProps';
+import CustomTag from '../../CustomTag';
+import IMenuItem from '../IMenuItem';
+import uniqueId from 'lodash.uniqueid';
 
 interface MenuItemProps  extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
     label?: string;
@@ -19,29 +19,29 @@ interface MenuItemProps  extends React.HTMLAttributes<HTMLDivElement>, IMtProps 
 } 
 
 const MenuItem = React.forwardRef<HTMLDivElement, MenuItemProps>(
-    ({className, children, id = uniqueId("menuitem_____"), label, level = 2, href, icon, submenu, divider = false, expanded = false, ...props}, ref) => {
+    ({className, children, id = uniqueId('menuitem_____'), label, level = 2, href, icon, submenu, divider = false, expanded = false, ...props}, ref) => {
         const mtProps = useMtProps(props);
         const spreadProps = useSpreadProps(props);
 
         return (
             <CustomTag 
-                {...submenu && level === 2 && {tagName: "div"}}
+                {...submenu && level === 2 && {tagName: 'div'}}
                 className={classNames(
-                    (submenu && "menu-folder")
+                    (submenu && 'menu-folder')
                 )}
             >
                 <CustomTag
                     ref={ref}
                     id={id}
-                    tagName={expanded ? "div" : "a"}
+                    tagName={expanded ? 'div' : 'a'}
                     className={classNames(
-                        "menu-item",
-                        (divider && "divider"),
+                        'menu-item',
+                        (divider && 'divider'),
                         className,
                         ...mtProps
                     )}
                     {...href && !expanded && {href: href}}
-                    {...submenu && !expanded && {href: "javascript:void(0)"}}
+                    {...submenu && !expanded && {href: 'javascript:void(0)'}}
                     {...spreadProps}
                     
                 >
@@ -51,9 +51,8 @@ const MenuItem = React.forwardRef<HTMLDivElement, MenuItemProps>(
                 {submenu &&
                     <ul>
                         {submenu.map((item, index) => (
-                            <li>
+                            <li key={index}>
                                 <MenuItem 
-                                    key={index}
                                     href={item.link}
                                     icon={item.icon}
                                     label={item.label}
@@ -70,6 +69,8 @@ const MenuItem = React.forwardRef<HTMLDivElement, MenuItemProps>(
             </CustomTag>
         );
     }
-) 
+); 
+
+MenuItem.displayName = 'MenuItem';
 
 export default MenuItem;

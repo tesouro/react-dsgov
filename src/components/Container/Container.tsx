@@ -1,8 +1,8 @@
-import classNames from "classnames";
-import React from "react";
-import IMtProps from "../IMtProps";
-import { useSpreadProps } from "../Util/useSpreadProps";
-import { useMtProps } from "../Util/useMtProps";
+import classNames from 'classnames';
+import React from 'react';
+import IMtProps from '../IMtProps';
+import { useSpreadProps } from '../Util/useSpreadProps';
+import { useMtProps } from '../Util/useMtProps';
 
 interface ContainerProps  extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
     sm?: boolean,
@@ -18,12 +18,12 @@ const Container = React.forwardRef<HTMLDivElement, ContainerProps>(
         const spreadProps = useSpreadProps(props);
 
         const containerSuffix = 
-            sm ? "-sm" :
-            md ? "-md" :
-            lg ? "-lg" :
-            xl ? "-xl" :
-            fluid ? "-fluid" :
-            "";
+            sm ? '-sm' :
+                md ? '-md' :
+                    lg ? '-lg' :
+                        xl ? '-xl' :
+                            fluid ? '-fluid' :
+                                '';
 
 
         return (
@@ -41,6 +41,8 @@ const Container = React.forwardRef<HTMLDivElement, ContainerProps>(
             </div>
         );
     }
-) 
+); 
+
+Container.displayName = 'Container';
 
 export default Container;

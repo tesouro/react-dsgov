@@ -1,9 +1,9 @@
-import classNames from "classnames";
-import React from "react";
-import IMtProps from "../IMtProps";
-import { useSpreadProps } from "../Util/useSpreadProps";
-import { useMtProps } from "../Util/useMtProps";
-import uniqueId from "lodash.uniqueid";
+import classNames from 'classnames';
+import React from 'react';
+import IMtProps from '../IMtProps';
+import { useSpreadProps } from '../Util/useSpreadProps';
+import { useMtProps } from '../Util/useMtProps';
+import uniqueId from 'lodash.uniqueid';
 
 interface LoadingProps  extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
     /** Número indicando o progresso do loading. Opcional. */
@@ -13,11 +13,11 @@ interface LoadingProps  extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
      * - medium
      * - small
      */
-    size?: "medium" | "small"
+    size?: 'medium' | 'small'
 } 
 
 const Loading = React.forwardRef<HTMLDivElement, LoadingProps>(
-    ({className, id = uniqueId("loading_____"), children, progress, size = "medium", ...props}, ref) => {
+    ({className, id = uniqueId('loading_____'), children, progress, size = 'medium', ...props}, ref) => {
         const mtProps = useMtProps(props);
         const spreadProps = useSpreadProps(props);
 
@@ -26,13 +26,13 @@ const Loading = React.forwardRef<HTMLDivElement, LoadingProps>(
                 ref={ref}
                 id={id}
                 className={classNames(
-                    (progress && "br-loading"),
-                    (!progress && "loading"),
-                    (size === "medium" && "medium"),
+                    (progress && 'br-loading'),
+                    (!progress && 'loading'),
+                    (size === 'medium' && 'medium'),
                     className,
                     ...mtProps
                 )}
-                {...progress && {"data-progress": progress}}
+                {...progress && {'data-progress': progress}}
                 {...spreadProps}
                 
             >
@@ -49,6 +49,8 @@ const Loading = React.forwardRef<HTMLDivElement, LoadingProps>(
             </div>
         );
     }
-) 
+); 
+
+Loading.displayName = 'Loading';
 
 export default Loading;

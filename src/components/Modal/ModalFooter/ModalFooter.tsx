@@ -1,8 +1,8 @@
-import classNames from "classnames";
-import React from "react";
-import IMtProps from "../../IMtProps";
-import { useSpreadProps } from "../../Util/useSpreadProps";
-import { useMtProps } from "../../Util/useMtProps";
+import classNames from 'classnames';
+import React from 'react';
+import IMtProps from '../../IMtProps';
+import { useSpreadProps } from '../../Util/useSpreadProps';
+import { useMtProps } from '../../Util/useMtProps';
 
 interface ModalFooterProps  extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
 
@@ -17,7 +17,7 @@ const ModalFooter = React.forwardRef<HTMLDivElement, ModalFooterProps>(
             <div
                 ref={ref}
                 className={classNames(
-                    "br-modal-footer",
+                    'br-modal-footer',
                     className,
                     ...mtProps
                 )}
@@ -28,6 +28,8 @@ const ModalFooter = React.forwardRef<HTMLDivElement, ModalFooterProps>(
             </div>
         );
     }
-) 
+); 
+
+ModalFooter.displayName = 'ModalFooter';
 
 export default ModalFooter;

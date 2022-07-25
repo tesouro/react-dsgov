@@ -1,8 +1,8 @@
-import classNames from "classnames";
-import React from "react";
-import IMtProps from "../IMtProps";
-import { useSpreadProps } from "../Util/useSpreadProps";
-import { useMtProps } from "../Util/useMtProps";
+import classNames from 'classnames';
+import React from 'react';
+import IMtProps from '../IMtProps';
+import { useSpreadProps } from '../Util/useSpreadProps';
+import { useMtProps } from '../Util/useMtProps';
 
 interface GroupProps  extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
 
@@ -17,7 +17,7 @@ const Group = React.forwardRef<HTMLDivElement, GroupProps>(
             <div
                 ref={ref}
                 className={classNames(
-                    "group",
+                    'group',
                     className,
                     ...mtProps
                 )}
@@ -28,6 +28,8 @@ const Group = React.forwardRef<HTMLDivElement, GroupProps>(
             </div>
         );
     }
-) 
+); 
+
+Group.displayName = 'Group';
 
 export default Group;

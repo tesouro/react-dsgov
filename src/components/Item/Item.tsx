@@ -1,11 +1,12 @@
-import classNames from "classnames";
-import React, { useEffect, useRef } from "react";
-import IMtProps from "../IMtProps";
-import { useSpreadProps } from "../Util/useSpreadProps";
-import { useMtProps } from "../Util/useMtProps";
-import Divider from "../Divider";
-import CustomTag from "../CustomTag";
+import classNames from 'classnames';
+import React, { useEffect, useRef } from 'react';
+import IMtProps from '../IMtProps';
+import { useSpreadProps } from '../Util/useSpreadProps';
+import { useMtProps } from '../Util/useMtProps';
+import Divider from '../Divider';
+import CustomTag from '../CustomTag';
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const core = require('@govbr-ds/core/dist/core-init');
 
 interface ItemProps  extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
@@ -26,7 +27,7 @@ interface ItemProps  extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
 } 
 
 const Item = React.forwardRef<HTMLDivElement, ItemProps>(
-    ({className, children, highlighted, divider, role = "listItem", disabled = false, showDividerAfter = false, target, collapsable = false, link, ...props}, ref) => {
+    ({className, children, highlighted, divider, role = 'listItem', disabled = false, showDividerAfter = false, target, collapsable = false, link, ...props}, ref) => {
         const mtProps = useMtProps(props);
         const spreadProps = useSpreadProps(props);
         const refDiv = useRef(ref);
@@ -37,24 +38,24 @@ const Item = React.forwardRef<HTMLDivElement, ItemProps>(
                 refElemento.current = new core.BRItem('br-item', refDiv.current);
             }
             
-        }, [])
+        }, []);
 
         return (
             <>
                 <CustomTag
                     ref={refDiv}
-                    tagName={link ? "a" : "div"}
+                    tagName={link ? 'a' : 'div'}
                     className={classNames(
-                        "br-item",
-                        (highlighted && "highlighted"),
-                        (divider && "divider"),
+                        'br-item',
+                        (highlighted && 'highlighted'),
+                        (divider && 'divider'),
                         className,
                         ...mtProps
                     )}
                     {...role && {role: role}}
                     {...disabled && {disabled: true}}
-                    {...target && {"data-target": target}}
-                    {...collapsable && {"data-toggle": "collapse"}}
+                    {...target && {'data-target': target}}
+                    {...collapsable && {'data-toggle': 'collapse'}}
                     {...spreadProps}
                     {...link && {href: link}}
                     
@@ -66,6 +67,8 @@ const Item = React.forwardRef<HTMLDivElement, ItemProps>(
             </>
         );
     }
-) 
+); 
+
+Item.displayName = 'Item';
 
 export default Item;

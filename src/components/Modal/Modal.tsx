@@ -1,12 +1,12 @@
-import classNames from "classnames";
-import React from "react";
-import IMtProps from "../IMtProps";
-import { useSpreadProps } from "../Util/useSpreadProps";
-import { useMtProps } from "../Util/useMtProps";
-import Container from "../Container";
-import ModalBody from "./ModalBody";
-import ModalFooter from "./ModalFooter";
-import Button from "../Button";
+import classNames from 'classnames';
+import React from 'react';
+import IMtProps from '../IMtProps';
+import { useSpreadProps } from '../Util/useSpreadProps';
+import { useMtProps } from '../Util/useMtProps';
+import Container from '../Container';
+import ModalBody from './ModalBody';
+import ModalFooter from './ModalFooter';
+import Button from '../Button';
 
 interface ModalProps  extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
     /** Título da Modal */
@@ -24,7 +24,7 @@ const Modal = React.forwardRef<HTMLDivElement, ModalProps>(
             <div
                 ref={ref}
                 className={classNames(
-                    "br-modal",
+                    'br-modal',
                     className,
                     ...mtProps
                 )}
@@ -53,7 +53,9 @@ const Modal = React.forwardRef<HTMLDivElement, ModalProps>(
             </div>
         );
     }
-) 
+); 
+
+Modal.displayName = 'Modal';
 
 export default Object.assign(Modal, {
     Body: ModalBody,

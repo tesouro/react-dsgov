@@ -1,8 +1,8 @@
-import classNames from "classnames";
-import React from "react";
-import IMtProps from "../IMtProps";
-import { useSpreadProps } from "../Util/useSpreadProps";
-import { useMtProps } from "../Util/useMtProps";
+import classNames from 'classnames';
+import React from 'react';
+import IMtProps from '../IMtProps';
+import { useSpreadProps } from '../Util/useSpreadProps';
+import { useMtProps } from '../Util/useMtProps';
 
 interface DividerProps  extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
     /** Orientação.
@@ -10,7 +10,7 @@ interface DividerProps  extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
      * - vertical
      * - horizontal
      */
-    orientation?: "vertical" | "horizontal",
+    orientation?: 'vertical' | 'horizontal',
     /** Se é tracejado ou não. */
     dashed?: boolean,
     /** Tamanho.
@@ -23,7 +23,7 @@ interface DividerProps  extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
 } 
 
 const Divider = React.forwardRef<HTMLDivElement, DividerProps>(
-    ({className, children, orientation = "horizontal", dashed = false, size, ...props}, ref) => {
+    ({className, children, orientation = 'horizontal', dashed = false, size, ...props}, ref) => {
         const mtProps = useMtProps(props);
         const spreadProps = useSpreadProps(props);
 
@@ -31,12 +31,12 @@ const Divider = React.forwardRef<HTMLDivElement, DividerProps>(
             <div
                 ref={ref}
                 className={classNames(
-                    "br-divider",
-                    ((orientation === "vertical") && "vertical"),
-                    (dashed && "dashed"),
-                    (size === "sm" && "sm"),
-                    (size === "md" && "md"),
-                    (size === "lg" && "lg"),
+                    'br-divider',
+                    ((orientation === 'vertical') && 'vertical'),
+                    (dashed && 'dashed'),
+                    (size === 'sm' && 'sm'),
+                    (size === 'md' && 'md'),
+                    (size === 'lg' && 'lg'),
                     ...mtProps,
                     className
                 )}
@@ -48,6 +48,8 @@ const Divider = React.forwardRef<HTMLDivElement, DividerProps>(
             </div>
         );
     }
-) 
+); 
+
+Divider.displayName = 'Divider';
 
 export default Divider;

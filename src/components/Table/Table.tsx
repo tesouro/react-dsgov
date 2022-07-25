@@ -1,17 +1,18 @@
-import classNames from "classnames";
-import React, { useCallback, useEffect, useRef, useState } from "react";
-import IMtProps from "../IMtProps";
-import { useSpreadProps } from "../Util/useSpreadProps";
-import { useMtProps } from "../Util/useMtProps";
-import List from "../List";
-import Button from "../Button";
-import Input from "../Input";
-import Divider from "../Divider";
-import Select from "../Select";
-import { updateQueryStringParameter } from "../Util/Util";
-import { SelectOptions } from "../Select/Select";
-import uniqueId from "lodash.uniqueid";
+import classNames from 'classnames';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import IMtProps from '../IMtProps';
+import { useSpreadProps } from '../Util/useSpreadProps';
+import { useMtProps } from '../Util/useMtProps';
+import List from '../List';
+import Button from '../Button';
+import Input from '../Input';
+import Divider from '../Divider';
+import Select from '../Select';
+import { updateQueryStringParameter } from '../Util/Util';
+import { SelectOptions } from '../Select/Select';
+import uniqueId from 'lodash.uniqueid';
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const core = require('@govbr-ds/core/dist/core-init');
 
 interface IHeader {
@@ -63,13 +64,13 @@ interface TableProps extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
     endpoint?: string;
 
     /** Ao clicar no botão de ir para a próxima página. */
-    onClickNextPage?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {}
+    onClickNextPage?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
 
     /** Ao clicar no botão de ir para a página anterior. */
-    onClickPrevPage?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {}
+    onClickPrevPage?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
 
     /** Ao realizar busca. */
-    onSearch?: (event: ISearchEvent) => {}
+    onSearch?: (event: ISearchEvent) => void
 
     /** Array para preencher a combo de itens por página. */
     arrayItemsPerPage?: number[]
@@ -90,17 +91,17 @@ const Table = React.forwardRef<HTMLDivElement, TableProps>(
     ({
         className,
         children,
-        id = uniqueId("table_____"),
+        id = uniqueId('table_____'),
         title,
         showDensityButtons = true,
         showSearch = true,
-        onSearch = () => { },
+        onSearch = () => {/* */},
         showSelectedBar = true,
         headers,
         data,
         endpoint,
-        onClickNextPage = () => { },
-        onClickPrevPage = () => { },
+        onClickNextPage = () => {/* */},
+        onClickPrevPage = () => {/* */},
         showPageSelector = false,
         arrayItemsPerPage = [10, 20, 30, 50, 100],
         currentPageNumber,
@@ -113,11 +114,11 @@ const Table = React.forwardRef<HTMLDivElement, TableProps>(
 
 
         const [tableData, setTableData] = useState<any[]>([]);
-        const [defaultSearch, setDefaultSearch] = useState<string>("");
+        const [defaultSearch, setDefaultSearch] = useState<string>('');
 
         const [atualizando, setAtualizando] = useState<boolean>(false);
 
-        const [currentEndpoint, setCurrentEndpoint] = useState<string>("");
+        const [currentEndpoint, setCurrentEndpoint] = useState<string>('');
 
         const [pageNumber, setPageNumber] = useState<number>();
         const [pageSize, setPageSize] = useState<number>();
@@ -140,10 +141,10 @@ const Table = React.forwardRef<HTMLDivElement, TableProps>(
                     } else {
                         return currentOffset;
                     }
-                })
+                });
             }
 
-        }
+        };
 
         const handleClickPreviousPage = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
             onClickPrevPage(event);
@@ -155,17 +156,17 @@ const Table = React.forwardRef<HTMLDivElement, TableProps>(
                     } else {
                         return currentOffset;
                     }
-                })
+                });
             }
 
-        }
+        };
 
         const handleTrocaBuscaPadrao = () => {
             onSearch({ searchText: defaultSearch } as ISearchEvent);
 
             defaultSearch !== undefined && setCurrentEndpoint((currentEndpoint) =>
                 updateQueryStringParameter(currentEndpoint, 'defaultSearch', String(defaultSearch)));
-        }
+        };
        
         useEffect(() => {
             if (!refElement.current && refDiv.current) {
@@ -196,7 +197,7 @@ const Table = React.forwardRef<HTMLDivElement, TableProps>(
                 setCurrentEndpoint(endpoint);
             }
 
-        }, [data, endpoint])
+        }, [data, endpoint]);
 
         // Ao trocar o endpoint, recarregar os dados
         useEffect(() => {
@@ -214,7 +215,7 @@ const Table = React.forwardRef<HTMLDivElement, TableProps>(
 
                         setAtualizando(false);
                     });
-                })
+                });
             }
 
         }, [currentEndpoint]);
@@ -222,7 +223,7 @@ const Table = React.forwardRef<HTMLDivElement, TableProps>(
         // Ao trocar a página, recarregar os dados
         useEffect(() => {
             pageNumber !== undefined && setCurrentEndpoint((currentEndpoint) =>
-                updateQueryStringParameter(currentEndpoint, 'pageNumber', String(pageNumber)))
+                updateQueryStringParameter(currentEndpoint, 'pageNumber', String(pageNumber)));
         }, [pageNumber]);
 
         // Ao trocar o tamanho da página
@@ -249,18 +250,18 @@ const Table = React.forwardRef<HTMLDivElement, TableProps>(
                                         label: String(i + 1),
                                         value: String(i + 1)
                                     }
-                                )
+                                );
                             }
                             return currentPageOptions;
                         } else {
                             return pageOptions;
                         }
 
-                    })
+                    });
                 }
             }
 
-        }, [recordCount, pageSize])
+        }, [recordCount, pageSize]);
 
         const getItemsPerPage = useCallback(() => {
             const newItemsPerPage : IItemPage[] = [];
@@ -269,7 +270,7 @@ const Table = React.forwardRef<HTMLDivElement, TableProps>(
                 newItemsPerPage.push({
                     label: String(arrayItemsPerPage[index]),
                     value: String(arrayItemsPerPage[index])
-                })
+                });
             }
 
             return newItemsPerPage;
@@ -280,7 +281,7 @@ const Table = React.forwardRef<HTMLDivElement, TableProps>(
             <div
                 ref={refDiv}
                 className={classNames(
-                    "br-table",
+                    'br-table',
                     className,
                     ...mtProps
                 )}
@@ -391,7 +392,7 @@ const Table = React.forwardRef<HTMLDivElement, TableProps>(
                         <div className="pagination-information d-none d-sm-flex"><span className="current">{currentPageNumber || (pageNumber != null && pageSize != null && pageNumber * pageSize + 1)}</span>&ndash;<span className="per-page">{currentPerPageNumber || (pageNumber != null && pageSize != null && pageNumber * pageSize + pageSize)}</span>&nbsp;de&nbsp;<span className="total">{currentTotalRegistros || recordCount}</span>&nbsp;itens</div>
                         <div className="pagination-go-to-page d-none d-sm-flex ml-auto">
                             {showPageSelector &&
-                                <Select id={`go-to-selection-random-75889`} options={pageOptions || []}
+                                <Select id={'go-to-selection-random-75889'} options={pageOptions || []}
                                     onChange={(valor: string) => setPageNumber(Number(valor) - 1)} value={pageNumber} />}
                         </div><span className="br-divider d-none d-sm-block mx-3"></span>
                         <div className="pagination-arrows ml-auto ml-sm-0">
@@ -403,6 +404,8 @@ const Table = React.forwardRef<HTMLDivElement, TableProps>(
             </div>
         );
     }
-)
+);
+
+Table.displayName = 'Table';
 
 export default Table;

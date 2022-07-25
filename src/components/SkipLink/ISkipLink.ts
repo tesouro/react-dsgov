@@ -1,4 +1,6 @@
-export default interface ISkipLink {
+export interface ISkipLink {
     link: string,
     label: string
 }
+
+export default ISkipLink;

@@ -1,12 +1,13 @@
-import '@govbr-ds/core/dist/core.min.css'
-import '@govbr-ds/core/dist/core-init'
+import '@govbr-ds/core/dist/core.min.css';
+import '@govbr-ds/core/dist/core-init';
 
-import classNames from "classnames";
-import React from "react";
-import { useMtProps } from "../Util/useMtProps";
+import classNames from 'classnames';
+import React from 'react';
+import { useMtProps } from '../Util/useMtProps';
 import { useSpreadProps } from '../Util/useSpreadProps';
 import BreadcrumbItem from './BreadcrumbItem';
 
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface BreadcrumbProps extends React.HTMLAttributes<HTMLDivElement> {
 
 }
@@ -18,7 +19,7 @@ const Breadcrumb = React.forwardRef<HTMLDivElement, BreadcrumbProps>(
         
         return (
             <div
-                className={classNames("br-breadcrumb", ...mtProps, className)}
+                className={classNames('br-breadcrumb', ...mtProps, className)}
                 ref={ref}
                 {...spreadProps}
             >
@@ -29,8 +30,9 @@ const Breadcrumb = React.forwardRef<HTMLDivElement, BreadcrumbProps>(
             </div>
         );
     }
-) 
+); 
 
+Breadcrumb.displayName = 'Breadcrumb';
 
 export default Object.assign(Breadcrumb, {
     Item: BreadcrumbItem

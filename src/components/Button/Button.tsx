@@ -1,11 +1,11 @@
-import '@govbr-ds/core/dist/core.min.css'
-import '@govbr-ds/core/dist/core-init'
+import '@govbr-ds/core/dist/core.min.css';
+import '@govbr-ds/core/dist/core-init';
 
-import classNames from "classnames";
-import React from "react";
+import classNames from 'classnames';
+import React from 'react';
 import IMtProps from '../IMtProps';
 import { useSpreadProps } from '../Util/useSpreadProps';
-import { useMtProps } from "../Util/useMtProps";
+import { useMtProps } from '../Util/useMtProps';
 import uniqueId from 'lodash.uniqueid';
 
 interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement>, IMtProps {
@@ -30,7 +30,7 @@ interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement>, IMtProps 
     /** Classe de ícone FontAwesome para o botão. */
     icon?: string,
     /** Tipo do botão. */
-    type?: "button" | "submit" | "reset"
+    type?: 'button' | 'submit' | 'reset'
     /** Se o botão é do tipo Sign-In, especificamente para o botão de logar */
     signIn?: boolean;
     /** Se é um botão do tipo "br-item" */
@@ -38,7 +38,7 @@ interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement>, IMtProps 
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-    ({children, className, id = uniqueId("button_____"), type = "submit", primary, secondary, circle, inverted, block, large, small, loading, disabled, icon, signIn = false, isItem = false, ...props}, ref) => {
+    ({children, className, id = uniqueId('button_____'), type = 'submit', primary, secondary, circle, inverted, block, large, small, loading, disabled, icon, signIn = false, isItem = false, ...props}, ref) => {
         
         const mtProps = useMtProps(props);
         const spreadProps = useSpreadProps(props);
@@ -48,17 +48,17 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
                 type={type}
                 id={id}
                 className={classNames(
-                    (!signIn && !isItem && "br-button"),
-                    (isItem && "br-item"),
-                    (signIn && "br-sign-in"),
-                    {"primary" : primary},
-                    {"secondary" : secondary},
-                    {"circle": circle},
-                    {"inverted": inverted},
-                    {"block": block},
-                    {"large": large},
-                    {"small": small},
-                    {"loading": loading},
+                    (!signIn && !isItem && 'br-button'),
+                    (isItem && 'br-item'),
+                    (signIn && 'br-sign-in'),
+                    {'primary' : primary},
+                    {'secondary' : secondary},
+                    {'circle': circle},
+                    {'inverted': inverted},
+                    {'block': block},
+                    {'large': large},
+                    {'small': small},
+                    {'loading': loading},
                     ...mtProps,
                     className
                 )}
@@ -72,6 +72,8 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         );
     }
 
-) 
+); 
+
+Button.displayName = 'Button';
 
 export default Button;

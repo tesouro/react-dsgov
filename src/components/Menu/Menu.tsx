@@ -1,15 +1,16 @@
-import classNames from "classnames";
-import React, { useEffect, useRef } from "react";
-import IMtProps from "../IMtProps";
-import { useSpreadProps } from "../Util/useSpreadProps";
-import { useMtProps } from "../Util/useMtProps";
-import IMenuItem from "./IMenuItem";
-import MenuItem from "./MenuItem";
-import uniqueId from "lodash.uniqueid";
-import { IMenuLogo } from "./IMenuLogo";
-import IMenuLink from "./IMenuLink";
-import ISocialNetwork from "./ISocialNetwork";
+import classNames from 'classnames';
+import React, { useEffect, useRef } from 'react';
+import IMtProps from '../IMtProps';
+import { useSpreadProps } from '../Util/useSpreadProps';
+import { useMtProps } from '../Util/useMtProps';
+import IMenuItem from './IMenuItem';
+import MenuItem from './MenuItem';
+import uniqueId from 'lodash.uniqueid';
+import IMenuLink from './IMenuLink';
+import ISocialNetwork from './ISocialNetwork';
+import IMenuLogo from './IMenuLogo';
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const core = require('@govbr-ds/core/dist/core-init');
 
 interface MenuProps extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
@@ -20,14 +21,14 @@ interface MenuProps extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
     externalLinks?: IMenuLink[]
     socialNetworks?: ISocialNetwork[]
     info?: React.ReactNode,
-    type?: "normal" | "push" | "contextual",
+    type?: 'normal' | 'push' | 'contextual',
     active?: boolean,
     shadow?: boolean,
-    density?: "small" | "normal" | "large"
+    density?: 'small' | 'normal' | 'large'
 }
 
 const Menu = React.forwardRef<HTMLDivElement, MenuProps>(
-    ({ className, children, id = uniqueId("menu_____"), data, logos, externalLinks, socialNetworks, info, systemLogoUrl, systemName, type = "normal", density = "normal", active, shadow, ...props }, ref) => {
+    ({ className, children, id = uniqueId('menu_____'), data, logos, externalLinks, socialNetworks, info, systemLogoUrl, systemName, type = 'normal', density = 'normal', active, shadow, ...props }, ref) => {
         const mtProps = useMtProps(props);
         const spreadProps = useSpreadProps(props);
 
@@ -38,19 +39,19 @@ const Menu = React.forwardRef<HTMLDivElement, MenuProps>(
             if (refDiv.current && !refElemento.current) {
                 refElemento.current = new core.BRMenu('br-menu', refDiv.current);
             }
-        }, [])
+        }, []);
 
         return (
             <div
                 ref={refDiv}
                 id={id}
                 className={classNames(
-                    "br-menu",
-                    (type === "push" && "push"),
-                    (type === "contextual" && "contextual"),
-                    (density === "small" && "small"),
-                    (density === "large" && "large"),
-                    (active && "active"),
+                    'br-menu',
+                    (type === 'push' && 'push'),
+                    (type === 'contextual' && 'contextual'),
+                    (density === 'small' && 'small'),
+                    (density === 'large' && 'large'),
+                    (active && 'active'),
                     className,
                     ...mtProps
                 )}
@@ -58,11 +59,11 @@ const Menu = React.forwardRef<HTMLDivElement, MenuProps>(
 
             >
                 <div className={classNames(
-                    "menu-container"
+                    'menu-container'
                 )}>
                     <div className={classNames(
-                        "menu-panel",
-                        (shadow && "h-auto position-static shadow-lg-right")
+                        'menu-panel',
+                        (shadow && 'h-auto position-static shadow-lg-right')
                     )}>
                         {(systemLogoUrl || systemName) && <div className="menu-header">
                             <div className="menu-title">
@@ -129,6 +130,8 @@ const Menu = React.forwardRef<HTMLDivElement, MenuProps>(
             </div>
         );
     }
-)
+);
+
+Menu.displayName = 'Menu';
 
 export default Menu;
