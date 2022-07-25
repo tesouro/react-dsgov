@@ -3,7 +3,6 @@ import { listMtProps } from "./Util";
 export const useMtProps = (props : any) => {
     let mtProps : any[] = [];
     for (let index = 0; index < listMtProps.length; index++) {
-        console.log(listMtProps[index] + " " + typeof props[listMtProps[index]]);
         if(typeof props[listMtProps[index]] === "boolean" && props[listMtProps[index]]) {
             mtProps = [...mtProps, (listMtProps[index])];
         } else {
