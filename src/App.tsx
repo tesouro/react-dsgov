@@ -14,6 +14,8 @@ import Teste from './pages/Teste';
 import Menu from './components/Menu';
 import SkipLink from './components/SkipLink';
 import Modal from './components/Modal';
+import Formulario from './pages/Formulario';
+import CookieBar from './components/CookieBar';
 
 
 function App() {
@@ -36,6 +38,7 @@ function App() {
     const linhas = ['Texto 1', 'Texto 2', 'Texto 2', 'Texto 3'];
     return (
         <>
+            <CookieBar />
             <SkipLink 
                 data={[
                     {
