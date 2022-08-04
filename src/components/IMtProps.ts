@@ -1,8 +1,8 @@
 interface IMtProps {
     mt?: string,
     'mt-sm'?: string,
-    mx?: string,
-    my?: string,
+    mx?: number,
+    my?: number,
     mb?: number,
     'align-items-center'?: boolean,
     'justify-content'?: string,
