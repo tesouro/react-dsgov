@@ -38,6 +38,10 @@ const Header = React.forwardRef<HTMLElement, HeaderProps>(
 
         const [searchActive, setSearchActive] = useState<boolean>(false);
 
+        const [quickAcessExpanded, setQuickAccessExpanded] = useState<boolean>(false);
+        const [featuresExpanded, setFeaturesExpanded] = useState<boolean>(false);
+
+
         const handleActivateSearch = () => {
             setSearchActive(true);
         };
@@ -45,6 +49,16 @@ const Header = React.forwardRef<HTMLElement, HeaderProps>(
         const handleInactivateSearch = () => {
             setSearchActive(false);
         };
+
+        const handleClickQuickAcess = () => {
+            setQuickAccessExpanded(!quickAcessExpanded);
+        };
+
+        const handleClickFeatures = () => {
+            setFeaturesExpanded(!featuresExpanded);
+        };
+
+
 
         return (
             <header
@@ -70,8 +84,8 @@ const Header = React.forwardRef<HTMLElement, HeaderProps>(
                             <div className="header-sign">{systemName}</div>
                         </div>
                         <div className="header-actions">
-                            <div className="header-links dropdown">
-                                <button className="br-button circle small" type="button" data-toggle="dropdown" aria-label="Abrir Acesso Rápido"><i className="fas fa-ellipsis-v" aria-hidden="true"></i>
+                            <div className={classNames('header-links', 'dropdown', {'show' : quickAcessExpanded})}>
+                                <button onClick={handleClickQuickAcess} className={classNames('br-button', 'circle', 'small', {'active' : quickAcessExpanded})} type="button" data-toggle="dropdown" aria-label="Abrir Acesso Rápido"><i className="fas fa-ellipsis-v" aria-hidden="true"></i>
                                 </button>
                                 <div className="br-list">
                                     <div className="header">
@@ -83,8 +97,8 @@ const Header = React.forwardRef<HTMLElement, HeaderProps>(
                                 </div>
                             </div>
                             <span className="br-divider vertical mx-half mx-sm-1"></span>
-                            <div className="header-functions dropdown">
-                                <button className="br-button circle small" type="button" data-toggle="dropdown" aria-label="Abrir Funcionalidades do Sistema"><i className="fas fa-th" aria-hidden="true"></i>
+                            <div className={classNames('header-functions', 'dropdown', {'show' : featuresExpanded})}>
+                                <button onClick={handleClickFeatures} className={classNames('br-button', 'circle', 'small', {'active' : featuresExpanded})} type="button" data-toggle="dropdown" aria-label="Abrir Funcionalidades do Sistema"><i className="fas fa-th" aria-hidden="true"></i>
                                 </button>
                                 <div className="br-list">
                                     <div className="header">
