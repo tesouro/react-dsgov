@@ -1,0 +1,1 @@
+Componente utilizado para representar graficamente um usuário em ambientes virtuais. Pode apresentar-se como ilustração vetorial (avatar icônico), texto (avatar letra) e fotografia (avatar fotográfico).
