@@ -17,6 +17,7 @@ const TabContent = React.forwardRef<HTMLDivElement, TabContentProps>(
     ({className, children, id = uniqueId('tabcontent_____'), title, onlyIcon = false, active = false, ...props}, ref) => {
         const mtProps = useMtProps(props);
         const spreadProps = useSpreadProps(props);
+        
 
         return (
             <div

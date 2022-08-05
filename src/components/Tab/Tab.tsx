@@ -31,6 +31,7 @@ const Tab = React.forwardRef<HTMLDivElement, TabProps>(
             setCurrentTab(index + 1);
         };
 
+
         const isNavWithSubtitle = useCallback(() => {
             let subtitle = false;
             Children.map(children, (element : any) => {

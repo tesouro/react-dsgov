@@ -4,6 +4,7 @@ interface IMtProps {
     mx?: number,
     my?: number,
     mb?: number,
+    mr?: number,
     'align-items-center'?: boolean,
     'justify-content'?: string,
     p?: number,

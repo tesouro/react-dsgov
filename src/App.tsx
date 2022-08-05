@@ -20,6 +20,8 @@ import Step from './components/Step';
 import Tab from './components/Tab';
 import Notification from './components/Notification';
 import { loremIpsum } from 'react-lorem-ipsum';
+import Avatar from './components/Avatar';
+import Header from './components/Header';
 
 
 function App() {
@@ -44,6 +46,19 @@ function App() {
     const linhas = ['Texto 1', 'Texto 2', 'Texto 2', 'Texto 3'];
     return (
         <>
+            <Header 
+                urlLogo="https://sisweb.tesouro.gov.br/apex/f?p=2501:9::::9:P9_ID_PUBLICACAO_ANEXO:16884" 
+                systemName="Assinatura" 
+                title="Título do Header" 
+                subTitle="Subtítulo do Header"
+                quickAccessLinks={[
+                    {label: 'Acesso Rápido 1', href: 'javascript:void(0);'},
+                    {label: 'Acesso Rápido 2', href: 'javascript:void(0);'},
+                    {label: 'Acesso Rápido 3', href: 'javascript:void(0);'},
+                    {label: 'Acesso Rápido 4', href: 'javascript:void(0);'}
+                ]}
+            />
+
             <CookieBar />
             <SkipLink 
                 data={[
@@ -806,6 +821,58 @@ function App() {
                 </Row>
             </Container>
 
+            <Container>
+                <Row>
+                    <Col>
+                        <Avatar mr={3} icon="fas fa-user" />
+                        <Avatar mr={3} icon="fas fa-user" density="medium" /> 
+                        <Avatar mr={3} icon="fas fa-user" density="large" /> 
+                    </Col>
+                </Row>
+                <Row>
+                    <Col>
+                        <Avatar mr={3} imageSrc="https://picsum.photos/id/1005/400" />
+                        <Avatar mr={3} imageSrc="https://picsum.photos/id/287/400" density="medium" /> 
+                        <Avatar mr={3} imageSrc="https://picsum.photos/id/357/400" density="large" /> 
+                    </Col>
+                </Row>
+                <Row>
+                    <Col>
+                        <Avatar mr={3} bgColor="bg-violet-50" letter="W" />
+                        <Avatar mr={3} bgColor="bg-orange-50" letter="A" density="medium" /> 
+                        <Avatar mr={3} bgColor="bg-green-50"  letter="H" density="large" /> 
+                    </Col>
+                </Row>
+                <Row>
+                    <Col>
+                        <Avatar imageSrc='https://picsum.photos/id/1005/400' dropdown>
+                            <List>
+                                <Button isItem>
+                                    <Tag type="status" density='small' status="warning"/><span className="text-bold">Título</span><span className="d-block text-medium mb-2">25 de out</span>{loremIpsum({p:1, random:true}).map((text, index) => <span key={index}>{text}</span>)}
+                                </Button>
+                                <Button isItem>
+                                    <Tag type="status" density='small' status="warning"/><span className="text-bold">Título</span><span className="d-block text-medium mb-2">25 de out</span>{loremIpsum({p:1, random:true}).map((text, index) => <span key={index}>{text}</span>)}
+                                </Button>
+                                <Button isItem>
+                                    <Tag type="status" density='small' status="warning"/><span className="text-bold">Título</span><span className="d-block text-medium mb-2">25 de out</span>{loremIpsum({p:1, random:true}).map((text, index) => <span key={index}>{text}</span>)}
+                                </Button>
+                            </List>
+                        </Avatar>
+                    </Col>
+                </Row>
+                
+            </Container>
+
+  
+
+
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
         </>
     );
 }

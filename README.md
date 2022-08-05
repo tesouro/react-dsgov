@@ -9,6 +9,7 @@ A documentação pode ser encontrada em https://cosis-stn.github.io/react-dsgov/
 # Componentes
 A seguinte lista de componentes foi implementada:
 
+- [Avatar](src/components/Avatar/Readme.md)
 - [Breadcrumb](src/components/Breadcrumb/Readme.md)
 - [Button](src/components/Button/Readme.md)
 - [Card](src/components/Card/Readme.md)
