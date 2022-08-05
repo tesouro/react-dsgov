@@ -10,10 +10,11 @@ interface TabContentProps  extends React.HTMLAttributes<HTMLDivElement>, IMtProp
     subTitle?: string;
     active?: boolean;
     icon?: string;
+    onlyIcon?: boolean;
 } 
 
 const TabContent = React.forwardRef<HTMLDivElement, TabContentProps>(
-    ({className, children, id = uniqueId('tabcontent_____'), title, active = false, ...props}, ref) => {
+    ({className, children, id = uniqueId('tabcontent_____'), title, onlyIcon = false, active = false, ...props}, ref) => {
         const mtProps = useMtProps(props);
         const spreadProps = useSpreadProps(props);
 

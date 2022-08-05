@@ -67,22 +67,22 @@ As Tabs (Abas) são Componentes de Navegação em Interface que tem a função d
 ### Somente Ícones
 ```js
 <Tab>
-    <Tab.Content title="Sobre" icon="fas fa-image">
+    <Tab.Content title="Sobre" icon="fas fa-image" onlyIcon>
         Painel Sobre
     </Tab.Content>
-    <Tab.Content title="Todos" icon="fas fa-image">
+    <Tab.Content title="Todos" icon="fas fa-image" onlyIcon>
         Painel Todos
     </Tab.Content>
-    <Tab.Content title="Notícias" icon="fas fa-image">
+    <Tab.Content title="Notícias" icon="fas fa-image" onlyIcon>
         Painel Notícias
     </Tab.Content>
-    <Tab.Content title="Serviços" icon="fas fa-image">
+    <Tab.Content title="Serviços" icon="fas fa-image" onlyIcon>
         Painel Serviços
     </Tab.Content>
-    <Tab.Content title="Aplicativos" icon="fas fa-image">
+    <Tab.Content title="Aplicativos" icon="fas fa-image" onlyIcon>
         Painel Aplicativos
     </Tab.Content>
-    <Tab.Content title="Mídias" icon="fas fa-image">
+    <Tab.Content title="Mídias" icon="fas fa-image" onlyIcon>
         Painel Mídias
     </Tab.Content>
 </Tab>

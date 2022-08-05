@@ -1,11 +1,15 @@
 import classNames from 'classnames';
-import React, { Children, useCallback, useState } from 'react';
+import React, { Children, useCallback, useEffect, useRef, useState } from 'react';
 import IMtProps from '../IMtProps';
 import { useSpreadProps } from '../Util/useSpreadProps';
 import { useMtProps } from '../Util/useMtProps';
 import uniqueId from 'lodash.uniqueid';
 import TabContent from './TabContent';
 import styles from './Tab.module.scss'; 
+
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const core = require('@govbr-ds/core/dist/core-init');
+const Tooltip = core.Tooltip;
 
 interface TabProps  extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
     /** */
@@ -21,6 +25,8 @@ const Tab = React.forwardRef<HTMLDivElement, TabProps>(
 
         const [currentTab, setCurrentTab] = useState(initial);
 
+        const refNav = useRef(null);
+
         const handleClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>, index: number) => {
             setCurrentTab(index + 1);
         };
@@ -34,6 +40,24 @@ const Tab = React.forwardRef<HTMLDivElement, TabProps>(
             });
 
             return subtitle;
+        }, [children]);
+
+        useEffect(() => {
+            // Aplicando os tooltips
+            if(refNav && refNav.current) {
+                (refNav.current as HTMLElement)
+                    .querySelectorAll('[data-tooltip-text]')
+                    .forEach((TooltipExample : Element) => {
+                        const texttooltip = TooltipExample.getAttribute('data-tooltip-text');
+                        const config = {
+                            activator: TooltipExample,
+                            placement: 'top',
+                            textTooltip: texttooltip,
+                        };
+
+                        const tooltip = new Tooltip(config);
+                    });
+            }
         }, [children]);
 
         return (
@@ -51,7 +75,7 @@ const Tab = React.forwardRef<HTMLDivElement, TabProps>(
                 {...spreadProps}
                 
             >
-                <nav className={classNames(
+                <nav ref={refNav} className={classNames(
                     'tab-nav',
                     (isNavWithSubtitle() && styles.tabsubtitled)
                 )}>
@@ -59,9 +83,11 @@ const Tab = React.forwardRef<HTMLDivElement, TabProps>(
                         {Children.map(children, (element : any, index) => (
                             <li 
                                 key={index} 
+                                {...element.props.onlyIcon && {'data-tooltip-text': element.props.title}}
                                 className={classNames(
                                     'tab-item',
-                                    (currentTab === (index+1) && 'active')
+                                    {'active' : currentTab === (index+1)},
+                                    {'notification-tooltip' : element.props.onlyIcon}
                                 )}
                             >
                                 <button onClick={(event) => handleClick(event, index)} type="button" data-panel={`${id}-panel-${index + 1}`}>
@@ -71,11 +97,11 @@ const Tab = React.forwardRef<HTMLDivElement, TabProps>(
                                                 <span className="icon mb-1 mb-sm-0 mr-sm-1">
                                                     <i className={element.props.icon} aria-hidden="true"></i>
                                                 </span>
-                                                <span className="name">{element.props.title}</span>
+                                                {!element.props.onlyIcon && <span className="name">{element.props.title}</span>}
                                             </span>
                                         </span>
                                     }
-                                    {!element.props.icon && <span className="name">{element.props.title}</span>}
+                                    {!element.props.icon && !element.props.onlyIcon && <span className="name">{element.props.title}</span>}
                                     
                                 </button>
                                 {element.props.subTitle && <span className="results">{element.props.subTitle}</span>}
@@ -97,7 +123,6 @@ const Tab = React.forwardRef<HTMLDivElement, TabProps>(
 ); 
 
 Tab.displayName = 'Tab';
-
 
 export default Object.assign(Tab, {
     Content: TabContent

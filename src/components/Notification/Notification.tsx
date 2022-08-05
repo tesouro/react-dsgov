@@ -5,7 +5,9 @@ import { useSpreadProps } from '../Util/useSpreadProps';
 import { useMtProps } from '../Util/useMtProps';
 
 interface NotificationProps  extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
+    /** Nome no cabeçalho da notificação */
     name?: string;
+    /** E-mail no cabeçalho da notificação */
     email?: string;
 } 
 
@@ -38,8 +40,9 @@ const Notification = React.forwardRef<HTMLDivElement, NotificationProps>(
                         </div>
                     </div>
                 }
-                
-                {children}
+                <div className="notification-body">
+                    {children}
+                </div>
             </div>
         );
     }

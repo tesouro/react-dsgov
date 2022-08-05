@@ -27,6 +27,7 @@ A seguinte lista de componentes foi implementada:
 - [Menu](src/components/Menu/Readme.md)
 - [Message](src/components/Message/Readme.md)
 - [Modal](src/components/Modal/Readme.md)
+- [Notification](src/components/Notification/Readme.md)
 - [Radio](src/components/Radio/Readme.md)
 - [Row](src/components/Row/Readme.md)
 - [Select](src/components/Select/Readme.md)

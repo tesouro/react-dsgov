@@ -7,7 +7,7 @@ import { faCoffee } from '@fortawesome/free-solid-svg-icons';
 import AnyAttribute, { asObject, asString } from 'react-any-attr';
 
 
-import { Breadcrumb, Button, Card, Row, Container, Col, Carousel, Checkbox, DateTimePicker, Divider, Input, Radio, Select, Loading, MagicButton, Message, Textarea, Switch, Upload, Wizard, List, Item, Pagination } from './components';
+import { Breadcrumb, Button, Card, Row, Container, Col, Carousel, Checkbox, DateTimePicker, Divider, Input, Radio, Select, Loading, MagicButton, Message, Textarea, Switch, Upload, Wizard, List, Item, Pagination, Tag } from './components';
 import CustomTag from './components/CustomTag';
 import Table from './components/Table';
 import Teste from './pages/Teste';
@@ -18,6 +18,8 @@ import Formulario from './pages/Formulario';
 import CookieBar from './components/CookieBar';
 import Step from './components/Step';
 import Tab from './components/Tab';
+import Notification from './components/Notification';
+import { loremIpsum } from 'react-lorem-ipsum';
 
 
 function App() {
@@ -766,6 +768,40 @@ function App() {
                                 Painel Aplicativos
                             </Tab.Content>
                         </Tab>
+                    </Col>
+                </Row>
+            </Container>
+
+            <Container>
+                <Row>
+                    <Col>
+                        <Notification name="Fulano da Silva" email="nome.sobrenome@dominio.gov">
+                            <Tab>
+                                <Tab.Content icon="fas fa-bell" title="Notificações" onlyIcon>
+                                    <List>
+                                        <Button isItem icon="fas fa-heartbeat" >Link de Acesso</Button>
+                                        <Button isItem icon="fas fa-heartbeat" >Link de Acesso</Button>
+                                        <Button isItem icon="fas fa-heartbeat" >Link de Acesso</Button>
+                                    </List>
+                                </Tab.Content>
+                                <Tab.Content icon="fas fa-envelope" title="Mensagens" onlyIcon>
+                                    <List>
+                                        <Button isItem>
+                                            <Tag type="status" density='small' status="warning"/><Tag type="status" density='small' status="warning"/>
+                                            <span className="text-bold">Título</span><span className="text-medium mb-2">25 de out</span>{loremIpsum({p:1, random:true}).map((text, index) => <span key={index}>{text}</span>)}
+                                        </Button>
+                                        <Button isItem>
+                                            <Tag type="status" density='small' status="warning"/><Tag type="status" density='small' status="warning"/>
+                                            <span className="text-bold">Título</span><span className="text-medium mb-2">25 de out</span><span>Nostrud consequat culpa ex mollit aute. Ex ex veniam ea labore laboris duis duis elit. Ex aute dolor enim aute Lorem dolor. Duis labore ad anim culpa. Non aliqua excepteur sunt eiusmod ex consectetur ex esse laborum velit ut aute.</span>
+                                        </Button>
+                                        <Button isItem>
+                                            <Tag type="status" density='small' status="warning"/><Tag type="status" density='small' status="warning"/>
+                                            <span className="text-bold">Título</span><span className="text-medium mb-2">25 de out</span><span>Nostrud consequat culpa ex mollit aute. Ex ex veniam ea labore laboris duis duis elit. Ex aute dolor enim aute Lorem dolor. Duis labore ad anim culpa. Non aliqua excepteur sunt eiusmod ex consectetur ex esse laborum velit ut aute.</span>
+                                        </Button>
+                                    </List>
+                                </Tab.Content>
+                            </Tab>
+                        </Notification>
                     </Col>
                 </Row>
             </Container>
