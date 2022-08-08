@@ -23,6 +23,7 @@ import { loremIpsum } from 'react-lorem-ipsum';
 import Avatar from './components/Avatar';
 import Header from './components/Header';
 import { Link } from 'react-router-dom';
+import Footer from './components/Footer';
 
 
 function App() {
@@ -894,6 +895,127 @@ function App() {
             <br/>
             <br/>
             <br/>
+
+            <Footer 
+                urlLogo={'https://cdngovbr-ds.estaleiro.serpro.gov.br/design-system/images/logo-negative.png'} 
+                links={[
+                    {
+                        category: 'Categoria 1',
+                        items: [
+                            {
+                                label: 'Ad deserunt nostrud',
+                                link: 'javascript:void(0);'
+                            },
+                            {
+                                label: 'Nulla occaecat eiusmod',
+                                link: 'javascript:void(0);'
+                            },
+                            {
+                                label: 'Nulla occaecat eiusmod',
+                                link: 'javascript:void(0);'
+                            }
+
+                        ]
+                    },
+                    {
+                        category: 'Categoria 2',
+                        items: [
+                            {
+                                label: 'Ex qui laborum consectetur aute commodo',
+                                link: 'javascript:void(0);'
+                            },
+                            {
+                                label: 'Nulla occaecat eiusmod',
+                                link: 'javascript:void(0);'
+                            },
+                            {
+                                label: 'Ex qui laborum consectetur aute commodo',
+                                link: 'javascript:void(0);'
+                            }
+
+                        ]
+                    },
+                    {
+                        category: 'Categoria 3',
+                        items: [
+                            {
+                                label: 'Ad deserunt nostrud',
+                                link: 'javascript:void(0);'
+                            },
+                            {
+                                label: 'Ex qui laborum consectetur aute commodo',
+                                link: 'javascript:void(0);'
+                            },
+                            {
+                                label: 'Nulla occaecat eiusmod',
+                                link: 'javascript:void(0);'
+                            }
+
+                        ]
+                    },
+                    {
+                        category: 'Categoria 4',
+                        items: [
+                            {
+                                label: 'Ad deserunt nostrud',
+                                link: 'javascript:void(0);'
+                            },
+                            {
+                                label: 'Ex qui laborum consectetur aute commodo',
+                                link: 'javascript:void(0);'
+                            },
+                            {
+                                label: 'Nulla occaecat eiusmod',
+                                link: 'javascript:void(0);'
+                            }
+
+                        ]
+                    },
+                    {
+                        category: 'Categoria 5',
+                        items: [
+                            {
+                                label: 'Ex qui laborum consectetur aute commodo',
+                                link: 'javascript:void(0);'
+                            },
+                            {
+                                label: 'Nulla occaecat eiusmod',
+                                link: 'javascript:void(0);'
+                            },
+                            {
+                                label: 'Nulla occaecat eiusmod',
+                                link: 'javascript:void(0);'
+                            }
+
+                        ]
+                    },
+                    {
+                        category: 'Categoria 6',
+                        items: [
+                            {
+                                label: 'Ex qui laborum consectetur aute commodo',
+                                link: 'javascript:void(0);'
+                            },
+                            {
+                                label: 'Nulla occaecat eiusmod',
+                                link: 'javascript:void(0);'
+                            },
+                            {
+                                label: 'Nulla occaecat eiusmod',
+                                link: 'javascript:void(0);'
+                            }
+
+                        ]
+                    },
+                ]} 
+                socialNetworks={[
+                    {name: 'Facebook', link: 'javascript:void(0);', icon: 'fab fa-facebook-square'},
+                    {name: 'Twitter', link: 'javascript:void(0);', icon: 'fab fa-twitter-square'},
+                    {name: 'Linkedin', link: 'javascript:void(0);', icon: 'fab fa-linkedin'}
+                ]}
+
+                userLicenseText={<>Texto destinado a exibição de informações relacionadas à&nbsp;<b>licença de uso.</b></>}
+            />
         </>
     );
 }

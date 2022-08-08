@@ -9,6 +9,7 @@ export { default as Container } from './Container';
 export { default as CookieBar } from './CookieBar';
 export { default as DateTimePicker } from './DateTimePicker';
 export { default as Divider } from './Divider';
+export { default as Footer } from './Footer';
 export { default as Group } from './Group';
 export { default as Header } from './Header';
 export { default as Input } from './Input';

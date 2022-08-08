@@ -9,7 +9,9 @@ interface IMtProps {
     'justify-content'?: string,
     p?: number,
     'p-sm'?: number,
-    m?: number
+    m?: number,
+    px?: number,
+    py?: number
 }
 
 export default IMtProps;

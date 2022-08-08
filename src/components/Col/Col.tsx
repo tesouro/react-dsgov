@@ -6,7 +6,7 @@ import { useMtProps } from '../Util/useMtProps';
 
 interface ColProps  extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
     /** Tamanho da coluna. */
-    size?: string,
+    size?: number | string,
     /** Tamanho da coluna em dispositivos pequenos. */
     sm?: number | boolean,
     /** Tamanho da coluna em dispositivos médios. */
