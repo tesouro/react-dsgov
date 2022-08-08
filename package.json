@@ -42,6 +42,7 @@
     "react-dom": "^18.2.0",
     "react-fontawesome": "^1.7.1",
     "react-lorem-ipsum": "^1.4.10",
+    "react-router-dom": "^6.3.0",
     "react-scripts": "^5.0.1",
     "react-select": "^5.4.0",
     "sass": "^1.54.3",
