@@ -165,25 +165,31 @@ const linhas = ['Texto 1', 'Texto 2', 'Texto 2'];
 <List title="Título (opcional)">
     {rotulos.map((rotulo, indexGrupo) => (
         <Group key={indexGrupo} >
-            <Item collapsable target={`lista-${indexGrupo}`} showDividerAfter>{rotulo}</Item>
-            <List id={`lista-${indexGrupo}`} hidden>
-                {linhas.map((linha, indexLinha) => (
-                    <Item key={`item-ex-4-${indexGrupo}-${indexLinha}`}>
-                        <Row>
-                            <Col auto>
-                                <i className="fas fa-heartbeat" aria-hidden="true"></i>
-                            </Col>
-                            <Col>
-                            ITEM
-                            {linha}
-                            </Col>
-                            <Col auto>
-                                META
-                            </Col>
-                        </Row>
-                    </Item>
-                ))}
-            </List>
+            <Item 
+                collapsable 
+                showDividerAfter
+                subItems={<>
+                    {linhas.map((linha, indexLinha) => (
+                        <Item key={`item-ex-4-${indexGrupo}-${indexLinha}`}>
+                            <Row>
+                                <Col auto>
+                                    <i className="fas fa-heartbeat" aria-hidden="true"></i>
+                                </Col>
+                                <Col>
+                                ITEM
+                                {linha}
+                                </Col>
+                                <Col auto>
+                                    META
+                                </Col>
+                            </Row>
+                        </Item>
+                    ))}
+                </>}
+            >{rotulo}</Item>
+            
+                
+            
         </Group>
     ))}
     
@@ -225,25 +231,28 @@ const linhas = ['Texto 1', 'Texto 2', 'Texto 2'];
 <List title="Título (opcional)" horizontal>
     {rotulos.map((rotulo, indexGrupo) => (
         <Group key={indexGrupo} >
-            <Item collapsable target={`sublista-${indexGrupo}`} showDividerAfter>{rotulo}</Item>
-            <List id={`sublista-${indexGrupo}`} hidden>
-                {linhas.map((linha, indexLinha) => (
-                    <Item key={`item-ex-4-${indexGrupo}-${indexLinha}`}>
-                        <Row>
-                            <Col auto>
-                                <i className="fas fa-heartbeat" aria-hidden="true"></i>
-                            </Col>
-                            <Col>
-                            ITEM
-                            {linha}
-                            </Col>
-                            <Col auto>
-                                META
-                            </Col>
-                        </Row>
-                    </Item>
-                ))}
-            </List>
+            <Item 
+                collapsable 
+                showDividerAfter
+                subItems={<>
+                    {linhas.map((linha, indexLinha) => (
+                        <Item key={`item-ex-4-${indexGrupo}-${indexLinha}`}>
+                            <Row>
+                                <Col auto>
+                                    <i className="fas fa-heartbeat" aria-hidden="true"></i>
+                                </Col>
+                                <Col>
+                                ITEM
+                                {linha}
+                                </Col>
+                                <Col auto>
+                                    META
+                                </Col>
+                            </Row>
+                        </Item>
+                    ))}
+                </>}
+            >{rotulo}</Item>
         </Group>
     ))}
     

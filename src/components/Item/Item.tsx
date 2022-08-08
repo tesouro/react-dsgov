@@ -1,15 +1,16 @@
 import classNames from 'classnames';
-import React, { useEffect, useRef } from 'react';
+import React, { ComponentType, useEffect, useRef, useState } from 'react';
 import IMtProps from '../IMtProps';
 import { useSpreadProps } from '../Util/useSpreadProps';
 import { useMtProps } from '../Util/useMtProps';
 import Divider from '../Divider';
 import CustomTag from '../CustomTag';
+import List from '../List/List';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const core = require('@govbr-ds/core/dist/core-init');
 
-interface ItemProps  extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
+interface ItemProps  extends React.HTMLAttributes<HTMLElement>, IMtProps {
     /** Se o item tem um highlight ao passar o mouse em cima. */
     highlighted?: boolean;
     /** Se o item tem um divider */
@@ -24,14 +25,21 @@ interface ItemProps  extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
     collapsable?: boolean;
     /** Link do item */
     link?: string;
+
+    /** Sub-lista de itens associados a este item. */
+    subItems?: React.ReactElement
+
+    onClick?: (event : React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
 } 
 
-const Item = React.forwardRef<HTMLDivElement, ItemProps>(
-    ({className, children, highlighted, divider, role = 'listItem', disabled = false, showDividerAfter = false, target, collapsable = false, link, ...props}, ref) => {
+const Item = React.forwardRef<HTMLElement, ItemProps>(
+    ({className, children, highlighted, divider, role = 'listItem', disabled = false, showDividerAfter = false, target, collapsable = false, link, subItems, onClick = () => {/** */}, ...props}, ref) => {
         const mtProps = useMtProps(props);
         const spreadProps = useSpreadProps(props);
         const refDiv = useRef(ref);
         const refElemento = useRef(null);
+
+        const [expanded, setExpanded] = useState<boolean>(false);
 
         useEffect(() => {
             if(refDiv.current && !refElemento.current) {
@@ -40,11 +48,17 @@ const Item = React.forwardRef<HTMLDivElement, ItemProps>(
             
         }, []);
 
+        const handleOnClick = (event : React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+            onClick(event);
+            setExpanded(!expanded);
+        };
+
         return (
             <>
                 <CustomTag
                     ref={refDiv}
                     tagName={link ? 'a' : 'div'}
+                    onClick={handleOnClick}
                     className={classNames(
                         'br-item',
                         (highlighted && 'highlighted'),
@@ -56,6 +70,8 @@ const Item = React.forwardRef<HTMLDivElement, ItemProps>(
                     {...disabled && {disabled: true}}
                     {...target && {'data-target': target}}
                     {...collapsable && {'data-toggle': 'collapse'}}
+                    {...collapsable && subItems && {'data-visible': expanded}}
+                    {...collapsable && subItems && {'aria-expanded': expanded}}
                     {...spreadProps}
                     {...link && {href: link}}
                     
@@ -64,6 +80,11 @@ const Item = React.forwardRef<HTMLDivElement, ItemProps>(
                     {collapsable && <i className="fas fa-angle-down" aria-hidden="true"></i>}
                 </CustomTag>
                 {showDividerAfter && <Divider />}
+                {subItems &&
+                    <List hidden={!expanded && collapsable} aria-hidden={!expanded && collapsable}>
+                        {subItems}
+                    </List>
+                }
             </>
         );
     }

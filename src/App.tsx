@@ -392,25 +392,28 @@ function App() {
                 <List title="Título (opcional)">
                     {rotulos.map((rotulo, index) => (
                         <CustomTag key={`grupo-${index}`}>
-                            <Item collapsable target={`lista-${index}`} showDividerAfter>{rotulo}</Item>
-                            <List hidden id={`lista-${index}`}>
-                                {linhas.map((linha, index2) => (
-                                    <Item key={`item-${index}-${index2}`} >
-                                        <Row>
-                                            <Col auto>
-                                                <i className="fas fa-heartbeat" aria-hidden="true"></i>
-                                            </Col>
-                                            <Col>
-                        ITEM
-                                                {linha}
-                                            </Col>
-                                            <Col auto>
-                        META
-                                            </Col>
-                                        </Row>
-                                    </Item>
-                                ))}
-                            </List>
+                            <Item 
+                                collapsable 
+                                showDividerAfter
+                                subItems={<>
+                                    {linhas.map((linha, index2) => (
+                                        <Item key={`item-${index}-${index2}`} >
+                                            <Row>
+                                                <Col auto>
+                                                    <i className="fas fa-heartbeat" aria-hidden="true"></i>
+                                                </Col>
+                                                <Col>
+                                                    ITEM
+                                                    {linha}
+                                                </Col>
+                                                <Col auto>
+                                                    META
+                                                </Col>
+                                            </Row>
+                                        </Item>
+                                    ))}
+                                </>}
+                            >{rotulo}</Item>
                         </CustomTag>
                     ))}
 
