@@ -2,11 +2,11 @@ import { listMtProps } from './Util';
 
 export const useMtProps = (props : any) => {
     let mtProps : any[] = [];
-    for (let index = 0; index < listMtProps.length; index++) {
-        if(typeof props[listMtProps[index]] === 'boolean' && props[listMtProps[index]]) {
-            mtProps = [...mtProps, (listMtProps[index])];
+    for (const element of listMtProps) {
+        if(typeof props[element] === 'boolean' && props[element]) {
+            mtProps = [...mtProps, (element)];
         } else {
-            mtProps = [...mtProps, (props[listMtProps[index]] && `${listMtProps[index]}-${props[listMtProps[index]]}`)];
+            mtProps = [...mtProps, (props[element] && `${element}-${props[element]}`)];
         }
         
     }

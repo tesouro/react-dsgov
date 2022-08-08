@@ -81,6 +81,17 @@ function App() {
                 avatar={<Avatar imageSrc='https://picsum.photos/id/823/400' />}
             />
 
+            <Button circle
+                icon='fas fa-ellipsis-v' 
+                dropdownItems={
+                    <>
+                        <Button isItem icon="fas fa-heartbeat" >Link de Acesso</Button>
+                        <Button isItem icon="fas fa-heartbeat" >Link de Acesso</Button>
+                        <Button isItem icon="fas fa-heartbeat" >Link de Acesso</Button>
+                    </>
+                }
+            />
+
             <CookieBar />
             <SkipLink 
                 data={[

@@ -38,3 +38,16 @@ Os botões são elementos interativos da interface, que permitem que os usuário
 <Button primary large>Invertido</Button>
 ```
 
+### Botão com dropdown
+```js
+<Button circle
+    icon='fas fa-ellipsis-v' 
+    dropdownItems={
+        <>
+            <Button isItem icon="fas fa-heartbeat" >Link de Acesso</Button>
+            <Button isItem icon="fas fa-heartbeat" >Link de Acesso</Button>
+            <Button isItem icon="fas fa-heartbeat" >Link de Acesso</Button>
+        </>
+    }
+/>
+```
