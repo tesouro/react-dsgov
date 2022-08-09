@@ -1,6 +1,6 @@
 # Sobre a biblioteca
 
-Biblioteca de componentes React baseada no DSGov https://www.gov.br/ds/introducao/como-comecar
+Biblioteca de componentes React baseada no DSGov (https://www.gov.br/ds).
 
 O Padrão Digital de Governo apresenta os padrões de interface que devem ser seguidos por designers e desenvolvedores para garantir a experiência única na interação com os sistemas interativos.
 
@@ -35,7 +35,7 @@ A seguinte lista de componentes foi implementada:
 - [Row](src/components/Row/Readme.md)
 - [Select](src/components/Select/Readme.md)
 - [SkipLink](src/components/SkipLink/Readme.md)
-- [Step](src/components/SkipLink/Step.md)
+- [Step](src/components/Step/Readme.md)
 - [Switch](src/components/Switch/Readme.md)
 - [Table](src/components/Table/Readme.md)
 - [Tab](src/components/SkipLink/Tab.md)

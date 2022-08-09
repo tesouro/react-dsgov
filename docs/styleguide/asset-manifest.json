@@ -1,11 +1,11 @@
 {
   "files": {
-    "main.js": "/build/bundle.66345dcc.js",
-    "main.css": "/static/css/main.16cfa3cc.css",
-    "index.html": "/index.html"
+    "main.js": "/react-dsgov/styleguide/build/bundle.b48de103.js",
+    "main.css": "/react-dsgov/styleguide/static/css/main.16cfa3cc.css",
+    "index.html": "/react-dsgov/styleguide/index.html"
   },
   "entrypoints": [
-    "build/bundle.66345dcc.js",
+    "build/bundle.b48de103.js",
     "static/css/main.16cfa3cc.css"
   ]
 }
