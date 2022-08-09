@@ -41,8 +41,17 @@ const Pagination = React.forwardRef<HTMLElement, PaginationProps>(
         const mtProps = useMtProps(props);
         const spreadProps = useSpreadProps(props);
 
-        const refDiv = useRef(ref);
+        const refDiv = useRef(null);
         const refElement = useRef<any>(null);
+
+        useEffect(() => {
+            if (!ref) return;
+            if (typeof ref === 'function') {
+                ref(refDiv.current);
+            } else {
+                ref.current = refDiv.current;
+            }
+        });
 
         core.BRPagination.prototype.thisObject = function() {
             return this;

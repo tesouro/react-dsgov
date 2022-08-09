@@ -63,12 +63,21 @@ const Wizard = React.forwardRef<HTMLDivElement, WizardProps>(
         const mtProps = useMtProps(props);
         const spreadProps = useSpreadProps(props);
         const refElemento = useRef(null);
-        const refWrapper = useRef(ref);
+        const refWrapper = useRef(null);
         const refDiv = useRef(null);
         const refWizardProgress = useRef(null);
         const refWizardForm = useRef<HTMLDivElement>(null);
         const refConcludeButton = useRef(null);
         const refPanel = useRef(null);
+
+        useEffect(() => {
+            if (!ref) return;
+            if (typeof ref === 'function') {
+                ref(refWrapper.current);
+            } else {
+                ref.current = refWrapper.current;
+            }
+        });
 
         const [currentStep, setCurrentStep] = useState<number>(initialStep || 1);
 

@@ -38,7 +38,7 @@ const Message = React.forwardRef<HTMLElement, MessageProps>(
     ({ className, children, category, type, role = 'alert', icon, messageTitle, hasCloseButton = true, ...props }, ref) => {
         const mtProps = useMtProps(props);
         const spreadProps = useSpreadProps(props);
-        const refWrapper = useRef(ref);
+        const refWrapper = useRef(null);
         const refElement = useRef(null);
         
         useEffect(() => {
@@ -46,6 +46,15 @@ const Message = React.forwardRef<HTMLElement, MessageProps>(
                 refElement.current = new core.BRAlert('br-message', refWrapper.current);
             }            
         }, []);
+
+        useEffect(() => {
+            if (!ref) return;
+            if (typeof ref === 'function') {
+                ref(refWrapper.current);
+            } else {
+                ref.current = refWrapper.current;
+            }
+        });
 
         
         return (

@@ -130,8 +130,17 @@ const Table = React.forwardRef<HTMLDivElement, TableProps>(
 
         const pageCount = useRef<number | null>(null);
 
-        const refDiv = useRef(ref);
-        const refElement = useRef<any>(ref);
+        const refDiv = useRef(null);
+        const refElement = useRef<any>();
+
+        useEffect(() => {
+            if (!ref) return;
+            if (typeof ref === 'function') {
+                ref(refDiv.current);
+            } else {
+                ref.current = refDiv.current;
+            }
+        });
 
         const handleClickNextPage = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
             onClickNextPage(event);

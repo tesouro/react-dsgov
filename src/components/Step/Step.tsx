@@ -57,8 +57,17 @@ const Step = React.forwardRef<HTMLDivElement, StepProps>(
         const [labelTruePosition, setLabelTruePosition] = useState<string | undefined>(type && ['void', 'text', 'simple'].includes(type) ? undefined : labelPosition);
         const [currentStep, setCurrentStep] = useState(initialStep);
 
-        const refDiv = useRef(ref);
+        const refDiv = useRef(null);
         const refStepProgress = useRef(null);
+
+        useEffect(() => {
+            if (!ref) return;
+            if (typeof ref === 'function') {
+                ref(refDiv.current);
+            } else {
+                ref.current = refDiv.current;
+            }
+        });
 
         const handleStepClick = (event : React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
             if(event.currentTarget.dataset.step) {

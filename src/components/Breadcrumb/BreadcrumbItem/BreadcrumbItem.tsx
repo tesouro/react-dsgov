@@ -49,13 +49,14 @@ export const BreadcrumbItem = React.forwardRef<HTMLLIElement, BreadcrumbItemProp
                     :
                     (
                         <li className={classNames('crumb', className)} ref={ref} {...props}>
-                            {href ? 
+                            {href && 
                                 ( 
                                     <a href={href} target={target}>
                                         {children}
                                     </a>
                                 )
-                                :
+                            }
+                            {!href && 
                                 (
                                     <span>
                                         {children}

@@ -38,10 +38,19 @@ const Item = React.forwardRef<HTMLElement, ItemProps>(
     ({className, children, highlighted, divider, role = 'listItem', disabled = false, showDividerAfter = false, target, collapsable = false, link, subItems, onClick = () => {/** */}, ...props}, ref) => {
         const mtProps = useMtProps(props);
         const spreadProps = useSpreadProps(props);
-        const refDiv = useRef(ref);
+        const refDiv = useRef(null);
         const refElemento = useRef(null);
 
         const [expanded, setExpanded] = useState<boolean>(false);
+
+        useEffect(() => {
+            if (!ref) return;
+            if (typeof ref === 'function') {
+                ref(refDiv.current);
+            } else {
+                ref.current = refDiv.current;
+            }
+        });
 
         useEffect(() => {
             if(refDiv.current && !refElemento.current) {

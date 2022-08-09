@@ -1,7 +1,7 @@
 import '@govbr-ds/core/dist/core.min.css';
 
 import classNames from 'classnames';
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import IMtProps from '../IMtProps';
 import { useSpreadProps } from '../Util/useSpreadProps';
 import { useMtProps } from '../Util/useMtProps';
@@ -39,7 +39,7 @@ const Avatar = React.forwardRef<HTMLElement, AvatarProps>(
         const mtProps = useMtProps(props);
         const spreadProps = useSpreadProps(props);
 
-        const refContainer = useRef(ref);
+        const refContainer = useRef(null);
 
         const [opened, setOpened] = useState<boolean>(false);
 
@@ -50,6 +50,15 @@ const Avatar = React.forwardRef<HTMLElement, AvatarProps>(
         const handleOpenClose = () => {
             setOpened(!opened);
         };
+
+        useEffect(() => {
+            if (!ref) return;
+            if (typeof ref === 'function') {
+                ref(refContainer.current);
+            } else {
+                ref.current = refContainer.current;
+            }
+        });
 
         return (
             <>

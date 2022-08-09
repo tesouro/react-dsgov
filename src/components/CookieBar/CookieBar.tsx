@@ -157,8 +157,17 @@ const CookieBar = React.forwardRef<HTMLDivElement, CookieBarProps>(
         const mtProps = useMtProps(props);
         const spreadProps = useSpreadProps(props);
 
-        const refDiv = useRef(ref);
+        const refDiv = useRef(null);
         const refElement = useRef();
+
+        useEffect(() => {
+            if (!ref) return;
+            if (typeof ref === 'function') {
+                ref(refDiv.current);
+            } else {
+                ref.current = refDiv.current;
+            }
+        });
 
         useEffect(() => {
             if(!refElement.current && refDiv.current) {

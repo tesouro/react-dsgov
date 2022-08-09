@@ -2,7 +2,7 @@ import '@govbr-ds/core/dist/core.min.css';
 import '@govbr-ds/core/dist/core-init';
 
 import classNames from 'classnames';
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import IMtProps from '../IMtProps';
 import { useSpreadProps } from '../Util/useSpreadProps';
 import { useMtProps } from '../Util/useMtProps';
@@ -52,7 +52,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         const spreadProps = useSpreadProps(props);
         const [expanded, setExpanded] = useState<boolean>(false);
 
-        const refButton = useRef(ref);
+        const refButton = useRef(null);
 
         const handleOnClick = (event : React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
             onClick(event);
@@ -61,6 +61,15 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 
         useOutsideClick(refButton, () => {
             setExpanded(false);
+        });
+
+        useEffect(() => {
+            if (!ref) return;
+            if (typeof ref === 'function') {
+                ref(refButton.current);
+            } else {
+                ref.current = refButton.current;
+            }
         });
 
         return (

@@ -35,13 +35,22 @@ const Menu = React.forwardRef<HTMLDivElement, MenuProps>(
         const spreadProps = useSpreadProps(props);
 
         const refElemento = useRef();
-        const refDiv = useRef<any>(ref);
+        const refDiv = useRef<HTMLDivElement>(null);
 
         useEffect(() => {
             if (refDiv.current && !refElemento.current) {
                 refElemento.current = new core.BRMenu('br-menu', refDiv.current);
             }
         }, []);
+
+        useEffect(() => {
+            if (!ref) return;
+            if (typeof ref === 'function') {
+                ref(refDiv.current);
+            } else {
+                ref.current = refDiv.current;
+            }
+        });
 
         return (
             <div

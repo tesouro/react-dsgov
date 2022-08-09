@@ -41,7 +41,16 @@ const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
 
         const refInputWrapper = useRef(null);
         const refLabel = useRef(null);
-        const refInput = useRef<any>(ref);
+        const refInput = useRef<any>(null);
+
+        useEffect(() => {
+            if (!ref) return;
+            if (typeof ref === 'function') {
+                ref(refInput.current);
+            } else {
+                ref.current = refInput.current;
+            }
+        });
 
         useEffect(() => {
             if(checked) {

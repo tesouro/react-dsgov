@@ -27,7 +27,16 @@ const Upload = React.forwardRef<HTMLDivElement, UploadProps>(
         const spreadProps = useSpreadProps(props);
 
         const refElement = useRef(null);
-        const refWrapper = useRef(ref);
+        const refWrapper = useRef(null);
+
+        useEffect(() => {
+            if (!ref) return;
+            if (typeof ref === 'function') {
+                ref(refWrapper.current);
+            } else {
+                ref.current = refWrapper.current;
+            }
+        });
 
 
         useEffect(() => {

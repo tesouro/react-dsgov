@@ -53,6 +53,15 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
         const refInputWrapper = useRef(null);
         const refWrapper = useRef(null);  
 
+        useEffect(() => {
+            if (!ref) return;
+            if (typeof ref === 'function') {
+                ref(refWrapper.current);
+            } else {
+                ref.current = refWrapper.current;
+            }
+        });
+
         const refList = useRef<HTMLDivElement>(null);
 
         const customAttributes : any = {};

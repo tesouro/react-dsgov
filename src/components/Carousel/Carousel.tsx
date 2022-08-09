@@ -37,12 +37,21 @@ interface CarouselProps extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
 
 const Carousel = React.forwardRef<HTMLDivElement, CarouselProps>(
     ({ className, id = uniqueId('carousel_____'), children, circular, interno, hybrid, textual = false, ...props }, ref) => {
-        const refDiv = useRef<any>(ref);
+        const refDiv = useRef<HTMLDivElement>(null);
         const refQtdChildren = useRef<number>(0);
         const refObjetoCarousel = useRef<any>(null);
 
         const mtProps = useMtProps(props);
         const spreadProps = useSpreadProps(props);
+
+        useEffect(() => {
+            if (!ref) return;
+            if (typeof ref === 'function') {
+                ref(refDiv.current);
+            } else {
+                ref.current = refDiv.current;
+            }
+        });
 
         // Reinstancia o Carousel quando mudarem os filhos do Carousel (ou seja, as páginas)
         useEffect(() => {

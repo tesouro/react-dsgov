@@ -10,7 +10,6 @@ import AnyAttribute, { asObject, asString } from 'react-any-attr';
 import { Breadcrumb, Button, Card, Row, Container, Col, Carousel, Checkbox, DateTimePicker, Divider, Input, Radio, Select, Loading, MagicButton, Message, Textarea, Switch, Upload, Wizard, List, Item, Pagination, Tag } from './components';
 import CustomTag from './components/CustomTag';
 import Table from './components/Table';
-import Teste from './pages/Teste';
 import Menu from './components/Menu';
 import SkipLink from './components/SkipLink';
 import Modal from './components/Modal';
@@ -115,7 +114,7 @@ function App() {
                 ]}        
             />
 
-            <Teste></Teste>
+
             <Container fluid>
                 <Row>
                     <Breadcrumb>
