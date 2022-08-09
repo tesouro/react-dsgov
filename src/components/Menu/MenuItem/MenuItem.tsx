@@ -1,3 +1,5 @@
+import '@govbr-ds/core/dist/core.min.css';
+
 /* eslint-disable no-script-url */
 import classNames from 'classnames';
 import React from 'react';

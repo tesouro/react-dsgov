@@ -1,3 +1,6 @@
+import '@govbr-ds/core/dist/core.min.css';
+
+
 import classNames from 'classnames';
 import React, { useEffect, useRef } from 'react';
 import IMtProps from '../IMtProps';

@@ -1,3 +1,5 @@
+import '@govbr-ds/core/dist/core.min.css';
+
 import classNames from 'classnames';
 import React, { Children, useCallback, useEffect, useRef, useState } from 'react';
 import IMtProps from '../IMtProps';

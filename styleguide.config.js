@@ -3,9 +3,11 @@
 const webpack = require('webpack');
 const path = require('path');
 
-
 const options = {
     propFilter: (prop, component) => {
+        if(prop.parent?.name === 'IMtProps') {
+            return false;
+        }
         if (prop.declarations !== undefined && prop.declarations.length > 0) {
             const hasPropAdditionalDescription = prop.declarations.find((declaration) => {
                 return !declaration.fileName.includes('node_modules');
