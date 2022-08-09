@@ -30,6 +30,7 @@ function App() {
     const [teste, setTeste] = useState<boolean>(true);
     const [teste2, setTeste2] = useState<string>('');
     const [valorSelect, setValorSelect] = useState<string>('1');
+    const [valorSelectMultiplo, setValorSelectMultiplo] = useState<string[]>(['1']);
     const [radioSelecionado, setRadioSelecionado] = useState<string>('');
     const [currentPage, setCurrentPage] = useState<number>(1);
 
@@ -256,7 +257,27 @@ function App() {
             <Container fluid>
                 <Row>
                     <Col>
-                        <Select id="select1" type="single" label="Selecione abaixo" value={valorSelect} setValue={handleTeste} onChange={(evento: any) => { console.log(evento); }} options={[
+                        <Select id="select1" type="single" label="Selecione abaixo" placeholder='Selecione um item' value={valorSelect}  onChange={(value : string) => { setValorSelect(value); }} options={[
+                            { label: 'Teste 1', value: '1' },
+                            { label: 'Teste 2', value: '2' },
+                            { label: 'Teste 3', value: '3' },
+                            { label: 'Teste 4', value: '4' },
+                            { label: 'Teste 5', value: '5' },
+                            { label: 'Teste 6', value: '6' },
+                            { label: 'Teste 7', value: '7' },
+                            { label: 'Teste 8', value: '8' },
+                            { label: 'Teste 9', value: '9' },
+                            { label: 'Teste 10', value: '10' },
+                            { label: 'Teste 11', value: '11' },
+                            { label: 'Teste 12', value: '12' },
+                            { label: 'Teste 13', value: '13' }
+                        ]} />
+                        
+
+                        <Button onClick={() => setValorSelect('2')}>Teste</Button>
+                        <span>{valorSelect}</span>
+
+                        <Select id="select2" type="multiple" label="Selecione abaixo" placeholder='Selecione um item' value={valorSelectMultiplo}  onChange={(value : string[]) => { console.log(value); setValorSelectMultiplo(value); }} options={[
                             { label: 'Teste 1', value: '1' },
                             { label: 'Teste 2', value: '2' },
                             { label: 'Teste 3', value: '3' },

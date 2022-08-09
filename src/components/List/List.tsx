@@ -9,21 +9,32 @@ import uniqueId from 'lodash.uniqueid';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const core = require('@govbr-ds/core/dist/core-init');
 
-interface ListProps extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
+export interface ListProps extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
     /** Título da lista, opcional. */
     title?: string;
     /** Se a lista é horizontal. */
     horizontal?: boolean;
     /** Se a lista está escondida inicialmente. */
     hidden?: boolean;
+    /** Expandida ou não */
+    expanded?: boolean;
 }
 
 const List = React.forwardRef<HTMLDivElement, ListProps>(
-    ({ className, id = uniqueId('list_____'), children, role = 'list', title, horizontal = false, hidden = false, ...props }, ref) => {
+    ({ className, id = uniqueId('list_____'), children, role = 'list', title, horizontal = false, hidden = false, expanded, ...props }, ref) => {
         const mtProps = useMtProps(props);
         const spreadProps = useSpreadProps(props);
         const refElemento = useRef(null);
-        const refDiv = useRef(ref);
+        const refDiv = useRef(null);
+
+        useEffect(() => {
+            if (!ref) return;
+            if (typeof ref === 'function') {
+                ref(refDiv.current);
+            } else {
+                ref.current = refDiv.current;
+            }
+        });
 
         useEffect(() => {
             if(refDiv.current && !refElemento.current) {
@@ -45,6 +56,7 @@ const List = React.forwardRef<HTMLDivElement, ListProps>(
                 )}
                 {...role && { role: role }}
                 {...hidden && { hidden: 'hidden' }}
+                {...expanded && { expanded: 'expanded' }}
                 {...spreadProps}
 
             >
