@@ -10,7 +10,7 @@ import { mapaIcones } from '../Util/Util';
 import Row from '../Row/Row';
 import uniqueId from 'lodash.uniqueid';
 
-interface TextareaProps extends React.HTMLAttributes<HTMLTextAreaElement>, IMtProps {
+export interface TextareaProps extends React.HTMLAttributes<HTMLTextAreaElement>, IMtProps {
     /** Label do textarea. */
     label: string | React.ReactElement;
     /** Placeholder do textarea. */

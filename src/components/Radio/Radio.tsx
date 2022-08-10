@@ -8,7 +8,7 @@ import { useMtProps } from '../Util/useMtProps';
 import CustomTag from '../CustomTag';
 import uniqueId from 'lodash.uniqueid';
 
-interface RadioProps  extends React.HTMLAttributes<HTMLInputElement>, IMtProps {
+export interface RadioProps  extends React.HTMLAttributes<HTMLInputElement>, IMtProps {
     /** Label do radio. */
     label?: string | React.ReactElement;
     /** Valor do radio. */

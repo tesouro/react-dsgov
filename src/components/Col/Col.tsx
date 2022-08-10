@@ -6,7 +6,7 @@ import IMtProps from '../IMtProps';
 import { useSpreadProps } from '../Util/useSpreadProps';
 import { useMtProps } from '../Util/useMtProps';
 
-interface ColProps  extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
+export interface ColProps  extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
     /** Tamanho da coluna. */
     size?: number | string,
     /** Tamanho da coluna em dispositivos pequenos. */

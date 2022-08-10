@@ -7,7 +7,7 @@ import { useSpreadProps } from '../Util/useSpreadProps';
 import { useMtProps } from '../Util/useMtProps';
 import uniqueId from 'lodash.uniqueid';
 
-interface DateTimePickerProps extends React.HTMLAttributes<HTMLInputElement>, IMtProps {
+export interface DateTimePickerProps extends React.HTMLAttributes<HTMLInputElement>, IMtProps {
     /** Modo do Datetime.
      * 
      * - single: uma data apenas a escolher.

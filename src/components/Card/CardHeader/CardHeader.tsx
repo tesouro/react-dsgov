@@ -4,7 +4,7 @@ import IMtProps from '../../IMtProps';
 import { useSpreadProps } from '../../Util/useSpreadProps';
 import { useMtProps } from '../../Util/useMtProps';
 
-interface CardHeaderProps extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
+export interface CardHeaderProps extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
     cardTitle?: string,
     cardSubtitle?: string,
     cardImageUrl?: string,

@@ -9,7 +9,7 @@ import Button from '../Button';
 import uniqueId from 'lodash.uniqueid';
 
 
-interface MagicButtonProps  extends React.HTMLAttributes<HTMLButtonElement>, IMtProps {
+export interface MagicButtonProps  extends React.HTMLAttributes<HTMLButtonElement>, IMtProps {
         /** Densidade do magic button.
          * 
          * - large: alta

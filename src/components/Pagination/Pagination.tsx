@@ -12,7 +12,7 @@ import Item from '../Item';
 import uniqueId from 'lodash.uniqueid';
 import CustomTag from '../CustomTag';
 
-interface IEllipsis {
+export interface IEllipsis {
     start: number,
     end: number
 }

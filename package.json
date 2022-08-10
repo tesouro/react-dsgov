@@ -2,8 +2,9 @@
   "name": "react-dsgov",
   "description": "Componentes React do DSGov (Padrão Digital do Governo).",
   "author": "cosis-stn",
-  "version": "0.6.5",
+  "version": "0.6.8",
   "private": false,
+  "types": "dist/index.d.ts",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/cosis-stn/react-dsgov.git"
@@ -16,10 +17,11 @@
     "ui",
     "dsgov"
   ],
-  "main": "dist/index.js",
-  "module": "dist/index.js",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",  
   "files": [
     "dist",
+    "package.json",
     "README.md"
   ],
   "dependencies": {
@@ -33,9 +35,7 @@
     "classnames": "^2.3.1",
     "font-awesome": "^4.7.0",
     "lodash.uniqueid": "^4.0.1",
-    "react": "^18.2.0",
     "react-any-attr": "^1.1.2",
-    "react-dom": "^18.2.0",
     "react-fontawesome": "^1.7.1",
     "react-lorem-ipsum": "^1.4.10",
     "react-router-dom": "^6.3.0",
@@ -47,7 +47,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "rollup -c",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "styleguide": "styleguidist server",
@@ -76,6 +76,9 @@
     "@babel/cli": "^7.18.9",
     "@babel/core": "^7.18.9",
     "@babel/preset-env": "^7.18.9",
+    "@rollup/plugin-commonjs": "^22.0.2",
+    "@rollup/plugin-node-resolve": "^13.3.0",
+    "@rollup/plugin-typescript": "^8.3.4",
     "@types/lodash.uniqueid": "^4.0.7",
     "@typescript-eslint/eslint-plugin": "^5.31.0",
     "@typescript-eslint/parser": "^5.31.0",
@@ -83,7 +86,16 @@
     "eslint-plugin-react": "^7.30.1",
     "react-docgen-typescript": "^2.2.2",
     "react-styleguidist": "^11.2.0",
+    "rollup": "^2.77.2",
+    "rollup-plugin-dts": "^4.2.2",
+    "rollup-plugin-peer-deps-external": "^2.2.4",
+    "rollup-plugin-postcss": "^4.0.2",
+    "rollup-plugin-terser": "^7.0.2",
     "typescript-plugin-css-modules": "^3.4.0",
     "webpack": "^5.73.0"
+  },
+  "peerDependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   }
 }

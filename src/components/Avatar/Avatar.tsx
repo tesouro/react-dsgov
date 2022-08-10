@@ -10,7 +10,7 @@ import uniqueId from 'lodash.uniqueid';
 import Notification from '../Notification';
 import useOutsideClick from '../Util/useOutsideClick';
 
-interface AvatarProps  extends React.HTMLAttributes<HTMLElement>, IMtProps {
+export interface AvatarProps  extends React.HTMLAttributes<HTMLElement>, IMtProps {
     /** Título do avatar. */
     title?: string;
     /** Imagem do avatar. */
@@ -32,7 +32,7 @@ interface AvatarProps  extends React.HTMLAttributes<HTMLElement>, IMtProps {
     dropdown?: boolean
     /** Cor dsgov, se for do uma letra. */
     bgColor?: string
-} 
+}
 
 const Avatar = React.forwardRef<HTMLElement, AvatarProps>(
     ({className, children, id = uniqueId('avatar_____'), title, imageSrc, alt = 'Avatar', density = 'small', letter, dropdown = false, icon, bgColor = 'bg-violet-50', ...props}, ref) => {

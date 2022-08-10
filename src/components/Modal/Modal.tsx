@@ -10,7 +10,7 @@ import ModalBody from './ModalBody';
 import ModalFooter from './ModalFooter';
 import Button from '../Button';
 
-interface ModalProps  extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
+export interface ModalProps  extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
     /** Título da Modal */
     title?: string
     /** Se mostra ou não o botão de fechar */

@@ -10,7 +10,7 @@ import uniqueId from 'lodash.uniqueid';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const core = require('@govbr-ds/core/dist/core-init');
 
-interface UploadProps  extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
+export interface UploadProps  extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
     /** Label do upload */
     label: string,
     /** Se permite enviar múltiplos arquivos. */

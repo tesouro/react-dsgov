@@ -6,7 +6,7 @@ import IMtProps from '../IMtProps';
 import { useSpreadProps } from '../Util/useSpreadProps';
 import { useMtProps } from '../Util/useMtProps';
 
-interface ContainerProps  extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
+export interface ContainerProps  extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
     sm?: boolean,
     md?: boolean,
     lg?: boolean,

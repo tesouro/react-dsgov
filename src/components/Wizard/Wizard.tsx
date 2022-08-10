@@ -8,7 +8,7 @@ import { useMtProps } from '../Util/useMtProps';
 import WizardPanel from './WizardPanel';
 import AnyAttribute from 'react-any-attr';
 
-interface WizardProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange'>, IMtProps {
+export interface WizardProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange'>, IMtProps {
   /** Altura do Wizard. É necessário que o Wizard do DSGov tenha uma altura fixa. */
   height?: string;
 

@@ -7,7 +7,7 @@ import { useSpreadProps } from '../../Util/useSpreadProps';
 import { useMtProps } from '../../Util/useMtProps';
 
 
-interface WizardPanelProps  extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
+export interface WizardPanelProps  extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
     /** Título do painel */
     title: string
 

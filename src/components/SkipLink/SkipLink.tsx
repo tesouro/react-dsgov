@@ -7,7 +7,7 @@ import { useSpreadProps } from '../Util/useSpreadProps';
 import { useMtProps } from '../Util/useMtProps';
 import ISkipLink from './ISkipLink';
 
-interface SkipLinkProps  extends React.HTMLAttributes<HTMLElement>, IMtProps {
+export interface SkipLinkProps  extends React.HTMLAttributes<HTMLElement>, IMtProps {
     /** Lista de elementos do skiplink. */
     data: ISkipLink[]
     /** Se é do tipo composto. */

@@ -6,7 +6,7 @@ import IMtProps from '../../IMtProps';
 import { useSpreadProps } from '../../Util/useSpreadProps';
 import { useMtProps } from '../../Util/useMtProps';
 
-interface ModalFooterProps  extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
+export interface ModalFooterProps  extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
 
 } 
 

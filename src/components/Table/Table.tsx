@@ -17,18 +17,18 @@ import uniqueId from 'lodash.uniqueid';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const core = require('@govbr-ds/core/dist/core-init');
 
-interface IHeader {
+export interface IHeader {
     field: string,
     label: string
 }
 
-interface IItemPage {
+export interface IItemPage {
     label: string,
     value: string
 }
 
 
-interface IData {
+export interface IData {
     pageNumber?: number,
     recordCount?: number,
     pageSize?: number,
@@ -40,7 +40,7 @@ export interface ISearchEvent extends React.MouseEvent<HTMLButtonElement, MouseE
 }
 
 
-interface TableProps extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
+export interface TableProps extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
     id?: string,
     /** Título da tabela */
     title?: string,

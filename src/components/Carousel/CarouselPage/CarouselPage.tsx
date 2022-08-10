@@ -6,7 +6,7 @@ import IMtProps from '../../IMtProps';
 import { useSpreadProps } from '../../Util/useSpreadProps';
 import { useMtProps } from '../../Util/useMtProps';
 
-interface CarouselPageProps  extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
+export interface CarouselPageProps  extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
     /** Cor de background. */
     backgroundColor?: string;
     /** Título a ser mostrado no centro. */

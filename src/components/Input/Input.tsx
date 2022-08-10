@@ -9,7 +9,7 @@ import Message from '../Message/Message';
 import { mapaIcones } from '../Util/Util';
 import uniqueId from 'lodash.uniqueid';
 
-interface InputProps  extends React.HTMLAttributes<HTMLInputElement>, IMtProps {
+export interface InputProps  extends React.HTMLAttributes<HTMLInputElement>, IMtProps {
     /** Label do input. */
     label? : string | React.ReactElement;
     /** Placeholder do input. */

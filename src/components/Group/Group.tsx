@@ -6,7 +6,7 @@ import IMtProps from '../IMtProps';
 import { useSpreadProps } from '../Util/useSpreadProps';
 import { useMtProps } from '../Util/useMtProps';
 
-interface GroupProps  extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
+export interface GroupProps  extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
 
 } 
 

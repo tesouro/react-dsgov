@@ -7,7 +7,7 @@ import { useSpreadProps } from '../Util/useSpreadProps';
 import { useMtProps } from '../Util/useMtProps';
 import uniqueId from 'lodash.uniqueid';
 
-interface LoadingProps  extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
+export interface LoadingProps  extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
     /** Número indicando o progresso do loading. Opcional. */
     progress?: number;
     /** Tamahnho do Loading.

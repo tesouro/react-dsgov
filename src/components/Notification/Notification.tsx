@@ -7,7 +7,7 @@ import { useSpreadProps } from '../Util/useSpreadProps';
 import { useMtProps } from '../Util/useMtProps';
 import AnyAttribute from 'react-any-attr';
 
-interface NotificationProps  extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
+export interface NotificationProps  extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
     /** Nome no cabeçalho da notificação */
     name?: string;
     /** E-mail no cabeçalho da notificação */

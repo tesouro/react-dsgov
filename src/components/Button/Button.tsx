@@ -11,7 +11,7 @@ import useOutsideClick from '../Util/useOutsideClick';
 import List from '../List';
 import CustomTag from '../CustomTag';
 
-interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement>, IMtProps {
+export interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement>, IMtProps {
     /** Se o botão é do tipo "Primário". */
     primary?: boolean,
     /** Se o botão é do tipo "Secundário".  */

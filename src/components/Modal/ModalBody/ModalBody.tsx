@@ -6,7 +6,7 @@ import IMtProps from '../../IMtProps';
 import { useSpreadProps } from '../../Util/useSpreadProps';
 import { useMtProps } from '../../Util/useMtProps';
 
-interface ModalBodyProps  extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
+export interface ModalBodyProps  extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
     /** Se a modal está carregando. */
     loading?: boolean
 } 

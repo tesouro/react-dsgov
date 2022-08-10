@@ -10,7 +10,7 @@ import Radio from '../Radio';
 import Checkbox from '../Checkbox';
 import CustomTag from '../CustomTag';
 
-interface TagProps  extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
+export interface TagProps  extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
     /**  */
     type: 'text' | 'checkbox' | 'radio' | 'status' | 'count' | 'icon'
     label?: string

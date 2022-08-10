@@ -8,7 +8,7 @@ import { useMtProps } from '../Util/useMtProps';
 import uniqueId from 'lodash.uniqueid';
 
 
-interface SwitchProps  extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
+export interface SwitchProps  extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
     /** Label do Switch. */
     label: string
     /** Densidade do switch.

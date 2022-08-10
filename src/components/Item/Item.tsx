@@ -12,7 +12,7 @@ import List from '../List/List';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const core = require('@govbr-ds/core/dist/core-init');
 
-interface ItemProps  extends React.HTMLAttributes<HTMLElement>, IMtProps {
+export interface ItemProps  extends React.HTMLAttributes<HTMLElement>, IMtProps {
     /** Se o item tem um highlight ao passar o mouse em cima. */
     highlighted?: boolean;
     /** Se o item tem um divider */

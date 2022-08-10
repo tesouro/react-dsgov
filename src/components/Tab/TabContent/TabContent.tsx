@@ -5,7 +5,7 @@ import { useSpreadProps } from '../../Util/useSpreadProps';
 import { useMtProps } from '../../Util/useMtProps';
 import uniqueId from 'lodash.uniqueid';
 
-interface TabContentProps  extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
+export interface TabContentProps  extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
     title?: string;
     subTitle?: string;
     active?: boolean;

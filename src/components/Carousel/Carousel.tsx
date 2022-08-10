@@ -12,7 +12,7 @@ import uniqueId from 'lodash.uniqueid';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const core = require('@govbr-ds/core/dist/core-init');
 
-interface CarouselProps extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
+export interface CarouselProps extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
     /** Se o carousel é circular, ou seja, ao pressionar o botão de "próximo" no último, ele volta pro primeiro. 
      *  Se pressionar o botão de "anterior" no primeiro, ele vai pro último.
      */

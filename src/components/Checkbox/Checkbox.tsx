@@ -10,7 +10,7 @@ import uniqueId from 'lodash.uniqueid';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const core = require('@govbr-ds/core/dist/core-init');
 
-interface CheckboxProps  extends React.HTMLAttributes<HTMLInputElement>, IMtProps {
+export interface CheckboxProps  extends React.HTMLAttributes<HTMLInputElement>, IMtProps {
     /** Se o checkbox for inline, ou seja, não pula linha após. */
     inline?: boolean; 
     /** Estado do checkbox.  */

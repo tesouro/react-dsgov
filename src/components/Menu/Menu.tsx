@@ -15,7 +15,7 @@ import IMenuLogo from './IMenuLogo';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const core = require('@govbr-ds/core/dist/core-init');
 
-interface MenuProps extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
+export interface MenuProps extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
     systemLogoUrl?: string,
     systemName?: string,
     data: IMenuItem[]

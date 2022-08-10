@@ -10,7 +10,7 @@ import CustomTag from '../CustomTag';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const core = require('@govbr-ds/core/dist/core-init');
 
-interface MessageProps extends React.HTMLAttributes<HTMLElement>, IMtProps {
+export interface MessageProps extends React.HTMLAttributes<HTMLElement>, IMtProps {
     /**
      * Categoria da mensagem.
      * 

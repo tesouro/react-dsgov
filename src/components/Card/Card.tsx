@@ -10,7 +10,7 @@ import { useSpreadProps } from '../Util/useSpreadProps';
 import { useMtProps } from '../Util/useMtProps';
 import uniqueId from 'lodash.uniqueid';
 
-interface CardProps extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
+export interface CardProps extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
     /** Se o card mostra muda de comportamento ao passar o mouse em cima. */
     hover?: boolean,
     
