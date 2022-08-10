@@ -13,6 +13,7 @@ import Select from '../Select';
 import { updateQueryStringParameter } from '../Util/Util';
 import { SelectOptions } from '../Select/Select';
 import uniqueId from 'lodash.uniqueid';
+import { InputRefHandle } from '../Input/Input';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const core = require('@govbr-ds/core/dist/core-init');
@@ -117,21 +118,23 @@ const Table = React.forwardRef<HTMLDivElement, TableProps>(
 
         const [tableData, setTableData] = useState<any[]>([]);
         const [defaultSearch, setDefaultSearch] = useState<string>('');
-
         const [atualizando, setAtualizando] = useState<boolean>(false);
-
         const [currentEndpoint, setCurrentEndpoint] = useState<string>('');
-
         const [pageNumber, setPageNumber] = useState<number>();
         const [pageSize, setPageSize] = useState<number>();
         const [recordCount, setRecordCount] = useState<number>();
-
         const [pageOptions, setPageOptions] = useState<SelectOptions[]>();
-
         const pageCount = useRef<number | null>(null);
 
+        const [searchExpanded, setSearchExpanded] = useState<boolean>(false);
+        const [alreadyExpanded, setAlreadyExpanded] = useState<boolean>(false);
+        
+        const [currentDensity, setCurrentDensity] = useState<string>('medium');
+
         const refDiv = useRef(null);
-        const refElement = useRef<any>();
+        const refInput = useRef<InputRefHandle>(null);
+        const refSearchExpander = useRef<HTMLButtonElement>(null);
+        
 
         useEffect(() => {
             if (!ref) return;
@@ -178,13 +181,40 @@ const Table = React.forwardRef<HTMLDivElement, TableProps>(
             defaultSearch !== undefined && setCurrentEndpoint((currentEndpoint) =>
                 updateQueryStringParameter(currentEndpoint, 'defaultSearch', String(defaultSearch)));
         };
-       
-        useEffect(() => {
-            if (!refElement.current && refDiv.current) {
-                refElement.current = new core.BRTable('br-table', refDiv.current, id);
-            }
-        }, [id]);
 
+
+        const handleExpandSearch = () => {
+            setSearchExpanded(true);
+            setAlreadyExpanded(true);
+        };
+
+        const handleCloseSearch = () => {
+            setSearchExpanded(false);
+            setDefaultSearch('');
+        };
+
+        const handleKeyDownSearch = (event : React.KeyboardEvent<HTMLInputElement>) => {
+            if (event.key === 'Enter') {
+                handleTrocaBuscaPadrao();
+            }
+            if(event.key === 'Escape') {
+                setDefaultSearch('');
+                setSearchExpanded(false);
+            }
+        };
+
+        const handleClickDensity = (density : string) => {
+            console.log('density clicked');
+            setCurrentDensity(density);
+        };
+
+        useEffect(() => {
+            if(searchExpanded) {
+                refInput.current?.focus();
+            } else if(alreadyExpanded) {
+                refSearchExpander.current?.focus();
+            }
+        }, [searchExpanded, alreadyExpanded]);
 
         useEffect(() => {
             // Se os dados tiverem sido informados manualmente, informa-os
@@ -291,9 +321,11 @@ const Table = React.forwardRef<HTMLDivElement, TableProps>(
         return (
             <div
                 ref={refDiv}
+                id={id}
                 className={classNames(
                     'br-table',
                     className,
+                    currentDensity,
                     ...mtProps
                 )}
                 {...spreadProps}
@@ -303,42 +335,46 @@ const Table = React.forwardRef<HTMLDivElement, TableProps>(
                 data-random="data-random"
 
             >
-                <div className="table-header">
+                <div className={classNames('table-header', {'show': searchExpanded})}>
                     <div className="top-bar">
                         <div className="table-title">{title}</div>
                         {showDensityButtons && <div className="actions-trigger text-nowrap">
-                            <Button circle title="Ver mais opções" data-toggle="dropdown" data-target={`ver-mais-opcoes____${id}`} aria-label="Ver mais opções" icon="fas fa-ellipsis-v" />
-                            <List id={`ver-mais-opcoes____${id}`} hidden role="">
-                                <Button isItem data-density="small">Densidade alta
-                                </Button><span className="br-divider"></span>
-                                <Button isItem data-density="medium">Densidade média
-                                </Button><span className="br-divider"></span>
-                                <Button isItem data-density="large">Densidade baixa
-                                </Button>
-                            </List>
+                            <Button 
+                                circle 
+                                title="Ver mais opções" 
+                                data-toggle="dropdown" 
+                                data-target={`ver-mais-opcoes____${id}`} 
+                                aria-label="Ver mais opções" 
+                                icon="fas fa-ellipsis-v" 
+                                dropdownItems={<>
+                                    <Button onClick={() => handleClickDensity('large')} isItem data-density="small">Densidade alta
+                                    </Button><span className="br-divider"></span>
+                                    <Button onClick={() => handleClickDensity('medium')} isItem data-density="medium">Densidade média
+                                    </Button><span className="br-divider"></span>
+                                    <Button onClick={() => handleClickDensity('small')} isItem data-density="large">Densidade baixa
+                                    </Button>
+                                </>}
+                            />
                         </div>}
                         <div className="search-trigger">
-                            {showSearch && <Button circle data-toggle="search" aria-label="Abrir busca"><i className="fas fa-search" aria-hidden="true"></i>
+                            {showSearch && <Button ref={refSearchExpander} onClick={handleExpandSearch} circle data-toggle="search" aria-label="Abrir busca"><i className="fas fa-search" aria-hidden="true"></i>
                             </Button>}
                         </div>
                     </div>
-                    {showSearch && <div className="search-bar">
+                    {showSearch && <div className={classNames('search-bar', {'show': searchExpanded})}>
                         <div className="br-input">
                             <Input
                                 id={`table-searchbox-${id}`}
+                                ref={refInput}
                                 label="Buscar"
                                 placeholder="Buscar na tabela"
                                 value={defaultSearch}
-                                onKeyDown={(event) => {
-                                    if (event.key === 'Enter') {
-                                        handleTrocaBuscaPadrao();
-                                    }
-                                }}
+                                onKeyDown={handleKeyDownSearch}
                                 onChange={(event) => setDefaultSearch(event.currentTarget.value)}
                                 button={<Button circle aria-label="Buscar" icon="fas fa-search" onClick={() => handleTrocaBuscaPadrao()} />} />
 
                         </div>
-                        <Button circle data-dismiss="search" aria-label="Fechar busca" icon="fas fa-times" />
+                        <Button onClick={handleCloseSearch} circle data-dismiss="search" aria-label="Fechar busca" icon="fas fa-times" />
                     </div>}
                     <div className="selected-bar">
                         <div className="info"><span className="count">0</span><span className="text">item selecionado</span></div>
@@ -397,7 +433,7 @@ const Table = React.forwardRef<HTMLDivElement, TableProps>(
                         <div className="pagination-per-page">
                             <Select label="Itens por página" id={`per-page-selection-random-${id}`} options={getItemsPerPage()}
                                 onChange={(value: any) => setPageSize(value)}
-                                value={pageSize}
+                                value={String(pageSize)}
                             />
                         </div><span className="br-divider d-none d-sm-block mx-3"></span>
                         <div className="pagination-information d-none d-sm-flex"><span className="current">{currentPageNumber || (pageNumber != null && pageSize != null && pageNumber * pageSize + 1)}</span>&ndash;<span className="per-page">{currentPerPageNumber || (pageNumber != null && pageSize != null && pageNumber * pageSize + pageSize)}</span>&nbsp;de&nbsp;<span className="total">{currentTotalRegistros || recordCount}</span>&nbsp;itens</div>

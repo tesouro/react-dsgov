@@ -53,14 +53,15 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         const [expanded, setExpanded] = useState<boolean>(false);
 
         const refButton = useRef(null);
+        const refList = useRef(null);
 
         const handleOnClick = (event : React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
             onClick(event);
             setExpanded(!expanded);
         };
 
-        useOutsideClick(refButton, () => {
-            setExpanded(false);
+        useOutsideClick([refButton, refList], () => {
+            setTimeout(() => setExpanded(false), 100);
         });
 
         useEffect(() => {
@@ -107,7 +108,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
                     {children}
                 </button>
                 {dropdownItems && 
-                    <List className='target' hidden={!expanded} aria-hidden={!expanded} role="" style={{zIndex: 9999}}>
+                    <List ref={refList} className='target' hidden={!expanded} aria-hidden={!expanded} role="" style={{zIndex: 9999}}>
                         {dropdownItems}
                     </List>
                 }

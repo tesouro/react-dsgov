@@ -11,9 +11,22 @@ export default function useOutsideClick(ref : any, callback : () => void) {
     useEffect(() => {
 
         function handleClickOutside(event : any) {
-            if (ref.current && !ref.current.contains(event.target)) {
-                callback();
+            if(Array.isArray(ref)) {
+                let isInside = false;
+                for(const curRef of ref) {
+                    if(curRef.current && curRef.current.contains(event.target)) {
+                        isInside = true;
+                    }
+                }
+                if(!isInside) {
+                    callback();
+                }
+            } else {
+                if (ref.current && !ref.current.contains(event.target)) {
+                    callback();
+                }
             }
+            
         }
 
         document.addEventListener('mousedown', handleClickOutside);

@@ -45,20 +45,38 @@ export interface InputProps  extends React.HTMLAttributes<HTMLInputElement>, IMt
     feedbackText?: string
 } 
 
-const Input = React.forwardRef<HTMLInputElement, InputProps>(
+export interface InputRefHandle {
+    focus: () => void,
+    input: React.RefObject<HTMLInputElement>,
+    inputWrapper: React.RefObject<HTMLDivElement>,
+    label: React.RefObject<HTMLLabelElement>
+    labelGroup: React.RefObject<HTMLDivElement>
+    icon: React.RefObject<HTMLElement>
+    iconGroup: React.RefObject<HTMLDivElement>
+}
+
+
+const Input = React.forwardRef<InputRefHandle, InputProps>(
     ({className, id = uniqueId('input_____'), children, label, placeholder, type = 'text', density = 'normal', icon, button, highlight, inline, value, status, feedbackText, ...props}, ref) => {
         const mtProps = useMtProps(props);
         const spreadProps = useSpreadProps(props);
 
         // Implementando os refs de cada um dos elementos
-        const refInputWrapper = useRef(null);
+        const refInput = useRef<HTMLInputElement>(null);
+        const refInputWrapper = useRef<HTMLDivElement>(null);
         const refInputContent = useRef(null);
-        const refLabel = useRef(null);
-        const refLabelGroup = useRef(null);
-        const refIcon = useRef(null);
-        const refIconGroup = useRef(null);
+        const refLabel = useRef<HTMLLabelElement>(null);
+        const refLabelGroup = useRef<HTMLDivElement>(null);
+        const refIcon = useRef<HTMLElement>(null);
+        const refIconGroup = useRef<HTMLDivElement>(null);
 
-        useImperativeHandle<HTMLInputElement, any>(ref, () => ({
+        useImperativeHandle<InputRefHandle, any>(ref, () => ({
+            focus: () => {
+                refInput.current?.focus();
+            },
+            get input() {
+                return refInput.current;
+            },
             get inputWrapper() {
                 return refInputWrapper.current;
             },
@@ -98,7 +116,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
                 <div ref={refInputContent} className="input-content">
                     <div className="input-group">
                         {icon && <div ref={refIconGroup} className="input-icon"><i ref={refIcon} className={icon} aria-hidden="true"></i></div>}
-                        <input id={id} ref={ref} type={type} placeholder={placeholder} value={value} {...spreadProps} />
+                        <input id={id} ref={refInput} type={type} placeholder={placeholder} value={value} {...spreadProps} />
                         {button}
                         {feedbackText && <Message category="feedback" type={status ? status : 'success'} icon={status && mapaIcones.get(status)}>{feedbackText}</Message>}
                         {children}
