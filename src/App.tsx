@@ -634,7 +634,7 @@ function App() {
                         {currentPage === 2 && <span>Estou na Página 2</span>}
                         {currentPage === 3 && <span>Estou na Página 3</span>}
               
-                        <Pagination onChange={(newPage) => setCurrentPage(newPage)} currentPage={currentPage} pageCount={100} ellipsis={[
+                        <Pagination onChange={(newPage) => setCurrentPage(newPage)  } pageCount={100} ellipsis={[
                             {start: 5, end: 95}
                         ]}/>
                     </Col>

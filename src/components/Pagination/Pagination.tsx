@@ -2,7 +2,7 @@ import '@govbr-ds/core/dist/core.min.css';
 
 /* eslint-disable no-script-url */
 import classNames from 'classnames';
-import React, { useCallback, useEffect, useImperativeHandle, useRef } from 'react';
+import React, { useCallback, useEffect, useImperativeHandle, useRef, useState } from 'react';
 import IMtProps from '../IMtProps';
 import { useSpreadProps } from '../Util/useSpreadProps';
 import { useMtProps } from '../Util/useMtProps';
@@ -18,16 +18,13 @@ export interface IEllipsis {
     end: number
 }
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const core = require('@govbr-ds/core/dist/core-init');
-
 
 interface PaginationProps  extends Omit<React.HTMLAttributes<HTMLElement>, 'onChange'>, IMtProps {
     pageCount: number,
     ellipsis?: IEllipsis[],
     links?: string[]
     density?: 'small' | 'normal' | 'large'
-    currentPage?: number,
+    initialPage?: number,
     onChange?: (pageNumber: number) => void
 } 
 
@@ -38,69 +35,21 @@ interface IList {
 
 
 const Pagination = React.forwardRef<HTMLElement, PaginationProps>(
-    ({className, children, id = uniqueId('pagination_____'), pageCount, ellipsis, density, currentPage, onChange = () => {/**/}, ...props}, ref) => {
+    ({className, children, id = uniqueId('pagination_____'), pageCount, ellipsis, density, initialPage, onChange = () => {/**/}, ...props}, ref) => {
         const mtProps = useMtProps(props);
         const spreadProps = useSpreadProps(props);
+        
+        const [currentPage, setCurrentPage] = useState(initialPage || 1);
 
         const refDiv = useRef(null);
-        const refElement = useRef<any>(null);
 
         useCommonProperties<HTMLElement>(ref, refDiv);
 
-        core.BRPagination.prototype.thisObject = function() {
-            return this;
-        };
-
-        core.BRPagination.prototype.removeDropdownBehavior = function() {
-            for (const dropdown of this.component.querySelectorAll(
-                '[data-toggle="dropdown"]'
-            )) {
-                this._dropdownToggleRemove(dropdown);
-            }
-        };
-        
-        core.BRPagination.prototype.closeAllDropdowns = function() {
-            for (const dropdown of this.component.querySelectorAll(
-                '[data-toggle="dropdown"]'
-            )) {
-                this._dropdownClose(dropdown);
-            }
-        };
-        
-        core.BRPagination.prototype._handleDropdownClick = function() {
-            if (this.element.getAttribute('aria-expanded') === 'false') {
-                this.thisObject._dropdownOpen(this.element);
-                return;
-            }
-            this._dropdownClose(this.element);
-        };
-                
-        
-        core.BRPagination.prototype._dropdownToggle = function(element : HTMLElement) {
-            element.addEventListener('click', this._handleDropdownClick.bind({element: element, thisObject: this}));
-            window.document.addEventListener('click', (event) => {
-                if (!this.component.contains(event.target)) {
-                    this._dropdownClose(element);
-                }
-            });
-        };
-
-        core.BRPagination.prototype._dropdownToggleRemove = function(element : HTMLElement) {
-            element.removeEventListener('click', this._handleDropdownClick);
-        };
-
-        useEffect(() => {
-            if(refElement.current) {
-                refElement.current.removeDropdownBehavior();
-            }   
-            refElement.current = new core.BRPagination('br-pagination', refDiv.current);
-            
-        }, [pageCount, ellipsis, id]);
-        
         const handleClickItem = (page : number) => {
-            refElement.current.closeAllDropdowns();
-            onChange(page);
+            setCurrentPage(page);
+            onChange(page);            
         };
+
 
         const generateList = useCallback(() => {
             const isInsideEllipsis = (pageNumber : number) : boolean => {
@@ -143,7 +92,7 @@ const Pagination = React.forwardRef<HTMLElement, PaginationProps>(
                                         <li key={item}><a className={classNames(
                                             'page',
                                             (currentPage === item && 'active')
-                                        )} href="javascript:void(0)" onClick={() => onChange(item)}>{item}</a></li>
+                                        )} href="javascript:void(0)" onClick={() => handleClickItem(item)}>{item}</a></li>
                                     ))}
                                 </>
                             }
@@ -152,14 +101,28 @@ const Pagination = React.forwardRef<HTMLElement, PaginationProps>(
                                     {page.pages.length > 0 &&
                                         <>
                                             <li className="pagination-ellipsis">
-                                                <Button circle data-toggle="dropdown" aria-label="Abrir listagem" icon="fas fa-ellipsis-h" />
-                                                <List>
-                                                    {page.pages.map((item, index) => (
-                                                        <Item onClick={() => handleClickItem(item)} key={item} link="javascript:void(0)">
-                                                            {item}
-                                                        </Item>
-                                                    ))}
-                                                </List>
+                                                <Button 
+                                                    circle 
+                                                    data-toggle="dropdown" 
+                                                    aria-label="Abrir listagem" 
+                                                    icon="fas fa-ellipsis-h" 
+                                                    dropdownItems={
+                                                        <>
+                                                            {page.pages.map((item, index) => (
+                                                                <Item 
+                                                                    className={classNames(
+                                                                        {'active' : currentPage === item}
+                                                                    )}
+                                                                    onClick={() => {handleClickItem(item); }} 
+                                                                    key={item} 
+                                                                    link="javascript:void(0)"
+                                                                >
+                                                                    {item}
+                                                                </Item>
+                                                            ))}
+                                                        </>
+                                                    }   
+                                                />
                                             </li>
                                             
                                         </>

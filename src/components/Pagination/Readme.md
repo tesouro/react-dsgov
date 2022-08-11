@@ -55,7 +55,6 @@ const [currentPage, setCurrentPage] = useState(1);
         
         <Pagination 
             onChange={(newPage) => setCurrentPage(newPage)} 
-            currentPage={currentPage} 
             pageCount={100} 
             ellipsis={[
                 {start: 5, end: 95}
