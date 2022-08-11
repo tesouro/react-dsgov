@@ -1,13 +1,14 @@
 import '@govbr-ds/core/dist/core.min.css';
 
 import classNames from 'classnames';
-import React, { ComponentType, useEffect, useRef, useState } from 'react';
+import React, { ComponentType, useEffect, useImperativeHandle, useRef, useState } from 'react';
 import IMtProps from '../IMtProps';
 import { useSpreadProps } from '../Util/useSpreadProps';
 import { useMtProps } from '../Util/useMtProps';
 import Divider from '../Divider';
 import CustomTag from '../CustomTag';
 import List from '../List/List';
+import useCommonProperties from '../Util/useCommonProperties';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const core = require('@govbr-ds/core/dist/core-init');
@@ -34,21 +35,23 @@ export interface ItemProps  extends React.HTMLAttributes<HTMLElement>, IMtProps 
     onClick?: (event : React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
 } 
 
-const Item = React.forwardRef<HTMLElement, ItemProps>(
+export interface ItemRef extends HTMLDivElement {
+    element: HTMLElement
+}
+
+const Item = React.forwardRef<ItemRef, ItemProps>(
     ({className, children, highlighted, divider, role = 'listItem', disabled = false, showDividerAfter = false, target, collapsable = false, link, subItems, onClick = () => {/** */}, ...props}, ref) => {
         const mtProps = useMtProps(props);
         const spreadProps = useSpreadProps(props);
-        const refDiv = useRef(null);
+        const refDiv = useRef<HTMLDivElement>(null);
         const refElemento = useRef(null);
 
         const [expanded, setExpanded] = useState<boolean>(false);
 
-        useEffect(() => {
-            if (!ref) return;
-            if (typeof ref === 'function') {
-                ref(refDiv.current);
-            } else {
-                ref.current = refDiv.current;
+
+        useCommonProperties<ItemRef>(ref, refDiv, {
+            get element() {
+                return refDiv.current;
             }
         });
 

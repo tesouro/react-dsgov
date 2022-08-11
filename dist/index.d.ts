@@ -432,7 +432,16 @@ interface InputProps extends React.HTMLAttributes<HTMLInputElement>, IMtProps {
     /** Texto de feedback que aparece embaixo do item, com a cor de fundo de acordo com o status escolhido. */
     feedbackText?: string;
 }
-declare const Input: React.ForwardRefExoticComponent<InputProps & React.RefAttributes<HTMLInputElement>>;
+interface InputRefHandle {
+    focus: () => void;
+    input: React.RefObject<HTMLInputElement>;
+    inputWrapper: React.RefObject<HTMLDivElement>;
+    label: React.RefObject<HTMLLabelElement>;
+    labelGroup: React.RefObject<HTMLDivElement>;
+    icon: React.RefObject<HTMLElement>;
+    iconGroup: React.RefObject<HTMLDivElement>;
+}
+declare const Input: React.ForwardRefExoticComponent<InputProps & React.RefAttributes<InputRefHandle>>;
 
 interface ItemProps extends React.HTMLAttributes<HTMLElement>, IMtProps {
     /** Se o item tem um highlight ao passar o mouse em cima. */

@@ -1,11 +1,12 @@
 import '@govbr-ds/core/dist/core.min.css';
 
 import classNames from 'classnames';
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useImperativeHandle, useRef } from 'react';
 import IMtProps from '../IMtProps';
 import { useSpreadProps } from '../Util/useSpreadProps';
 import { useMtProps } from '../Util/useMtProps';
 import CustomTag from '../CustomTag';
+import useCommonProperties from '../Util/useCommonProperties';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const core = require('@govbr-ds/core/dist/core-init');
@@ -38,7 +39,7 @@ const Message = React.forwardRef<HTMLElement, MessageProps>(
     ({ className, children, category, type, role = 'alert', icon, messageTitle, hasCloseButton = true, ...props }, ref) => {
         const mtProps = useMtProps(props);
         const spreadProps = useSpreadProps(props);
-        const refWrapper = useRef(null);
+        const refWrapper = useRef<HTMLElement>(null);
         const refElement = useRef(null);
         
         useEffect(() => {
@@ -46,16 +47,8 @@ const Message = React.forwardRef<HTMLElement, MessageProps>(
                 refElement.current = new core.BRAlert('br-message', refWrapper.current);
             }            
         }, []);
-
-        useEffect(() => {
-            if (!ref) return;
-            if (typeof ref === 'function') {
-                ref(refWrapper.current);
-            } else {
-                ref.current = refWrapper.current;
-            }
-        });
-
+        
+        useCommonProperties<HTMLElement>(ref, refWrapper);
         
         return (
             <CustomTag

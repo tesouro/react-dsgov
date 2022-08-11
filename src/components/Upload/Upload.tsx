@@ -1,11 +1,12 @@
 import '@govbr-ds/core/dist/core.min.css';
 
 import classNames from 'classnames';
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useImperativeHandle, useRef } from 'react';
 import IMtProps from '../IMtProps';
 import { useSpreadProps } from '../Util/useSpreadProps';
 import { useMtProps } from '../Util/useMtProps';
 import uniqueId from 'lodash.uniqueid';
+import useCommonProperties from '../Util/useCommonProperties';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const core = require('@govbr-ds/core/dist/core-init');
@@ -29,15 +30,7 @@ const Upload = React.forwardRef<HTMLDivElement, UploadProps>(
         const refElement = useRef(null);
         const refWrapper = useRef(null);
 
-        useEffect(() => {
-            if (!ref) return;
-            if (typeof ref === 'function') {
-                ref(refWrapper.current);
-            } else {
-                ref.current = refWrapper.current;
-            }
-        });
-
+        useCommonProperties<HTMLDivElement>(ref, refWrapper);
 
         useEffect(() => {
             if(refWrapper.current && uploadTimeout && !refElement.current) {

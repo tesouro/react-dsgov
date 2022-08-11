@@ -1,7 +1,7 @@
 import '@govbr-ds/core/dist/core.min.css';
 
 import classNames from 'classnames';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useImperativeHandle, useRef, useState } from 'react';
 import IMtProps from '../IMtProps';
 import { useSpreadProps } from '../Util/useSpreadProps';
 import { useMtProps } from '../Util/useMtProps';
@@ -9,6 +9,7 @@ import CustomTag from '../CustomTag';
 import uniqueId from 'lodash.uniqueid';
 import Notification from '../Notification';
 import useOutsideClick from '../Util/useOutsideClick';
+import useCommonProperties from '../Util/useCommonProperties';
 
 export interface AvatarProps  extends React.HTMLAttributes<HTMLElement>, IMtProps {
     /** Título do avatar. */
@@ -34,12 +35,19 @@ export interface AvatarProps  extends React.HTMLAttributes<HTMLElement>, IMtProp
     bgColor?: string
 }
 
-const Avatar = React.forwardRef<HTMLElement, AvatarProps>(
+export interface AvatarRef extends HTMLElement {
+    focus: () => void,
+    expand: () => void,
+    close: () => void,
+    element: HTMLElement
+}
+
+const Avatar = React.forwardRef<AvatarRef, AvatarProps>(
     ({className, children, id = uniqueId('avatar_____'), title, imageSrc, alt = 'Avatar', density = 'small', letter, dropdown = false, icon, bgColor = 'bg-violet-50', ...props}, ref) => {
         const mtProps = useMtProps(props);
         const spreadProps = useSpreadProps(props);
 
-        const refContainer = useRef(null);
+        const refContainer = useRef<HTMLElement>(null);
 
         const [opened, setOpened] = useState<boolean>(false);
 
@@ -50,13 +58,12 @@ const Avatar = React.forwardRef<HTMLElement, AvatarProps>(
         const handleOpenClose = () => {
             setOpened(!opened);
         };
-
-        useEffect(() => {
-            if (!ref) return;
-            if (typeof ref === 'function') {
-                ref(refContainer.current);
-            } else {
-                ref.current = refContainer.current;
+        
+        useCommonProperties<AvatarRef>(ref, refContainer, {
+            expand: () => setOpened(true),
+            close: () => setOpened(false),
+            get element() {
+                return refContainer.current;
             }
         });
 

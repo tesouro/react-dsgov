@@ -8,12 +8,13 @@ import { useMtProps } from '../Util/useMtProps';
 import Message from '../Message/Message';
 import { mapaIcones } from '../Util/Util';
 import uniqueId from 'lodash.uniqueid';
+import useCommonProperties from '../Util/useCommonProperties';
 
-export interface InputProps  extends React.HTMLAttributes<HTMLInputElement>, IMtProps {
+export interface InputProps extends React.HTMLAttributes<HTMLInputElement>, IMtProps {
     /** Label do input. */
-    label? : string | React.ReactElement;
+    label?: string | React.ReactElement;
     /** Placeholder do input. */
-    placeholder? : string,
+    placeholder?: string,
     /** Tipo do input. Por padrão, é type="text". */
     type?: string,
     /** Tamanho do input.
@@ -43,21 +44,23 @@ export interface InputProps  extends React.HTMLAttributes<HTMLInputElement>, IMt
     status?: 'success' | 'danger' | 'info' | 'warning',
     /** Texto de feedback que aparece embaixo do item, com a cor de fundo de acordo com o status escolhido. */
     feedbackText?: string
-} 
+}
 
-export interface InputRefHandle {
-    focus: () => void,
-    input: React.RefObject<HTMLInputElement>,
-    inputWrapper: React.RefObject<HTMLDivElement>,
-    label: React.RefObject<HTMLLabelElement>
-    labelGroup: React.RefObject<HTMLDivElement>
-    icon: React.RefObject<HTMLElement>
-    iconGroup: React.RefObject<HTMLDivElement>
+export interface InputRef extends HTMLInputElement {
+    element: HTMLInputElement | null,
+    inputWrapper?: HTMLDivElement | null,
+    label: HTMLLabelElement | null
+    labelGroup: HTMLDivElement | null
+    icon: HTMLElement | null
+    iconGroup: HTMLDivElement | null
 }
 
 
-const Input = React.forwardRef<InputRefHandle, InputProps>(
-    ({className, id = uniqueId('input_____'), children, label, placeholder, type = 'text', density = 'normal', icon, button, highlight, inline, value, status, feedbackText, ...props}, ref) => {
+
+
+
+const Input = React.forwardRef<InputRef, InputProps>(
+    ({ className, id = uniqueId('input_____'), children, label, placeholder, type = 'text', density = 'normal', icon, button, highlight, inline, value, status, feedbackText, ...props }, ref) => {
         const mtProps = useMtProps(props);
         const spreadProps = useSpreadProps(props);
 
@@ -70,11 +73,10 @@ const Input = React.forwardRef<InputRefHandle, InputProps>(
         const refIcon = useRef<HTMLElement>(null);
         const refIconGroup = useRef<HTMLDivElement>(null);
 
-        useImperativeHandle<InputRefHandle, any>(ref, () => ({
-            focus: () => {
-                refInput.current?.focus();
-            },
-            get input() {
+
+
+        useCommonProperties<InputRef>(ref, refInput, {
+            get element() {
                 return refInput.current;
             },
             get inputWrapper() {
@@ -92,12 +94,12 @@ const Input = React.forwardRef<InputRefHandle, InputProps>(
             get iconGroup() {
                 return refIconGroup.current;
             }
-        }));
+        });
 
 
         return (
             <div
-                
+
                 ref={refInputWrapper}
                 className={classNames(
                     'br-input',
@@ -109,8 +111,8 @@ const Input = React.forwardRef<InputRefHandle, InputProps>(
                     className,
                     ...mtProps
                 )}
-                
-                
+
+
             >
                 {label && <div ref={refLabelGroup} className="input-label"><label ref={refLabel} htmlFor={id}>{label}</label></div>}
                 <div ref={refInputContent} className="input-content">
@@ -122,11 +124,11 @@ const Input = React.forwardRef<InputRefHandle, InputProps>(
                         {children}
                     </div>
                 </div>
-                
+
             </div>
         );
     }
-); 
+);
 
 Input.displayName = 'Input';
 

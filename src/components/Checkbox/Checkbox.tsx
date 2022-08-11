@@ -6,6 +6,7 @@ import IMtProps from '../IMtProps';
 import { useSpreadProps } from '../Util/useSpreadProps';
 import { useMtProps } from '../Util/useMtProps';
 import uniqueId from 'lodash.uniqueid';
+import useCommonProperties from '../Util/useCommonProperties';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const core = require('@govbr-ds/core/dist/core-init');
@@ -36,22 +37,28 @@ export interface CheckboxProps  extends React.HTMLAttributes<HTMLInputElement>, 
     childOf?: string;
 } 
 
-const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
+export interface CheckboxRef extends HTMLInputElement {
+    wrapper: HTMLDivElement,
+    element: HTMLInputElement
+}
+
+const Checkbox = React.forwardRef<CheckboxRef, CheckboxProps>(
     ({className, id = uniqueId('checkbox_____'), children, inline, state, disabled, defaultChecked = false, checked, name, label, value, indeterminate = false, parentGroup, childOf, ...props}, ref) => {
         const mtProps = useMtProps(props);
         const spreadProps = useSpreadProps(props);
 
         const refElement = useRef(null);
-        const refWrapper = useRef(null);
+        const refWrapper = useRef<HTMLDivElement>(null);
+        const refInput = useRef<HTMLInputElement>(null);
 
-        useImperativeHandle<HTMLInputElement, any>(ref, () => ({
+        useCommonProperties<CheckboxRef>(ref, refInput, {
             get wrapper() {
                 return refWrapper.current;
             },
             get element() {
-                return refElement.current;
+                return refInput.current;
             }
-        }));
+        });
 
         useEffect(() => {
             if(refWrapper.current && !refElement.current) {
@@ -75,7 +82,7 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
                 
             >
                 <input 
-                    ref={ref}
+                    ref={refInput}
                     className={classNames(
                         className
                     )}

@@ -1,7 +1,7 @@
 import '@govbr-ds/core/dist/core.min.css';
 
 import classNames from 'classnames';
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useImperativeHandle, useRef, useState } from 'react';
 import IMtProps from '../IMtProps';
 import { useSpreadProps } from '../Util/useSpreadProps';
 import { useMtProps } from '../Util/useMtProps';
@@ -13,7 +13,9 @@ import Select from '../Select';
 import { updateQueryStringParameter } from '../Util/Util';
 import { SelectOptions } from '../Select/Select';
 import uniqueId from 'lodash.uniqueid';
-import { InputRefHandle } from '../Input/Input';
+import { InputRef } from '../Input/Input';
+import { ButtonRef } from '../Button/Button';
+import useCommonProperties from '../Util/useCommonProperties';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const core = require('@govbr-ds/core/dist/core-init');
@@ -132,18 +134,10 @@ const Table = React.forwardRef<HTMLDivElement, TableProps>(
         const [currentDensity, setCurrentDensity] = useState<string>('medium');
 
         const refDiv = useRef(null);
-        const refInput = useRef<InputRefHandle>(null);
-        const refSearchExpander = useRef<HTMLButtonElement>(null);
+        const refInput = useRef<InputRef>(null);
+        const refSearchExpander = useRef<ButtonRef>(null);
         
-
-        useEffect(() => {
-            if (!ref) return;
-            if (typeof ref === 'function') {
-                ref(refDiv.current);
-            } else {
-                ref.current = refDiv.current;
-            }
-        });
+        useCommonProperties<InputRef>(ref, refDiv);
 
         const handleClickNextPage = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
             onClickNextPage(event);
@@ -204,7 +198,6 @@ const Table = React.forwardRef<HTMLDivElement, TableProps>(
         };
 
         const handleClickDensity = (density : string) => {
-            console.log('density clicked');
             setCurrentDensity(density);
         };
 

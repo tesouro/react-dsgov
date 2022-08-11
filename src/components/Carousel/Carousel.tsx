@@ -2,12 +2,13 @@
 import '@govbr-ds/core/dist/core.min.css';
 
 import classNames from 'classnames';
-import React, { Children, useEffect, useRef } from 'react';
+import React, { Children, useEffect, useImperativeHandle, useRef } from 'react';
 import CarouselPage from './CarouselPage';
 import IMtProps from '../IMtProps';
 import { useMtProps } from '../Util/useMtProps';
 import { useSpreadProps } from '../Util/useSpreadProps';
 import uniqueId from 'lodash.uniqueid';
+import useCommonProperties from '../Util/useCommonProperties';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const core = require('@govbr-ds/core/dist/core-init');
@@ -35,6 +36,10 @@ export interface CarouselProps extends React.HTMLAttributes<HTMLDivElement>, IMt
     textual?: boolean;
 }
 
+export interface CarouselRef extends HTMLDivElement {
+    element: HTMLDivElement
+}
+
 const Carousel = React.forwardRef<HTMLDivElement, CarouselProps>(
     ({ className, id = uniqueId('carousel_____'), children, circular, interno, hybrid, textual = false, ...props }, ref) => {
         const refDiv = useRef<HTMLDivElement>(null);
@@ -44,15 +49,12 @@ const Carousel = React.forwardRef<HTMLDivElement, CarouselProps>(
         const mtProps = useMtProps(props);
         const spreadProps = useSpreadProps(props);
 
-        useEffect(() => {
-            if (!ref) return;
-            if (typeof ref === 'function') {
-                ref(refDiv.current);
-            } else {
-                ref.current = refDiv.current;
+        useCommonProperties<CarouselRef>(ref, refDiv, {
+            get element() {
+                return refDiv.current;
             }
         });
-
+        
         // Reinstancia o Carousel quando mudarem os filhos do Carousel (ou seja, as páginas)
         useEffect(() => {
             const qtdChildrenAtual = Children.count(children);

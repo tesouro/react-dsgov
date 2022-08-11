@@ -30,6 +30,7 @@ const Tag = React.forwardRef<HTMLDivElement, TagProps>(
     ({className, children, id = uniqueId('tag_____'), type, density = 'normal', status, icon, defaultChecked, checked, name, value, label, ...props}, ref) => {
         const mtProps = useMtProps(props);
         const spreadProps = useSpreadProps(props);
+        
 
         return (
             <>

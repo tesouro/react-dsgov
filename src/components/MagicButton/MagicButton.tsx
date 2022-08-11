@@ -7,6 +7,7 @@ import { useSpreadProps } from '../Util/useSpreadProps';
 import { useMtProps } from '../Util/useMtProps';
 import Button from '../Button';
 import uniqueId from 'lodash.uniqueid';
+import useCommonProperties from '../Util/useCommonProperties';
 
 
 export interface MagicButtonProps  extends React.HTMLAttributes<HTMLButtonElement>, IMtProps {
@@ -23,17 +24,22 @@ export interface MagicButtonProps  extends React.HTMLAttributes<HTMLButtonElemen
         icon?: string
 }
 
-const MagicButton = React.forwardRef<HTMLButtonElement, MagicButtonProps>(
+export interface MagicButtonRef extends HTMLButtonElement {
+    element: HTMLButtonElement
+}
+
+const MagicButton = React.forwardRef<MagicButtonRef, MagicButtonProps>(
     ({className, id = uniqueId('magicbutton_____'), children, density = 'medium', ...props}, ref) => {
         const mtProps = useMtProps(props);
         const spreadProps = useSpreadProps(props);
         const refWrapper = useRef(null);
+        const refButton = useRef<HTMLButtonElement>(null);
         
-        useImperativeHandle<HTMLButtonElement, any>(ref, () => ({
-            get wrapper() {
-                return refWrapper.current;
+        useCommonProperties<MagicButtonRef>(ref, refButton, {
+            get element() {
+                return refButton.current;
             }
-        }));
+        });
 
 
         return (
@@ -49,7 +55,7 @@ const MagicButton = React.forwardRef<HTMLButtonElement, MagicButtonProps>(
             >
                 <Button
                     id={id}
-                    ref={ref}
+                    ref={refButton}
                     {...spreadProps}
                 >
                     {children}

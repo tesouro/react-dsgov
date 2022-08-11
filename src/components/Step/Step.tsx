@@ -1,10 +1,11 @@
 import '@govbr-ds/core/dist/core.min.css';
 
 import classNames from 'classnames';
-import React, { ForwardedRef, MutableRefObject, useCallback, useEffect, useRef, useState } from 'react';
+import React, { ForwardedRef, MutableRefObject, useCallback, useEffect, useImperativeHandle, useRef, useState } from 'react';
 import IMtProps from '../IMtProps';
 import { useSpreadProps } from '../Util/useSpreadProps';
 import { useMtProps } from '../Util/useMtProps';
+import useCommonProperties from '../Util/useCommonProperties';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const core = require('@govbr-ds/core/dist/core-init');
@@ -60,14 +61,8 @@ const Step = React.forwardRef<HTMLDivElement, StepProps>(
         const refDiv = useRef(null);
         const refStepProgress = useRef(null);
 
-        useEffect(() => {
-            if (!ref) return;
-            if (typeof ref === 'function') {
-                ref(refDiv.current);
-            } else {
-                ref.current = refDiv.current;
-            }
-        });
+
+        useCommonProperties<HTMLDivElement>(ref, refDiv);
 
         const handleStepClick = (event : React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
             if(event.currentTarget.dataset.step) {

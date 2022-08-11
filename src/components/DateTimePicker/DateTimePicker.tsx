@@ -6,6 +6,7 @@ import IMtProps from '../IMtProps';
 import { useSpreadProps } from '../Util/useSpreadProps';
 import { useMtProps } from '../Util/useMtProps';
 import uniqueId from 'lodash.uniqueid';
+import useCommonProperties from '../Util/useCommonProperties';
 
 export interface DateTimePickerProps extends React.HTMLAttributes<HTMLInputElement>, IMtProps {
     /** Modo do Datetime.
@@ -31,16 +32,28 @@ export interface DateTimePickerProps extends React.HTMLAttributes<HTMLInputEleme
     maxDate?: string
 }
 
-const DateTimePicker = React.forwardRef<HTMLInputElement, DateTimePickerProps>(
+export interface DateTimePickerRef  extends HTMLInputElement {
+    element: HTMLInputElement,
+    wrapper: HTMLElement,
+    inputWrapper: HTMLElement,
+    label: HTMLElement,
+    button: HTMLButtonElement
+}
+
+const DateTimePicker = React.forwardRef<DateTimePickerRef, DateTimePickerProps>(
     ({ className, id = uniqueId('datetimepicker_____'), children, dataMode = 'single', dataType = 'text', label, placeholder = 'dd/mm/aaaa', buttonIcon = 'fas fa-calendar-alt', minDate, maxDate, ...props }, ref) => {
         // Implementando os refs de cada um dos elementos
         const refWrapper = useRef(null);
         const refInputWrapper = useRef(null);
         const refLabel = useRef(null);
         const refElement = useRef(null);
-        const refButton = useRef(null);
-
-        useImperativeHandle<HTMLInputElement, any>(ref, () => ({
+        const refButton = useRef<HTMLButtonElement>(null);
+        const refInput = useRef<HTMLInputElement>(null);
+    
+        useCommonProperties<DateTimePickerRef>(ref, refInput, {
+            get element() {
+                return refInput.current;
+            },
             get wrapper() {
                 return refWrapper.current;
             },
@@ -53,7 +66,7 @@ const DateTimePicker = React.forwardRef<HTMLInputElement, DateTimePickerProps>(
             get button() {
                 return refButton.current;
             }
-        }));
+        });
 
 
         // Inicializando o datetimepicker
@@ -84,7 +97,7 @@ const DateTimePicker = React.forwardRef<HTMLInputElement, DateTimePickerProps>(
                         id={id}
                         type={dataType}
                         placeholder={placeholder}
-                        ref={ref}
+                        ref={refInput}
                         data-input="data-input"
                         {...spreadProps}
                     />

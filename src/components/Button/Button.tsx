@@ -2,7 +2,7 @@ import '@govbr-ds/core/dist/core.min.css';
 import '@govbr-ds/core/dist/core-init';
 
 import classNames from 'classnames';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useImperativeHandle, useRef, useState } from 'react';
 import IMtProps from '../IMtProps';
 import { useSpreadProps } from '../Util/useSpreadProps';
 import { useMtProps } from '../Util/useMtProps';
@@ -10,6 +10,8 @@ import uniqueId from 'lodash.uniqueid';
 import useOutsideClick from '../Util/useOutsideClick';
 import List from '../List';
 import CustomTag from '../CustomTag';
+import { ListRef } from '../List/List';
+import useCommonProperties from '../Util/useCommonProperties';
 
 export interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement>, IMtProps {
     /** Se o botão é do tipo "Primário". */
@@ -45,15 +47,21 @@ export interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement>, IM
     dropdownItems?: React.ReactElement
 }
 
-const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
+export interface ButtonRef extends HTMLButtonElement {
+    expand: () => void,
+    close: () => void,
+    element: HTMLButtonElement
+}
+
+const Button = React.forwardRef<ButtonRef, ButtonProps>(
     ({children, className, id = uniqueId('button_____'), type = 'submit', primary, secondary, circle, inverted, block, large, small, loading, disabled, icon, signIn = false, isItem = false, onClick = () => {/** */}, dropdownItems, ...props}, ref) => {
         
         const mtProps = useMtProps(props);
         const spreadProps = useSpreadProps(props);
         const [expanded, setExpanded] = useState<boolean>(false);
 
-        const refButton = useRef(null);
-        const refList = useRef(null);
+        const refButton = useRef<HTMLButtonElement>(null);
+        const refList = useRef<ListRef>(null);
 
         const handleOnClick = (event : React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
             onClick(event);
@@ -64,12 +72,17 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
             setTimeout(() => setExpanded(false), 100);
         });
 
-        useEffect(() => {
-            if (!ref) return;
-            if (typeof ref === 'function') {
-                ref(refButton.current);
-            } else {
-                ref.current = refButton.current;
+
+        
+        useCommonProperties<ButtonRef>(ref, refButton, {
+            expand: () => {
+                setExpanded(true);
+            },
+            close: () => {
+                setExpanded(false);
+            },
+            get element() {
+                return refButton.current;
             }
         });
 

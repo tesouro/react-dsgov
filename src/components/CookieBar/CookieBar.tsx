@@ -2,10 +2,11 @@ import '@govbr-ds/core/dist/core.min.css';
 
 
 import classNames from 'classnames';
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useImperativeHandle, useRef } from 'react';
 import IMtProps from '../IMtProps';
 import { useSpreadProps } from '../Util/useSpreadProps';
 import { useMtProps } from '../Util/useMtProps';
+import useCommonProperties from '../Util/useCommonProperties';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const core = require('@govbr-ds/core/dist/core-init');
@@ -152,20 +153,21 @@ const defaultConfigs =
     }
 ];
 
-const CookieBar = React.forwardRef<HTMLDivElement, CookieBarProps>(
+export interface CookieBarRef extends HTMLDivElement {
+    element: HTMLDivElement
+}
+
+const CookieBar = React.forwardRef<CookieBarRef, CookieBarProps>(
     ({className, children, json = defaultConfigs, callback = () => {/** */}, ...props}, ref) => {
         const mtProps = useMtProps(props);
         const spreadProps = useSpreadProps(props);
 
-        const refDiv = useRef(null);
+        const refDiv = useRef<HTMLDivElement>(null);
         const refElement = useRef();
 
-        useEffect(() => {
-            if (!ref) return;
-            if (typeof ref === 'function') {
-                ref(refDiv.current);
-            } else {
-                ref.current = refDiv.current;
+        useCommonProperties<CookieBarRef>(ref, refDiv, {
+            get element() {
+                return refDiv.current;
             }
         });
 

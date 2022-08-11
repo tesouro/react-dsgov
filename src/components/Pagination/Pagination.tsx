@@ -2,7 +2,7 @@ import '@govbr-ds/core/dist/core.min.css';
 
 /* eslint-disable no-script-url */
 import classNames from 'classnames';
-import React, { useCallback, useEffect, useRef } from 'react';
+import React, { useCallback, useEffect, useImperativeHandle, useRef } from 'react';
 import IMtProps from '../IMtProps';
 import { useSpreadProps } from '../Util/useSpreadProps';
 import { useMtProps } from '../Util/useMtProps';
@@ -11,6 +11,7 @@ import List from '../List';
 import Item from '../Item';
 import uniqueId from 'lodash.uniqueid';
 import CustomTag from '../CustomTag';
+import useCommonProperties from '../Util/useCommonProperties';
 
 export interface IEllipsis {
     start: number,
@@ -44,14 +45,7 @@ const Pagination = React.forwardRef<HTMLElement, PaginationProps>(
         const refDiv = useRef(null);
         const refElement = useRef<any>(null);
 
-        useEffect(() => {
-            if (!ref) return;
-            if (typeof ref === 'function') {
-                ref(refDiv.current);
-            } else {
-                ref.current = refDiv.current;
-            }
-        });
+        useCommonProperties<HTMLElement>(ref, refDiv);
 
         core.BRPagination.prototype.thisObject = function() {
             return this;

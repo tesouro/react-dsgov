@@ -1,17 +1,18 @@
 import '@govbr-ds/core/dist/core.min.css';
 
 import classNames from 'classnames';
-import React, { Dispatch, SetStateAction, useCallback, useEffect, useRef, useState } from 'react';
+import React, { Dispatch, SetStateAction, useCallback, useEffect, useImperativeHandle, useRef, useState } from 'react';
 import IMtProps from '../IMtProps';
 import { useSpreadProps } from '../Util/useSpreadProps';
 import { useMtProps } from '../Util/useMtProps';
-import List from '../List/List';
+import List, { ListRef } from '../List/List';
 import Item from '../Item/Item';
 import Radio from '../Radio/Radio';
 import Checkbox from '../Checkbox';
 import AnyAttribute from 'react-any-attr';
 import uniqueId from 'lodash.uniqueid';
 import useOutsideClick from '../Util/useOutsideClick';
+import useCommonProperties from '../Util/useCommonProperties';
 
 
 export interface SelectOptions {
@@ -53,16 +54,9 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
         const refInputWrapper = useRef(null);
         const refWrapper = useRef(null);  
 
-        useEffect(() => {
-            if (!ref) return;
-            if (typeof ref === 'function') {
-                ref(refWrapper.current);
-            } else {
-                ref.current = refWrapper.current;
-            }
-        });
+        useCommonProperties<HTMLSelectElement>(ref, refWrapper);
 
-        const refList = useRef<HTMLDivElement>(null);
+        const refList = useRef<ListRef>(null);
 
         const customAttributes : any = {};
 
@@ -126,11 +120,9 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
 
         const handleSelectAll = (selected : boolean) => {
             const newValues : any = [];
-            console.log(selected);
 
             if(selected) {
                 options.filter(handleFilterSearch).forEach((option) => {
-                    console.log(option.value);
                     newValues.push(option.value);
                 });
             }            
@@ -191,7 +183,7 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
                         return oldCurrentFocus;
                     }
 
-                    (refList.current?.querySelectorAll('.br-item')[oldCurrentFocus + 1] as HTMLElement).focus();
+                    (refList.current?.element.querySelectorAll('.br-item')[oldCurrentFocus + 1] as HTMLElement).focus();
                     return oldCurrentFocus + 1;
                 });
 
@@ -205,12 +197,12 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
                         return oldCurrentFocus;
                     }
 
-                    (refList.current?.querySelectorAll('.br-item')[oldCurrentFocus - 1] as HTMLElement).focus();
+                    (refList.current?.element.querySelectorAll('.br-item')[oldCurrentFocus - 1] as HTMLElement).focus();
                     return oldCurrentFocus - 1;
                 });
             } else if(event.key === ' ' && event.target.tagName === 'DIV') {
                 event.preventDefault();
-                (refList.current?.querySelectorAll('.br-item')[currentFocus] as HTMLElement).querySelector('input')?.click();
+                (refList.current?.element.querySelectorAll('.br-item')[currentFocus] as HTMLElement).querySelector('input')?.click();
                 setCurrentFocus(-1);
             } else if(event.key === 'Escape') {
                 setExpanded(false);

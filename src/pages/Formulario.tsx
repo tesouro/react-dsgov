@@ -1,3 +1,4 @@
+import React from 'react';
 import { useEffect, useState } from 'react';
 
 interface FormularioProps {
@@ -9,9 +10,6 @@ const Formulario = ({campos} : FormularioProps) => {
 
     const handleChange = (e : React.ChangeEvent<HTMLInputElement>) => setLista((prevLista : any) => ({ ...prevLista, [e.target.name]: e.target.value }));
 
-    useEffect(() => {
-        console.log(lista);
-    }, [lista]);
 
     return (
         <div>

@@ -7,6 +7,7 @@ import { useSpreadProps } from '../Util/useSpreadProps';
 import { useMtProps } from '../Util/useMtProps';
 import WizardPanel from './WizardPanel';
 import AnyAttribute from 'react-any-attr';
+import useCommonProperties from '../Util/useCommonProperties';
 
 export interface WizardProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange'>, IMtProps {
   /** Altura do Wizard. É necessário que o Wizard do DSGov tenha uma altura fixa. */
@@ -70,14 +71,8 @@ const Wizard = React.forwardRef<HTMLDivElement, WizardProps>(
         const refConcludeButton = useRef(null);
         const refPanel = useRef(null);
 
-        useEffect(() => {
-            if (!ref) return;
-            if (typeof ref === 'function') {
-                ref(refWrapper.current);
-            } else {
-                ref.current = refWrapper.current;
-            }
-        });
+
+        useCommonProperties<HTMLDivElement>(ref, refWrapper);
 
         const [currentStep, setCurrentStep] = useState<number>(initialStep || 1);
 

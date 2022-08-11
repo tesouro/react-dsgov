@@ -1,7 +1,7 @@
 import '@govbr-ds/core/dist/core.min.css';
 
 import classNames from 'classnames';
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useImperativeHandle, useRef } from 'react';
 import IMtProps from '../IMtProps';
 import { useSpreadProps } from '../Util/useSpreadProps';
 import { useMtProps } from '../Util/useMtProps';
@@ -11,6 +11,7 @@ import uniqueId from 'lodash.uniqueid';
 import IMenuLink from './IMenuLink';
 import ISocialNetwork from './ISocialNetwork';
 import IMenuLogo from './IMenuLogo';
+import useCommonProperties from '../Util/useCommonProperties';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const core = require('@govbr-ds/core/dist/core-init');
@@ -29,7 +30,11 @@ export interface MenuProps extends React.HTMLAttributes<HTMLDivElement>, IMtProp
     density?: 'small' | 'normal' | 'large'
 }
 
-const Menu = React.forwardRef<HTMLDivElement, MenuProps>(
+export interface MenuRef extends HTMLDivElement {
+    element: HTMLDivElement
+}
+
+const Menu = React.forwardRef<MenuRef, MenuProps>(
     ({ className, children, id = uniqueId('menu_____'), data, logos, externalLinks, socialNetworks, info, systemLogoUrl, systemName, type = 'normal', density = 'normal', active, shadow, ...props }, ref) => {
         const mtProps = useMtProps(props);
         const spreadProps = useSpreadProps(props);
@@ -37,20 +42,12 @@ const Menu = React.forwardRef<HTMLDivElement, MenuProps>(
         const refElemento = useRef();
         const refDiv = useRef<HTMLDivElement>(null);
 
-        useEffect(() => {
-            if (refDiv.current && !refElemento.current) {
-                refElemento.current = new core.BRMenu('br-menu', refDiv.current);
-            }
-        }, []);
-
-        useEffect(() => {
-            if (!ref) return;
-            if (typeof ref === 'function') {
-                ref(refDiv.current);
-            } else {
-                ref.current = refDiv.current;
+        useCommonProperties<MenuRef>(ref, refDiv, {
+            get element() {
+                return refDiv.current;
             }
         });
+
 
         return (
             <div

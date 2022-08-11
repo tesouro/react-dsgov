@@ -9,6 +9,7 @@ import Message from '../Message/Message';
 import { mapaIcones } from '../Util/Util';
 import Row from '../Row/Row';
 import uniqueId from 'lodash.uniqueid';
+import useCommonProperties from '../Util/useCommonProperties';
 
 export interface TextareaProps extends React.HTMLAttributes<HTMLTextAreaElement>, IMtProps {
     /** Label do textarea. */
@@ -58,9 +59,11 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
         const refLabelGroup = useRef(null);
         const refIcon = useRef(null);
         const refIconGroup = useRef(null);
+        const refTextarea = useRef<HTMLTextAreaElement>(null);
 
         
-        useImperativeHandle<HTMLTextAreaElement, any>(ref, () => ({
+
+        useCommonProperties<HTMLTextAreaElement>(ref, refTextarea, {
             get TextareaWrapper() {
                 return refTextareaWrapper.current;
             },
@@ -76,7 +79,7 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
             get iconGroup() {
                 return refIconGroup.current;
             }
-        }));
+        });
 
 
 
@@ -96,7 +99,7 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
             <textarea 
                 id={id} 
                 value={value} 
-                ref={ref} 
+                ref={refTextarea} 
                 {...maxLength && {maxLength: maxLength}}
                 placeholder={placeholder} 
                 onChange={(evento) => handleChange(evento)}

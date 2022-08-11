@@ -7,6 +7,7 @@ import { useSpreadProps } from '../Util/useSpreadProps';
 import { useMtProps } from '../Util/useMtProps';
 import CustomTag from '../CustomTag';
 import uniqueId from 'lodash.uniqueid';
+import useCommonProperties from '../Util/useCommonProperties';
 
 export interface RadioProps  extends React.HTMLAttributes<HTMLInputElement>, IMtProps {
     /** Label do radio. */
@@ -43,14 +44,11 @@ const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
         const refLabel = useRef(null);
         const refInput = useRef<any>(null);
 
-        useEffect(() => {
-            if (!ref) return;
-            if (typeof ref === 'function') {
-                ref(refInput.current);
-            } else {
-                ref.current = refInput.current;
-            }
-        });
+        useImperativeHandle<HTMLInputElement, any>(ref, () => ({
+            ...refInput
+        }));
+
+        useCommonProperties<HTMLInputElement>(ref, refInput);
 
         useEffect(() => {
             if(checked) {
