@@ -35,7 +35,7 @@ interface IList {
 
 
 const Pagination = React.forwardRef<HTMLElement, PaginationProps>(
-    ({className, children, id = uniqueId('pagination_____'), pageCount, ellipsis, density, initialPage, onChange = () => {/**/}, ...props}, ref) => {
+    ({className, children, id = uniqueId('pagination_____'), pageCount, ellipsis, density, initialPage, onChange, ...props}, ref) => {
         const mtProps = useMtProps(props);
         const spreadProps = useSpreadProps(props);
         
@@ -47,7 +47,19 @@ const Pagination = React.forwardRef<HTMLElement, PaginationProps>(
 
         const handleClickItem = (page : number) => {
             setCurrentPage(page);
-            onChange(page);            
+            onChange?.(page);            
+        };
+
+        const handleClickNextPage = () => {
+            setCurrentPage((oldPage) => {
+                if(oldPage + 1 > pageCount ) {
+                    onChange?.(oldPage);
+                    return oldPage;
+                } else {
+                    onChange?.(oldPage + 1);
+                    return oldPage + 1;
+                }                
+            });
         };
 
 
@@ -133,7 +145,7 @@ const Pagination = React.forwardRef<HTMLElement, PaginationProps>(
                     ))}
                 </>
             );
-        }, [currentPage, ellipsis, onChange, pageCount]);
+        }, [currentPage, ellipsis, pageCount]);
 
         return (
             <nav
@@ -156,7 +168,7 @@ const Pagination = React.forwardRef<HTMLElement, PaginationProps>(
                         </li>
                         {generateList()}
                         <li>
-                            <Button circle icon="fas fa-angle-right" data-next-page="data-next-page" aria-label="Página seguinte" />
+                            <Button onClick={handleClickNextPage} circle icon="fas fa-angle-right" data-next-page="data-next-page" aria-label="Página seguinte" />
                         </li>
                     </>
                 </ul>
