@@ -1,7 +1,7 @@
 import '@govbr-ds/core/dist/core.min.css';
 
 import classNames from 'classnames';
-import React, { useEffect, useImperativeHandle, useRef } from 'react';
+import React, { memo, useEffect, useImperativeHandle, useRef } from 'react';
 import IMtProps from '../IMtProps';
 import { useSpreadProps } from '../Util/useSpreadProps';
 import { useMtProps } from '../Util/useMtProps';

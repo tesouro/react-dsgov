@@ -1,7 +1,7 @@
 import '@govbr-ds/core/dist/core.min.css';
 
 import classNames from 'classnames';
-import React, { ForwardedRef, MutableRefObject, useCallback, useEffect, useImperativeHandle, useRef, useState } from 'react';
+import React, { ForwardedRef, memo, MutableRefObject, useCallback, useEffect, useImperativeHandle, useRef, useState } from 'react';
 import IMtProps from '../IMtProps';
 import { useSpreadProps } from '../Util/useSpreadProps';
 import { useMtProps } from '../Util/useMtProps';
@@ -67,14 +67,14 @@ const Step = React.forwardRef<HTMLDivElement, StepProps>(
 
         useCommonProperties<HTMLDivElement>(ref, refDiv);
 
-        const handleStepClick = (event : React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        const handleStepClick = useCallback((event : React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
             if(event.currentTarget.dataset.step) {
                 const step : string = event.currentTarget.dataset.step;
                 setCurrentStep(Number(step));
                 onChange(Number(step));
             }   
             
-        };
+        }, []);
 
         const getStepCount = useCallback(() => {
             return steps.length;
@@ -163,5 +163,4 @@ const Step = React.forwardRef<HTMLDivElement, StepProps>(
 
 Step.displayName = 'Step';
 
-
-export default Step;
+export default memo(Step);

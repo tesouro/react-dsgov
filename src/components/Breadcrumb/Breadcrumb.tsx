@@ -1,8 +1,7 @@
 import '@govbr-ds/core/dist/core.min.css';
-import '@govbr-ds/core/dist/core-init';
 
 import classNames from 'classnames';
-import React from 'react';
+import React, { memo } from 'react';
 import { useMtProps } from '../Util/useMtProps';
 import { useSpreadProps } from '../Util/useSpreadProps';
 import BreadcrumbItem from './BreadcrumbItem';
@@ -34,6 +33,6 @@ const Breadcrumb = React.forwardRef<HTMLDivElement, BreadcrumbProps>(
 
 Breadcrumb.displayName = 'Breadcrumb';
 
-export default Object.assign(Breadcrumb, {
-    Item: BreadcrumbItem
+export default Object.assign(memo(Breadcrumb), {
+    Item: memo(BreadcrumbItem)
 });

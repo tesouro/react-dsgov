@@ -104,7 +104,7 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
                 ref={refTextarea} 
                 {...maxLength && {maxLength: maxLength}}
                 placeholder={placeholder} 
-                onChange={(evento) => handleChange(evento)}
+                onChange={handleChange}
                 {...spreadProps} />
             {showCharacterCounter && 
             <>

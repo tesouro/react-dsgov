@@ -50,6 +50,12 @@ const Menu = React.forwardRef<MenuRef, MenuProps>(
             }
         });
 
+        useEffect(() => {
+            if (refDiv.current && !refElemento.current) {
+                refElemento.current = new core.BRMenu('br-menu', refDiv.current);
+            }
+        }, []);
+
 
         return (
             <div

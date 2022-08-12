@@ -2,7 +2,7 @@
 import '@govbr-ds/core/dist/core.min.css';
 
 import classNames from 'classnames';
-import React, { Children, useEffect, useImperativeHandle, useRef } from 'react';
+import React, { Children, memo, useEffect, useImperativeHandle, useRef } from 'react';
 import CarouselPage from './CarouselPage';
 import IMtProps from '../IMtProps';
 import { useMtProps } from '../Util/useMtProps';

@@ -2,7 +2,7 @@ import '@govbr-ds/core/dist/core.min.css';
 
 /* eslint-disable no-script-url */
 import classNames from 'classnames';
-import React, { useCallback, useEffect, useImperativeHandle, useRef, useState } from 'react';
+import React, { memo, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
 import IMtProps from '../IMtProps';
 import { useSpreadProps } from '../Util/useSpreadProps';
 import { useMtProps } from '../Util/useMtProps';
@@ -47,12 +47,12 @@ const Pagination = React.forwardRef<HTMLElement, PaginationProps>(
 
         useCommonProperties<HTMLElement>(ref, refDiv);
 
-        const handleClickItem = (page : number) => {
+        const handleClickItem = useCallback((page : number) => {
             setCurrentPage(page);
             onChange?.(page);            
-        };
+        }, []);
 
-        const handleClickNextPage = () => {
+        const handleClickNextPage = useCallback(() => {
             setCurrentPage((oldPage) => {
                 if(oldPage + 1 > pageCount ) {
                     onChange?.(oldPage);
@@ -62,7 +62,7 @@ const Pagination = React.forwardRef<HTMLElement, PaginationProps>(
                     return oldPage + 1;
                 }                
             });
-        };
+        }, []);
 
 
         const generateList = useCallback(() => {
@@ -106,7 +106,7 @@ const Pagination = React.forwardRef<HTMLElement, PaginationProps>(
                                         <li key={item}><a className={classNames(
                                             'page',
                                             (currentPage === item && 'active')
-                                        )} href="javascript:void(0)" onClick={() => handleClickItem(item)}>{item}</a></li>
+                                        )} href="javascript:void(0)" onClick={useCallback(() => handleClickItem(item), [])}>{item}</a></li>
                                     ))}
                                 </>
                             }
@@ -127,7 +127,7 @@ const Pagination = React.forwardRef<HTMLElement, PaginationProps>(
                                                                     className={classNames(
                                                                         {'active' : currentPage === item}
                                                                     )}
-                                                                    onClick={() => {handleClickItem(item); }} 
+                                                                    onClick={useCallback(() => {handleClickItem(item); }, [])} 
                                                                     key={item} 
                                                                     link="javascript:void(0)"
                                                                 >
@@ -182,4 +182,4 @@ const Pagination = React.forwardRef<HTMLElement, PaginationProps>(
 
 Pagination.displayName = 'Pagination';
 
-export default Pagination;
+export default memo(Pagination);

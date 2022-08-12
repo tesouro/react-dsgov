@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 
 const CustomTag = React.forwardRef<HTMLElement, any>(({ tagName, children, ...props }, ref) => {
     if(tagName) {
@@ -11,4 +11,4 @@ const CustomTag = React.forwardRef<HTMLElement, any>(({ tagName, children, ...pr
 
 CustomTag.displayName = 'CustomTag';
 
-export default CustomTag;
+export default memo(CustomTag);

@@ -18,7 +18,7 @@
     "dsgov"
   ],
   "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",  
+  "module": "dist/esm/index.js",
   "files": [
     "dist",
     "package.json",
@@ -82,6 +82,7 @@
     "@types/lodash.uniqueid": "^4.0.7",
     "@typescript-eslint/eslint-plugin": "^5.31.0",
     "@typescript-eslint/parser": "^5.31.0",
+    "@welldone-software/why-did-you-render": "^7.0.1",
     "eslint": "^8.20.0",
     "eslint-plugin-react": "^7.30.1",
     "react-docgen-typescript": "^2.2.2",

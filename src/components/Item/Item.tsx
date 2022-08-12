@@ -1,7 +1,7 @@
 import '@govbr-ds/core/dist/core.min.css';
 
 import classNames from 'classnames';
-import React, { ComponentType, useEffect, useImperativeHandle, useRef, useState } from 'react';
+import React, { ComponentType, memo, useCallback, useEffect, useImperativeHandle, useRef, useState } from 'react';
 import IMtProps from '../IMtProps';
 import { useSpreadProps } from '../Util/useSpreadProps';
 import { useMtProps } from '../Util/useMtProps';
@@ -40,7 +40,7 @@ export interface ItemRef extends HTMLDivElement {
 }
 
 const Item = React.forwardRef<ItemRef, ItemProps>(
-    ({className, children, highlighted, divider, role = 'listItem', disabled = false, showDividerAfter = false, target, collapsable = false, link, subItems, onClick = () => {/** */}, ...props}, ref) => {
+    ({className, children, highlighted, divider, role = 'listItem', disabled = false, showDividerAfter = false, target, collapsable = false, link, subItems, onClick, ...props}, ref) => {
         const mtProps = useMtProps(props);
         const spreadProps = useSpreadProps(props);
         const refDiv = useRef<HTMLDivElement>(null);
@@ -62,10 +62,10 @@ const Item = React.forwardRef<ItemRef, ItemProps>(
             
         }, []);
 
-        const handleOnClick = (event : React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-            onClick(event);
+        const handleOnClick = useCallback((event : React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+            onClick?.(event);
             setExpanded(!expanded);
-        };
+        }, []);
 
         return (
             <>
@@ -106,4 +106,4 @@ const Item = React.forwardRef<ItemRef, ItemProps>(
 
 Item.displayName = 'Item';
 
-export default Item;
+export default memo(Item);

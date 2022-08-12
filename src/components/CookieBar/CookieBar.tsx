@@ -158,7 +158,7 @@ export interface CookieBarRef extends HTMLDivElement {
 }
 
 const CookieBar = React.forwardRef<CookieBarRef, CookieBarProps>(
-    ({className, children, json = defaultConfigs, callback = () => {/** */}, ...props}, ref) => {
+    ({className, children, json = defaultConfigs, callback, ...props}, ref) => {
         const mtProps = useMtProps(props);
         const spreadProps = useSpreadProps(props);
 

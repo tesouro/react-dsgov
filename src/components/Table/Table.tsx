@@ -1,7 +1,7 @@
 import '@govbr-ds/core/dist/core.min.css';
 
 import classNames from 'classnames';
-import React, { useCallback, useEffect, useImperativeHandle, useRef, useState } from 'react';
+import React, { memo, useCallback, useEffect, useImperativeHandle, useRef, useState } from 'react';
 import IMtProps from '../IMtProps';
 import { useSpreadProps } from '../Util/useSpreadProps';
 import { useMtProps } from '../Util/useMtProps';
@@ -141,10 +141,11 @@ const Table = React.forwardRef<HTMLDivElement, TableProps>(
         
         useCommonProperties<InputRef>(ref, refDiv);
 
-        const handleClickNextPage = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        const handleClickNextPage = useCallback((event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
             onClickNextPage(event);
 
-            if (!atualizando && currentEndpoint) {
+            console.log(atualizando);
+            if (!atualizando && endpoint) {
                 setPageNumber((currentOffset) => {
                     if (typeof currentOffset !== 'undefined') {
                         return currentOffset + 1;
@@ -154,12 +155,12 @@ const Table = React.forwardRef<HTMLDivElement, TableProps>(
                 });
             }
 
-        };
+        }, [atualizando, endpoint]);
 
-        const handleClickPreviousPage = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        const handleClickPreviousPage = useCallback((event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
             onClickPrevPage(event);
 
-            if (!atualizando && currentEndpoint) {
+            if (!atualizando && endpoint) {
                 setPageNumber((currentOffset) => {
                     if (typeof currentOffset !== 'undefined') {
                         return currentOffset - 1;
@@ -169,27 +170,30 @@ const Table = React.forwardRef<HTMLDivElement, TableProps>(
                 });
             }
 
-        };
+        }, [atualizando, endpoint]);
 
         const handleTrocaBuscaPadrao = () => {
             onSearch({ searchText: defaultSearch } as ISearchEvent);
 
-            defaultSearch !== undefined && setCurrentEndpoint((currentEndpoint) =>
+            console.log('Testando!!!!');
+            console.log(defaultSearch);
+
+            defaultSearch !== undefined && setCurrentEndpoint((currentEndpoint) => 
                 updateQueryStringParameter(currentEndpoint, 'defaultSearch', String(defaultSearch)));
         };
 
 
-        const handleExpandSearch = () => {
+        const handleExpandSearch = useCallback(() => {
             setSearchExpanded(true);
             setAlreadyExpanded(true);
-        };
+        }, []);
 
-        const handleCloseSearch = () => {
+        const handleCloseSearch = useCallback(() => {
             setSearchExpanded(false);
             setDefaultSearch('');
-        };
+        }, []);
 
-        const handleKeyDownSearch = (event : React.KeyboardEvent<HTMLInputElement>) => {
+        const handleKeyDownSearch = useCallback((event : React.KeyboardEvent<HTMLInputElement>) => {
             if (event.key === 'Enter') {
                 handleTrocaBuscaPadrao();
             }
@@ -197,11 +201,11 @@ const Table = React.forwardRef<HTMLDivElement, TableProps>(
                 setDefaultSearch('');
                 setSearchExpanded(false);
             }
-        };
+        }, []);
 
-        const handleClickDensity = (density : string) => {
+        const handleClickDensity = useCallback((density : string) => {
             setCurrentDensity(density);
-        };
+        }, []);
 
         useEffect(() => {
             if(searchExpanded) {
@@ -212,6 +216,8 @@ const Table = React.forwardRef<HTMLDivElement, TableProps>(
         }, [searchExpanded, alreadyExpanded]);
 
         useEffect(() => {
+            console.log('aaaa!!!!!');
+
             // Se os dados tiverem sido informados manualmente, informa-os
             if (data && (data as IData).records) {
                 setTableData((data as IData).records);
@@ -228,12 +234,14 @@ const Table = React.forwardRef<HTMLDivElement, TableProps>(
                 setPageNumber(0);
             }
 
-            // Do contrário, seta os obtidos do endpoint
+
+        }, [data]);
+
+        useEffect(() => {
             if (endpoint) {
                 setCurrentEndpoint(endpoint);
             }
-
-        }, [data, endpoint]);
+        }, [endpoint]);
 
         // Ao trocar o endpoint, recarregar os dados
         useEffect(() => {
@@ -342,11 +350,11 @@ const Table = React.forwardRef<HTMLDivElement, TableProps>(
                                 aria-label="Ver mais opções" 
                                 icon="fas fa-ellipsis-v" 
                                 dropdownItems={<>
-                                    <Button onClick={() => handleClickDensity('large')} isItem data-density="small">Densidade alta
+                                    <Button onClick={useCallback(() => handleClickDensity('large'), [])} isItem data-density="small">Densidade alta
                                     </Button><span className="br-divider"></span>
-                                    <Button onClick={() => handleClickDensity('medium')} isItem data-density="medium">Densidade média
+                                    <Button onClick={useCallback(() => handleClickDensity('medium'), [])} isItem data-density="medium">Densidade média
                                     </Button><span className="br-divider"></span>
-                                    <Button onClick={() => handleClickDensity('small')} isItem data-density="large">Densidade baixa
+                                    <Button onClick={useCallback(() => handleClickDensity('small'), [])} isItem data-density="large">Densidade baixa
                                     </Button>
                                 </>}
                             />
@@ -366,7 +374,7 @@ const Table = React.forwardRef<HTMLDivElement, TableProps>(
                                 value={defaultSearch}
                                 onKeyDown={handleKeyDownSearch}
                                 onChange={(event) => setDefaultSearch(event.currentTarget.value)}
-                                button={<Button circle aria-label="Buscar" icon="fas fa-search" onClick={() => handleTrocaBuscaPadrao()} />} />
+                                button={<Button circle aria-label="Buscar" icon="fas fa-search" onClick={handleTrocaBuscaPadrao} />} />
 
                         </div>
                         <Button onClick={handleCloseSearch} circle data-dismiss="search" aria-label="Fechar busca" icon="fas fa-times" />
@@ -438,8 +446,8 @@ const Table = React.forwardRef<HTMLDivElement, TableProps>(
                                     onChange={(valor: string) => setPageNumber(Number(valor) - 1)} value={pageNumber} />}
                         </div><span className="br-divider d-none d-sm-block mx-3"></span>
                         <div className="pagination-arrows ml-auto ml-sm-0">
-                            <Button circle aria-label="Voltar página" icon="fas fa-angle-left" disabled={pageNumber === 0} onClick={(event) => handleClickPreviousPage(event)} />
-                            <Button circle data-total={pageCount.current} aria-label="Avançar página" icon="fas fa-angle-right" disabled={pageNumber === ((pageCount.current || 0) - 1)} onClick={(event) => handleClickNextPage(event)} />
+                            <Button circle aria-label="Voltar página" icon="fas fa-angle-left" disabled={pageNumber === 0} onClick={handleClickPreviousPage} />
+                            <Button circle data-total={pageCount.current} aria-label="Avançar página" icon="fas fa-angle-right" disabled={pageNumber === ((pageCount.current || 0) - 1)} onClick={handleClickNextPage} />
                         </div>
                     </nav>
                 </div>
@@ -450,4 +458,4 @@ const Table = React.forwardRef<HTMLDivElement, TableProps>(
 
 Table.displayName = 'Table';
 
-export default Table;
+export default memo(Table);

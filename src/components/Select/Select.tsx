@@ -1,7 +1,7 @@
 import '@govbr-ds/core/dist/core.min.css';
 
 import classNames from 'classnames';
-import React, { Dispatch, SetStateAction, useCallback, useEffect, useImperativeHandle, useRef, useState } from 'react';
+import React, { Dispatch, memo, SetStateAction, useCallback, useEffect, useImperativeHandle, useRef, useState } from 'react';
 import IMtProps from '../IMtProps';
 import { useSpreadProps } from '../Util/useSpreadProps';
 import { useMtProps } from '../Util/useMtProps';
@@ -62,16 +62,16 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
 
         const customAttributes : any = {};
 
-        const handleSelectButtonClick = () => {
+        const handleSelectButtonClick = useCallback(() => {
             if(expanded) {
                 setSearchValue('');
             }
             setExpanded(!expanded);
-        };
+        }, []);
 
-        const handleSelectClick = () => {
+        const handleSelectClick = useCallback(() => {
             setExpanded(true);
-        };
+        }, []);
 
         useOutsideClick(refWrapper, () => {
             setExpanded(false);
@@ -79,28 +79,28 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
             setCurrentFocus(-1);
         });
 
-        const handleChangeSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const handleChangeSearch = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
             if(expanded) {
                 setSearchValue(event.target.value);
             }
             
-        };
+        }, []);
 
-        const handleFilterSearch = (option : SelectOptions) => {
+        const handleFilterSearch = useCallback((option : SelectOptions) => {
             if(searchValue === '') {
                 return true;
             } else {
                 return option.label.toLowerCase().indexOf(searchValue.toLowerCase()) !== -1;
             }
-        };
+        }, []);
 
-        const handleChangeValue = (newValue : string | number) => {
+        const handleChangeValue = useCallback((newValue : string | number) => {
             setCurrentValue(newValue);
             setExpanded(false);
             onChange(newValue);
-        };
+        }, []);
 
-        const handleChangeValueMultiple = (newValue : string | number, checked : boolean) => {
+        const handleChangeValueMultiple = useCallback((newValue : string | number, checked : boolean) => {
             if(checked) {
                 setCurrentValue((oldValues : any) => {
                     if(oldValues.indexOf(newValue) === -1) {
@@ -118,9 +118,9 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
                 
             }
          
-        };
+        }, []);
 
-        const handleSelectAll = (selected : boolean) => {
+        const handleSelectAll = useCallback((selected : boolean) => {
             const newValues : any = [];
 
             if(selected) {
@@ -130,7 +130,7 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
             }            
 
             setCurrentValue(newValues);
-        };
+        }, []);
 
         const allSelected = useCallback(() => {
             return (currentValue as string[] | number[]).length === options.filter(handleFilterSearch).length;
@@ -170,7 +170,7 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
             }
         }, [value]);
 
-        const handleKeyDown = (event : React.KeyboardEvent<HTMLElement>) => {
+        const handleKeyDown = useCallback((event : React.KeyboardEvent<HTMLElement>) => {
             
             if(event.key === 'ArrowDown') {
                 event.preventDefault();
@@ -213,7 +213,7 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
 
 
             
-        };
+        }, []);
 
 
         if(type === 'multiple') {
@@ -221,93 +221,92 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
         }
 
         return (
-            <AnyAttribute attributes={customAttributes}>
-                <div
-                    ref={refWrapper}
-                    {...spreadProps}
+            <div
+                ref={refWrapper}
+                {...spreadProps}
+                {...customAttributes}
 
-                    className={classNames(
-                        'br-select',
-                        className,
-                        ...mtProps
-                    )}
-                >
-                    <div ref={refInputWrapper} className="br-input">
-                        {label && <label htmlFor={fid}>{label}</label>}
-                        <input
-                            onClick={handleSelectClick} 
-                            onFocus={handleSelectClick} 
-                            id={`${fid}_____select`} 
-                            type="text" 
-                            data-value={value} 
-                            value={expanded ? searchValue : displayValue} 
-                            onChange={handleChangeSearch} 
-                            placeholder={placeholder} 
-                            onKeyDown={handleKeyDown}
-                        />
-                        <button onClick={handleSelectButtonClick} className="br-button" type="button" aria-label="Exibir lista" tabIndex={-1} data-trigger="data-trigger"><i className="fas fa-angle-down" aria-hidden="true"></i></button>
-                    </div>
-                    
-                    <List tabIndex={0} role="" expanded={expanded} ref={refList} onKeyDown={handleKeyDown}>
-                        {type === 'multiple' && selectAllText &&
-                            <Item 
-                                highlighted 
-                                tabIndex={-1} 
-                                divider 
-                                data-all="data-all" 
-                                role=""
-                                className={classNames(
-                                    {'selected' : allSelected()}
-                                )}
-                            >
-                                <Checkbox  
-                                    id={`${fid}____`}
-                                    label="Selecionar todos"
-                                    onChange={(event) => handleSelectAll(event.currentTarget.checked)}
-                                    checked={allSelected()}
-                                />
-                            </Item>
-                        }
-                        {options.filter(handleFilterSearch).map((elemento, index) => (
-                            <Item 
-                                key={elemento.value} 
-                                tabIndex={-1} 
-                                divider 
-                                role=""
-                                className={classNames(
-                                    {'selected' : currentValue === String(elemento.value) || (currentValue as string[]).length > 0 && (currentValue as string[]).indexOf(String(elemento.value)) !== -1}
-                                )}
-                                {...index === currentFocus && {'data-focus-visible': 'data-focus-visible'}}
-                            >
-                                {type === 'single' &&
-                                    <Radio
-                                        id={`${fid}____${elemento.value}`}
-                                        name={fid}
-                                        label={elemento.label}
-                                        checked={currentValue === String(elemento.value)}
-                                        onChange={(event) => handleChangeValue(elemento.value)}
-                                    />}
-                                {type === 'multiple' &&
-                                    <Checkbox
-                                        id={`${fid}____${elemento.value}`}
-                                        name={String(elemento.value)}
-                                        label={elemento.label}
-                                        checked={(currentValue as string[]).length > 0 && (currentValue as string[]).indexOf(String(elemento.value)) !== -1}
-                                        value={String(elemento.value)}
-                                        onChange={(event) => handleChangeValueMultiple(elemento.value, event.currentTarget.checked)}
-                                    />
-                                }
-                            </Item>
-                        ))}
-
-                    </List>
-                    {children}
+                className={classNames(
+                    'br-select',
+                    className,
+                    ...mtProps
+                )}
+            >
+                <div ref={refInputWrapper} className="br-input">
+                    {label && <label htmlFor={fid}>{label}</label>}
+                    <input
+                        onClick={handleSelectClick} 
+                        onFocus={handleSelectClick} 
+                        id={`${fid}_____select`} 
+                        type="text" 
+                        data-value={value} 
+                        value={expanded ? searchValue : displayValue} 
+                        onChange={handleChangeSearch} 
+                        placeholder={placeholder} 
+                        onKeyDown={handleKeyDown}
+                    />
+                    <button onClick={handleSelectButtonClick} className="br-button" type="button" aria-label="Exibir lista" tabIndex={-1} data-trigger="data-trigger"><i className="fas fa-angle-down" aria-hidden="true"></i></button>
                 </div>
-            </AnyAttribute>
+                
+                <List tabIndex={0} role="" expanded={expanded} ref={refList} onKeyDown={handleKeyDown}>
+                    {type === 'multiple' && selectAllText &&
+                        <Item 
+                            highlighted 
+                            tabIndex={-1} 
+                            divider 
+                            data-all="data-all" 
+                            role=""
+                            className={classNames(
+                                {'selected' : allSelected()}
+                            )}
+                        >
+                            <Checkbox  
+                                id={`${fid}____`}
+                                label="Selecionar todos"
+                                onChange={(event) => handleSelectAll(event.currentTarget.checked)}
+                                checked={allSelected()}
+                            />
+                        </Item>
+                    }
+                    {options.filter(handleFilterSearch).map((elemento, index) => (
+                        <Item 
+                            key={elemento.value} 
+                            tabIndex={-1} 
+                            divider 
+                            role=""
+                            className={classNames(
+                                {'selected' : currentValue === String(elemento.value) || (currentValue as string[]).length > 0 && (currentValue as string[]).indexOf(String(elemento.value)) !== -1}
+                            )}
+                            {...index === currentFocus && {'data-focus-visible': 'data-focus-visible'}}
+                        >
+                            {type === 'single' &&
+                                <Radio
+                                    id={`${fid}____${elemento.value}`}
+                                    name={fid}
+                                    label={elemento.label}
+                                    checked={currentValue === String(elemento.value)}
+                                    onChange={useCallback(() => handleChangeValue(elemento.value), [])}
+                                />}
+                            {type === 'multiple' &&
+                                <Checkbox
+                                    id={`${fid}____${elemento.value}`}
+                                    name={String(elemento.value)}
+                                    label={elemento.label}
+                                    checked={(currentValue as string[]).length > 0 && (currentValue as string[]).indexOf(String(elemento.value)) !== -1}
+                                    value={String(elemento.value)}
+                                    onChange={useCallback((event : React.FormEvent<HTMLInputElement>) => handleChangeValueMultiple(elemento.value, event.currentTarget.checked), [])}
+                                />
+                            }
+                        </Item>
+                    ))}
+
+                </List>
+                {children}
+            </div>
         );
     }
 );
 
 Select.displayName = 'Select';
 
-export default Select;
+export default memo(Select);

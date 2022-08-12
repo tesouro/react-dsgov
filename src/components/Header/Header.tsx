@@ -1,7 +1,7 @@
 import '@govbr-ds/core/dist/core.min.css';
 
 import classNames from 'classnames';
-import React, { useRef, useState } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import IMtProps from '../IMtProps';
 import { useSpreadProps } from '../Util/useSpreadProps';
 import { useMtProps } from '../Util/useMtProps';
@@ -69,7 +69,7 @@ export interface HeaderProps extends React.HTMLAttributes<HTMLElement>, IMtProps
 }
 
 const Header = React.forwardRef<HTMLElement, HeaderProps>(
-    ({ className, children, id,  urlLogo, systemName, title, subTitle, compact = false, density = 'medium', quickAccessLinks, features, loggedIn = false, showLoginButton = true, onClickLogin = () => {/** */}, showSearchBar = true, onSearch = () => {/** */}, avatar, ...props }, ref) => {
+    ({ className, children, id,  urlLogo, systemName, title, subTitle, compact = false, density = 'medium', quickAccessLinks, features, loggedIn = false, showLoginButton = true, onClickLogin, showSearchBar = true, onSearch, avatar, ...props }, ref) => {
         const fid = useUniqueId(id, 'header_____');
         const mtProps = useMtProps(props);
         const spreadProps = useSpreadProps(props);
@@ -85,21 +85,21 @@ const Header = React.forwardRef<HTMLElement, HeaderProps>(
         const refButtonQuickAccess = useRef(null);
         const refButtonFeatures = useRef(null);
 
-        const handleActivateSearch = () => {
+        const handleActivateSearch = useCallback(() => {
             setSearchActive(true);
-        };
+        }, []);
 
-        const handleInactivateSearch = () => {
+        const handleInactivateSearch = useCallback(() => {
             setSearchActive(false);
-        };
+        }, []);
 
-        const handleClickQuickAcess = () => {
+        const handleClickQuickAcess = useCallback(() => {
             setQuickAccessExpanded(!quickAcessExpanded);
-        };
+        }, []);
 
-        const handleClickFeatures = () => {
+        const handleClickFeatures = useCallback(() => {
             setFeaturesExpanded(!featuresExpanded);
-        };
+        }, []);
         
         useOutsideClick(refButtonQuickAccess, () => {
             setQuickAccessExpanded(false);
@@ -109,11 +109,11 @@ const Header = React.forwardRef<HTMLElement, HeaderProps>(
             setFeaturesExpanded(false);
         });
 
-        const handleSearchKeyDown = (event : React.KeyboardEvent<HTMLInputElement>) => {
+        const handleSearchKeyDown = useCallback((event : React.KeyboardEvent<HTMLInputElement>) => {
             if(event.key === 'Enter') {
-                onSearch(searchTerm);
+                onSearch?.(searchTerm);
             }
-        };
+        }, []);
 
         return (
             <header
@@ -227,7 +227,7 @@ const Header = React.forwardRef<HTMLElement, HeaderProps>(
                                     className="br-button circle small" 
                                     type="button" 
                                     aria-label="Pesquisar"
-                                    onClick={() => onSearch(searchTerm)}
+                                    onClick={() => onSearch?.(searchTerm)}
                                 >
                                     <i className="fas fa-search" aria-hidden="true"></i>
                                 </button>

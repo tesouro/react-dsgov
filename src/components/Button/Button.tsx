@@ -1,8 +1,7 @@
 import '@govbr-ds/core/dist/core.min.css';
-import '@govbr-ds/core/dist/core-init';
 
 import classNames from 'classnames';
-import React, { useEffect, useImperativeHandle, useRef, useState } from 'react';
+import React, { memo, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
 import IMtProps from '../IMtProps';
 import { useSpreadProps } from '../Util/useSpreadProps';
 import { useMtProps } from '../Util/useMtProps';
@@ -55,7 +54,7 @@ export interface ButtonRef extends HTMLButtonElement {
 }
 
 const Button = React.forwardRef<ButtonRef, ButtonProps>(
-    ({children, className, id, type = 'submit', primary, secondary, circle, inverted, block, large, small, loading, disabled, icon, signIn = false, isItem = false, onClick = () => {/** */}, dropdownItems, ...props}, ref) => {
+    ({children, className, id, type = 'submit', primary, secondary, circle, inverted, block, large, small, loading, disabled, icon, signIn = false, isItem = false, onClick, dropdownItems, ...props}, ref) => {
         const fid = useUniqueId(id, 'button_____');
 
         const mtProps = useMtProps(props);
@@ -65,10 +64,10 @@ const Button = React.forwardRef<ButtonRef, ButtonProps>(
         const refButton = useRef<HTMLButtonElement>(null);
         const refList = useRef<ListRef>(null);
 
-        const handleOnClick = (event : React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-            onClick(event);
+        const handleOnClick = useCallback((event : React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+            onClick?.(event);
             setExpanded(!expanded);
-        };
+        }, [onClick]);
 
         useOutsideClick([refButton, refList], () => {
             setTimeout(() => setExpanded(false), 100);
@@ -123,7 +122,7 @@ const Button = React.forwardRef<ButtonRef, ButtonProps>(
                     {children}
                 </button>
                 {dropdownItems && 
-                    <List ref={refList} className='target' hidden={!expanded} aria-hidden={!expanded} role="" style={{zIndex: 9999}}>
+                    <List ref={refList} className='target' hidden={!expanded} aria-hidden={!expanded} role="" style={useMemo(() => ({zIndex: 9999}), [])}>
                         {dropdownItems}
                     </List>
                 }
@@ -136,4 +135,4 @@ const Button = React.forwardRef<ButtonRef, ButtonProps>(
 
 Button.displayName = 'Button';
 
-export default Button;
+export default memo(Button);

@@ -1,7 +1,7 @@
 import '@govbr-ds/core/dist/core.min.css';
 
 import classNames from 'classnames';
-import React, { useEffect, useImperativeHandle, useRef, useState } from 'react';
+import React, { memo, useCallback, useEffect, useImperativeHandle, useRef, useState } from 'react';
 import IMtProps from '../IMtProps';
 import { useSpreadProps } from '../Util/useSpreadProps';
 import { useMtProps } from '../Util/useMtProps';
@@ -57,9 +57,9 @@ const Avatar = React.forwardRef<AvatarRef, AvatarProps>(
             setOpened(false);
         });
 
-        const handleOpenClose = () => {
+        const handleOpenClose = useCallback(() => {
             setOpened(!opened);
-        };
+        }, []);
         
         useCommonProperties<AvatarRef>(ref, refContainer, {
             expand: () => setOpened(true),
@@ -114,4 +114,4 @@ const Avatar = React.forwardRef<AvatarRef, AvatarProps>(
 
 Avatar.displayName = 'Avatar';
 
-export default Avatar;
+export default memo(Avatar);

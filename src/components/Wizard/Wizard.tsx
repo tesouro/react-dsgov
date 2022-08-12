@@ -1,7 +1,7 @@
 import '@govbr-ds/core/dist/core.min.css';
 
 import classNames from 'classnames';
-import React, { Children, useEffect, useImperativeHandle, useRef, useState } from 'react';
+import React, { Children, useCallback, useEffect, useImperativeHandle, useRef, useState } from 'react';
 import IMtProps from '../IMtProps';
 import { useSpreadProps } from '../Util/useSpreadProps';
 import { useMtProps } from '../Util/useMtProps';
@@ -56,9 +56,9 @@ const Wizard = React.forwardRef<HTMLDivElement, WizardProps>(
         nextButtonText = 'Avançar',
         concludeButtonText = 'Concluir',
         initialStep = 1,
-        onConclude = () => {/** */}, 
-        onCancel = () => {/** */}, 
-        onChange = () => {/** */},
+        onConclude, 
+        onCancel, 
+        onChange,
         ...props
     }, ref) => {
         const mtProps = useMtProps(props);
@@ -76,27 +76,27 @@ const Wizard = React.forwardRef<HTMLDivElement, WizardProps>(
 
         const [currentStep, setCurrentStep] = useState<number>(initialStep || 1);
 
-        const handleClickStepButton = (newStep : number) => {
+        const handleClickStepButton = useCallback((newStep : number) => {
             setCurrentStep(newStep);
-            onChange(newStep);
+            onChange?.(newStep);
             (refWizardForm.current?.querySelectorAll('.wizard-panel')[newStep - 1] as HTMLElement).focus();
-        };
+        }, []);
 
-        const handleClickNextStep = () => {
+        const handleClickNextStep = useCallback(() => {
             setCurrentStep((oldCurrentStep) => {
                 ((refWizardForm.current?.querySelectorAll('.wizard-panel')[oldCurrentStep] as HTMLElement).querySelector('.wizard-panel-content') as HTMLElement).focus();
-                onChange(oldCurrentStep + 1);
+                onChange?.(oldCurrentStep + 1);
                 return oldCurrentStep + 1;
             });
-        };
+        }, []);
 
-        const handleClickPrevStep = () => {
+        const handleClickPrevStep = useCallback(() => {
             setCurrentStep((oldCurrentStep) => {
                 ((refWizardForm.current?.querySelectorAll('.wizard-panel')[oldCurrentStep-2] as HTMLElement).querySelector('.wizard-panel-content') as HTMLElement).focus();
-                onChange(oldCurrentStep - 1);
+                onChange?.(oldCurrentStep - 1);
                 return oldCurrentStep - 1;
             });
-        };
+        }, []);
 
 
 

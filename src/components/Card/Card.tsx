@@ -1,7 +1,7 @@
 import '@govbr-ds/core/dist/core.min.css';
 
 import classNames from 'classnames';
-import React from 'react';
+import React, { memo } from 'react';
 import CardContent from './CardContent';
 import CardFooter from './CardFooter';
 import CardHeader from './CardHeader';

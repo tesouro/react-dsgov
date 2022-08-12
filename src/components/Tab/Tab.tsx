@@ -31,9 +31,9 @@ const Tab = React.forwardRef<HTMLDivElement, TabProps>(
 
         const refNav = useRef(null);
 
-        const handleClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>, index: number) => {
+        const handleClick = useCallback((event: React.MouseEvent<HTMLButtonElement, MouseEvent>, index: number) => {
             setCurrentTab(index + 1);
-        };
+        }, []);
 
 
         const isNavWithSubtitle = useCallback(() => {
