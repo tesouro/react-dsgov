@@ -12,6 +12,7 @@ import IMenuLink from './IMenuLink';
 import ISocialNetwork from './ISocialNetwork';
 import IMenuLogo from './IMenuLogo';
 import useCommonProperties from '../Util/useCommonProperties';
+import useUniqueId from '../Util/useUniqueId';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const core = require('@govbr-ds/core/dist/core-init');
@@ -35,7 +36,8 @@ export interface MenuRef extends HTMLDivElement {
 }
 
 const Menu = React.forwardRef<MenuRef, MenuProps>(
-    ({ className, children, id = uniqueId('menu_____'), data, logos, externalLinks, socialNetworks, info, systemLogoUrl, systemName, type = 'normal', density = 'normal', active, shadow, ...props }, ref) => {
+    ({ className, children, id, data, logos, externalLinks, socialNetworks, info, systemLogoUrl, systemName, type = 'normal', density = 'normal', active, shadow, ...props }, ref) => {
+        const fid = useUniqueId(id, 'menu_____');
         const mtProps = useMtProps(props);
         const spreadProps = useSpreadProps(props);
 
@@ -52,7 +54,7 @@ const Menu = React.forwardRef<MenuRef, MenuProps>(
         return (
             <div
                 ref={refDiv}
-                id={id}
+                id={fid}
                 className={classNames(
                     'br-menu',
                     (type === 'push' && 'push'),

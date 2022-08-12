@@ -6,6 +6,8 @@ import IMtProps from '../IMtProps';
 import { useSpreadProps } from '../Util/useSpreadProps';
 import { useMtProps } from '../Util/useMtProps';
 import useCommonProperties from '../Util/useCommonProperties';
+import uniqueId from 'lodash.uniqueid';
+import useUniqueId from '../Util/useUniqueId';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const core = require('@govbr-ds/core/dist/core-init');
@@ -52,7 +54,8 @@ export interface StepProps  extends Omit<React.HTMLAttributes<HTMLDivElement>, '
 } 
 
 const Step = React.forwardRef<HTMLDivElement, StepProps>(
-    ({className, children, orientation = 'horizontal', steps, initialStep = 1, labelPosition = 'top', type, scroll = false, onChange = () => {/* */}, value, ...props}, ref) => {
+    ({className, children, id, orientation = 'horizontal', steps, initialStep = 1, labelPosition = 'top', type, scroll = false, onChange = () => {/* */}, value, ...props}, ref) => {
+        const fid = useUniqueId(id, 'step_____');
         const mtProps = useMtProps(props);
         const spreadProps = useSpreadProps(props);
         const [labelTruePosition, setLabelTruePosition] = useState<string | undefined>(type && ['void', 'text', 'simple'].includes(type) ? undefined : labelPosition);
@@ -117,6 +120,7 @@ const Step = React.forwardRef<HTMLDivElement, StepProps>(
         return (
             <div
                 ref={refDiv}
+                id={fid}
                 className={classNames(
                     'br-step',
                     (orientation === 'horizontal' && 'horizontal'),
@@ -158,5 +162,6 @@ const Step = React.forwardRef<HTMLDivElement, StepProps>(
 ); 
 
 Step.displayName = 'Step';
+
 
 export default Step;

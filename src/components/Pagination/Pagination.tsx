@@ -12,6 +12,7 @@ import Item from '../Item';
 import uniqueId from 'lodash.uniqueid';
 import CustomTag from '../CustomTag';
 import useCommonProperties from '../Util/useCommonProperties';
+import useUniqueId from '../Util/useUniqueId';
 
 export interface IEllipsis {
     start: number,
@@ -35,7 +36,8 @@ interface IList {
 
 
 const Pagination = React.forwardRef<HTMLElement, PaginationProps>(
-    ({className, children, id = uniqueId('pagination_____'), pageCount, ellipsis, density, initialPage, onChange, ...props}, ref) => {
+    ({className, children, id, pageCount, ellipsis, density, initialPage, onChange, ...props}, ref) => {
+        const fid = useUniqueId(id, 'pagination_____');
         const mtProps = useMtProps(props);
         const spreadProps = useSpreadProps(props);
         
@@ -97,7 +99,7 @@ const Pagination = React.forwardRef<HTMLElement, PaginationProps>(
             return (
                 <>
                     {pageList.map((page, index) => (
-                        <CustomTag key={index}>
+                        <div key={index}>
                             {page.type === 'normal' &&
                                 <>
                                     {page.pages.map((item, index) => (
@@ -141,7 +143,7 @@ const Pagination = React.forwardRef<HTMLElement, PaginationProps>(
                                     }
                                 </>
                             }
-                        </CustomTag>
+                        </div>
                     ))}
                 </>
             );
@@ -150,7 +152,7 @@ const Pagination = React.forwardRef<HTMLElement, PaginationProps>(
         return (
             <nav
                 ref={refDiv}
-                id={id}
+                id={fid}
                 className={classNames(
                     'br-pagination',
                     (density === 'small' && 'small'),

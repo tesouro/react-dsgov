@@ -9,6 +9,7 @@ import uniqueId from 'lodash.uniqueid';
 import Radio from '../Radio';
 import Checkbox from '../Checkbox';
 import CustomTag from '../CustomTag';
+import useUniqueId from '../Util/useUniqueId';
 
 export interface TagProps  extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
     /**  */
@@ -27,7 +28,8 @@ export interface TagProps  extends React.HTMLAttributes<HTMLDivElement>, IMtProp
 } 
 
 const Tag = React.forwardRef<HTMLDivElement, TagProps>(
-    ({className, children, id = uniqueId('tag_____'), type, density = 'normal', status, icon, defaultChecked, checked, name, value, label, ...props}, ref) => {
+    ({className, children, id, type, density = 'normal', status, icon, defaultChecked, checked, name, value, label, ...props}, ref) => {
+        const fid = useUniqueId(id, 'tag_____');
         const mtProps = useMtProps(props);
         const spreadProps = useSpreadProps(props);
         
@@ -36,7 +38,7 @@ const Tag = React.forwardRef<HTMLDivElement, TagProps>(
             <>
                 <CustomTag
                     ref={ref}
-                    id={id}
+                    id={fid}
                     tagName={(type === 'text' || type === 'checkbox' || type === 'radio') ? 'div' : 'span'}
                     className={classNames(
                         'br-tag',

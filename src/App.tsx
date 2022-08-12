@@ -21,6 +21,7 @@ import Avatar from './components/Avatar';
 import Header from './components/Header';
 import { Link } from 'react-router-dom';
 import Footer from './components/Footer';
+import uniqueId from 'lodash.uniqueid';
 
 
 function App() {
@@ -46,8 +47,10 @@ function App() {
         });
     };
 
+
     const rotulos = ['RÓTULO 1', 'RÓTULO 2', 'RÓTULO 3'];
     const linhas = ['Texto 1', 'Texto 2', 'Texto 2', 'Texto 3'];
+    const [bla, setBla] = useState('');
     return (
         <>
             <Header 
@@ -80,6 +83,7 @@ function App() {
                 }}
                 avatar={<Avatar imageSrc='https://picsum.photos/id/823/400' />}
             />
+
 
             <Button circle
                 icon='fas fa-ellipsis-v' 
@@ -222,10 +226,10 @@ function App() {
             <Container fluid>
                 <Row>
                     <Col sm={2}>
-                        <Input id="testeInput" label="Teste de Input" />
+                        <Input  label="Teste de Input" />
                     </Col>
                     <Col>
-                        <Input id="testeInput2" label="Teste de Input 2" icon="fas fa-user-tie" button={<Button type="button" icon="fas fa-eye" />} />
+                        <Input  label="Teste de Input 2" icon="fas fa-user-tie" button={<Button type="button" icon="fas fa-eye" />} />
                     </Col>
                     <Col>
                         <DateTimePicker id="inputDateTime" label="Informe a Data" />
@@ -330,7 +334,7 @@ function App() {
             <Container fluid>
                 <Row>
                     <Col>
-                        <Textarea maxLength={100} showCharacterCounter label="teste" id="teste" status="success" feedbackText="Deu muito ruim kkkk"></Textarea>
+                        <Textarea maxLength={100} showCharacterCounter label="teste" status="success" feedbackText="Deu muito ruim kkkk"></Textarea>
                     </Col>
                 </Row>
 
@@ -650,7 +654,6 @@ function App() {
                             labelPosition="right" 
                             initialStep={1}
                             onChange={(value) => setCurrentStep(value)}
-                            value={currentStep}
                         />
                     </Col>
                     <Col auto>

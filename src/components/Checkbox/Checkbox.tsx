@@ -7,6 +7,7 @@ import { useSpreadProps } from '../Util/useSpreadProps';
 import { useMtProps } from '../Util/useMtProps';
 import uniqueId from 'lodash.uniqueid';
 import useCommonProperties from '../Util/useCommonProperties';
+import useUniqueId from '../Util/useUniqueId';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const core = require('@govbr-ds/core/dist/core-init');
@@ -43,7 +44,8 @@ export interface CheckboxRef extends HTMLInputElement {
 }
 
 const Checkbox = React.forwardRef<CheckboxRef, CheckboxProps>(
-    ({className, id = uniqueId('checkbox_____'), children, inline, state, disabled, defaultChecked = false, checked, name, label, value, indeterminate = false, parentGroup, childOf, ...props}, ref) => {
+    ({className, id, children, inline, state, disabled, defaultChecked = false, checked, name, label, value, indeterminate = false, parentGroup, childOf, ...props}, ref) => {
+        const fid = useUniqueId(id, 'checkbox_____');
         const mtProps = useMtProps(props);
         const spreadProps = useSpreadProps(props);
 
@@ -88,7 +90,7 @@ const Checkbox = React.forwardRef<CheckboxRef, CheckboxProps>(
                     )}
                     name={name}
                     type="checkbox"
-                    id={id}
+                    id={fid}
                     {...value && {value: value}}
                     {...typeof checked !== 'undefined' && {checked: checked}}
                     {...defaultChecked && {defaultChecked: defaultChecked}}
@@ -97,7 +99,7 @@ const Checkbox = React.forwardRef<CheckboxRef, CheckboxProps>(
                     {...childOf && {'data-child': childOf}}
                     {...spreadProps}
                 />
-                <label htmlFor={id}>{label}</label>
+                <label htmlFor={fid}>{label}</label>
                 {children}
             </div>
         );

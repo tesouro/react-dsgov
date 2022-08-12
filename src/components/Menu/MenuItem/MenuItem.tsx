@@ -9,6 +9,7 @@ import { useMtProps } from '../../Util/useMtProps';
 import CustomTag from '../../CustomTag';
 import IMenuItem from '../IMenuItem';
 import uniqueId from 'lodash.uniqueid';
+import useUniqueId from '../../Util/useUniqueId';
 
 interface MenuItemProps  extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
     label?: string;
@@ -21,7 +22,8 @@ interface MenuItemProps  extends React.HTMLAttributes<HTMLDivElement>, IMtProps 
 } 
 
 const MenuItem = React.forwardRef<HTMLDivElement, MenuItemProps>(
-    ({className, children, id = uniqueId('menuitem_____'), label, level = 2, href, icon, submenu, divider = false, expanded = false, ...props}, ref) => {
+    ({className, children, id, label, level = 2, href, icon, submenu, divider = false, expanded = false, ...props}, ref) => {
+        const fid = useUniqueId(id, 'menuitem_____');
         const mtProps = useMtProps(props);
         const spreadProps = useSpreadProps(props);
 
@@ -34,7 +36,7 @@ const MenuItem = React.forwardRef<HTMLDivElement, MenuItemProps>(
             >
                 <CustomTag
                     ref={ref}
-                    id={id}
+                    id={fid}
                     tagName={expanded ? 'div' : 'a'}
                     className={classNames(
                         'menu-item',

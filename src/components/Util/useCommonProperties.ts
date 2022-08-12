@@ -8,7 +8,7 @@ const useCommonProperties = <T>(refTarget: any, ref : any, extra? : any) => {
 
         if(typeof ref.current[prop] === 'function') {
             attributes[prop] = (...args : any) => {
-                ref?.current[prop]?.(...args);
+                return ref?.current[prop]?.(...args);
             };
         } else {
             Object.defineProperty(attributes, prop, {

@@ -12,6 +12,7 @@ import uniqueId from 'lodash.uniqueid';
 import useOutsideClick from '../Util/useOutsideClick';
 import CustomTag from '../CustomTag';
 import Avatar from '../Avatar';
+import useUniqueId from '../Util/useUniqueId';
 
 export interface ILink {
     label: string,
@@ -68,7 +69,8 @@ export interface HeaderProps extends React.HTMLAttributes<HTMLElement>, IMtProps
 }
 
 const Header = React.forwardRef<HTMLElement, HeaderProps>(
-    ({ className, children, id = uniqueId('header_____'), urlLogo, systemName, title, subTitle, compact = false, density = 'medium', quickAccessLinks, features, loggedIn = false, showLoginButton = true, onClickLogin = () => {/** */}, showSearchBar = true, onSearch = () => {/** */}, avatar, ...props }, ref) => {
+    ({ className, children, id,  urlLogo, systemName, title, subTitle, compact = false, density = 'medium', quickAccessLinks, features, loggedIn = false, showLoginButton = true, onClickLogin = () => {/** */}, showSearchBar = true, onSearch = () => {/** */}, avatar, ...props }, ref) => {
+        const fid = useUniqueId(id, 'header_____');
         const mtProps = useMtProps(props);
         const spreadProps = useSpreadProps(props);
 
@@ -116,7 +118,7 @@ const Header = React.forwardRef<HTMLElement, HeaderProps>(
         return (
             <header
                 ref={ref}
-                id={id}
+                id={fid}
                 className={classNames(
                     'br-header',
                     { 'compact': compact },
@@ -212,9 +214,9 @@ const Header = React.forwardRef<HTMLElement, HeaderProps>(
                             { 'active': searchActive }
                         )}>
                             <div className="br-input has-icon">
-                                <label htmlFor={`searchbox-${id}`}>Texto da pesquisa</label>
+                                <label htmlFor={`searchbox-${fid}`}>Texto da pesquisa</label>
                                 <input 
-                                    id={`searchbox-${id}`} 
+                                    id={`searchbox-${fid}`} 
                                     type="text" 
                                     placeholder="O que você procura?" 
                                     value={searchTerm} 

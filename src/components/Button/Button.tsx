@@ -12,6 +12,7 @@ import List from '../List';
 import CustomTag from '../CustomTag';
 import { ListRef } from '../List/List';
 import useCommonProperties from '../Util/useCommonProperties';
+import useUniqueId from '../Util/useUniqueId';
 
 export interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement>, IMtProps {
     /** Se o botão é do tipo "Primário". */
@@ -54,8 +55,9 @@ export interface ButtonRef extends HTMLButtonElement {
 }
 
 const Button = React.forwardRef<ButtonRef, ButtonProps>(
-    ({children, className, id = uniqueId('button_____'), type = 'submit', primary, secondary, circle, inverted, block, large, small, loading, disabled, icon, signIn = false, isItem = false, onClick = () => {/** */}, dropdownItems, ...props}, ref) => {
-        
+    ({children, className, id, type = 'submit', primary, secondary, circle, inverted, block, large, small, loading, disabled, icon, signIn = false, isItem = false, onClick = () => {/** */}, dropdownItems, ...props}, ref) => {
+        const fid = useUniqueId(id, 'button_____');
+
         const mtProps = useMtProps(props);
         const spreadProps = useSpreadProps(props);
         const [expanded, setExpanded] = useState<boolean>(false);
@@ -93,7 +95,7 @@ const Button = React.forwardRef<ButtonRef, ButtonProps>(
             >
                 <button
                     type={type}
-                    id={id}
+                    id={fid}
                     className={classNames(
                         (!signIn && !isItem && 'br-button'),
                         (isItem && 'br-item'),

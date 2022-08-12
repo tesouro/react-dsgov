@@ -8,6 +8,7 @@ import { useMtProps } from '../Util/useMtProps';
 import Divider from '../Divider';
 import uniqueId from 'lodash.uniqueid';
 import useCommonProperties from '../Util/useCommonProperties';
+import useUniqueId from '../Util/useUniqueId';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const core = require('@govbr-ds/core/dist/core-init');
@@ -28,7 +29,8 @@ export interface ListRef extends HTMLDivElement {
 }
 
 const List = React.forwardRef<ListRef, ListProps>(
-    ({ className, id = uniqueId('list_____'), children, role = 'list', title, horizontal = false, hidden = false, expanded, ...props }, ref) => {
+    ({ className, id, children, role = 'list', title, horizontal = false, hidden = false, expanded, ...props }, ref) => {
+        const fid = useUniqueId(id, 'list_____');
         const mtProps = useMtProps(props);
         const spreadProps = useSpreadProps(props);
         const refElemento = useRef(null);
@@ -50,7 +52,7 @@ const List = React.forwardRef<ListRef, ListProps>(
         return (
             <div
                 ref={refDiv}
-                id={id}
+                id={fid}
                 className={classNames(
                     'br-list',
                     (horizontal && 'horizontal'),

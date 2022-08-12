@@ -8,6 +8,7 @@ import { useMtProps } from '../Util/useMtProps';
 import uniqueId from 'lodash.uniqueid';
 import TabContent from './TabContent';
 import styles from './Tab.module.scss'; 
+import useUniqueId from '../Util/useUniqueId';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const core = require('@govbr-ds/core/dist/core-init');
@@ -21,7 +22,8 @@ interface TabProps  extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
 } 
 
 const Tab = React.forwardRef<HTMLDivElement, TabProps>(
-    ({className, children, id = uniqueId('tab_____'), initial = 1, density = 'medium', inverted, ...props}, ref) => {
+    ({className, children, id, initial = 1, density = 'medium', inverted, ...props}, ref) => {
+        const fid = useUniqueId(id, 'tab_____');
         const mtProps = useMtProps(props);
         const spreadProps = useSpreadProps(props);
 
@@ -66,7 +68,7 @@ const Tab = React.forwardRef<HTMLDivElement, TabProps>(
         return (
             <div
                 ref={ref}
-                id={id}
+                id={fid}
                 className={classNames(
                     'br-tab',
                     {'large': density === 'large'},
@@ -93,7 +95,7 @@ const Tab = React.forwardRef<HTMLDivElement, TabProps>(
                                     {'notification-tooltip' : element.props.onlyIcon}
                                 )}
                             >
-                                <button onClick={(event) => handleClick(event, index)} type="button" data-panel={`${id}-panel-${index + 1}`}>
+                                <button onClick={(event) => handleClick(event, index)} type="button" data-panel={`${fid}-panel-${index + 1}`}>
                                     {element.props.icon && 
                                         <span className="name">
                                             <span className="d-flex flex-column flex-sm-row">

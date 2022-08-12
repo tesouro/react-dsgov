@@ -10,6 +10,7 @@ import { mapaIcones } from '../Util/Util';
 import Row from '../Row/Row';
 import uniqueId from 'lodash.uniqueid';
 import useCommonProperties from '../Util/useCommonProperties';
+import useUniqueId from '../Util/useUniqueId';
 
 export interface TextareaProps extends React.HTMLAttributes<HTMLTextAreaElement>, IMtProps {
     /** Label do textarea. */
@@ -46,7 +47,8 @@ export interface TextareaProps extends React.HTMLAttributes<HTMLTextAreaElement>
 }
 
 const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
-    ({ className, children, label, id = uniqueId('textarea_____'), placeholder, density = 'normal', inline, value, maxLength, feedbackText, showCharacterCounter = false, status, inverted = false, onChange, ...props }, ref) => {
+    ({ className, children, label, id, placeholder, density = 'normal', inline, value, maxLength, feedbackText, showCharacterCounter = false, status, inverted = false, onChange, ...props }, ref) => {
+        const fid = useUniqueId(id, 'textarea_____');
         const mtProps = useMtProps(props);
         const spreadProps = useSpreadProps(props);
 
@@ -94,10 +96,10 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
         };
 
 
-        const labelElement = label && <label ref={refLabel} htmlFor={id}>{label}</label>;
+        const labelElement = label && <label ref={refLabel} htmlFor={fid}>{label}</label>;
         const textAreaElement = <>
             <textarea 
-                id={id} 
+                id={fid} 
                 value={value} 
                 ref={refTextarea} 
                 {...maxLength && {maxLength: maxLength}}

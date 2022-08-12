@@ -10,6 +10,7 @@ import uniqueId from 'lodash.uniqueid';
 import Notification from '../Notification';
 import useOutsideClick from '../Util/useOutsideClick';
 import useCommonProperties from '../Util/useCommonProperties';
+import useUniqueId from '../Util/useUniqueId';
 
 export interface AvatarProps  extends React.HTMLAttributes<HTMLElement>, IMtProps {
     /** Título do avatar. */
@@ -43,7 +44,8 @@ export interface AvatarRef extends HTMLElement {
 }
 
 const Avatar = React.forwardRef<AvatarRef, AvatarProps>(
-    ({className, children, id = uniqueId('avatar_____'), title, imageSrc, alt = 'Avatar', density = 'small', letter, dropdown = false, icon, bgColor = 'bg-violet-50', ...props}, ref) => {
+    ({className, children, id, title, imageSrc, alt = 'Avatar', density = 'small', letter, dropdown = false, icon, bgColor = 'bg-violet-50', ...props}, ref) => {
+        const fid = useUniqueId(id, 'avatar_____');
         const mtProps = useMtProps(props);
         const spreadProps = useSpreadProps(props);
 
@@ -72,7 +74,7 @@ const Avatar = React.forwardRef<AvatarRef, AvatarProps>(
                 <CustomTag
                     tagName={dropdown ? 'button' : 'span'}
                     ref={refContainer}
-                    id={id}
+                    id={fid}
                     title={title}
                     onClick={handleOpenClose}
                     {

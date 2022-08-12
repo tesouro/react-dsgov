@@ -14,7 +14,7 @@ export default function useOutsideClick(ref : any, callback : () => void) {
             if(Array.isArray(ref)) {
                 let isInside = false;
                 for(const curRef of ref) {
-                    if(curRef.current && curRef.current.contains(event.target)) {
+                    if(curRef.current && curRef.current.contains && curRef.current.contains(event.target)) {
                         isInside = true;
                     }
                 }

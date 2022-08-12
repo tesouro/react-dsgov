@@ -4,6 +4,7 @@ import IMtProps from '../../IMtProps';
 import { useSpreadProps } from '../../Util/useSpreadProps';
 import { useMtProps } from '../../Util/useMtProps';
 import uniqueId from 'lodash.uniqueid';
+import useUniqueId from '../../Util/useUniqueId';
 
 export interface TabContentProps  extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
     title?: string;
@@ -14,7 +15,8 @@ export interface TabContentProps  extends React.HTMLAttributes<HTMLDivElement>, 
 } 
 
 const TabContent = React.forwardRef<HTMLDivElement, TabContentProps>(
-    ({className, children, id = uniqueId('tabcontent_____'), title, onlyIcon = false, active = false, ...props}, ref) => {
+    ({className, children, id, title, onlyIcon = false, active = false, ...props}, ref) => {
+        const fid = useUniqueId(id, 'tabcontent_____');
         const mtProps = useMtProps(props);
         const spreadProps = useSpreadProps(props);
         
@@ -22,7 +24,7 @@ const TabContent = React.forwardRef<HTMLDivElement, TabContentProps>(
         return (
             <div
                 ref={ref}
-                id={id}
+                id={fid}
                 className={classNames(
                     'tab-panel',
                     (active && 'active'),

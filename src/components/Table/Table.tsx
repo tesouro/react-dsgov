@@ -16,6 +16,7 @@ import uniqueId from 'lodash.uniqueid';
 import { InputRef } from '../Input/Input';
 import { ButtonRef } from '../Button/Button';
 import useCommonProperties from '../Util/useCommonProperties';
+import useUniqueId from '../Util/useUniqueId';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const core = require('@govbr-ds/core/dist/core-init');
@@ -96,7 +97,7 @@ const Table = React.forwardRef<HTMLDivElement, TableProps>(
     ({
         className,
         children,
-        id = uniqueId('table_____'),
+        id,
         title,
         showDensityButtons = true,
         showSearch = true,
@@ -114,6 +115,7 @@ const Table = React.forwardRef<HTMLDivElement, TableProps>(
         currentTotalRegistros,
         ...props
     }, ref) => {
+        const fid = useUniqueId(id, 'table_____');
         const mtProps = useMtProps(props);
         const spreadProps = useSpreadProps(props);
 
@@ -314,7 +316,7 @@ const Table = React.forwardRef<HTMLDivElement, TableProps>(
         return (
             <div
                 ref={refDiv}
-                id={id}
+                id={fid}
                 className={classNames(
                     'br-table',
                     className,
@@ -336,7 +338,7 @@ const Table = React.forwardRef<HTMLDivElement, TableProps>(
                                 circle 
                                 title="Ver mais opções" 
                                 data-toggle="dropdown" 
-                                data-target={`ver-mais-opcoes____${id}`} 
+                                data-target={`ver-mais-opcoes____${fid}`} 
                                 aria-label="Ver mais opções" 
                                 icon="fas fa-ellipsis-v" 
                                 dropdownItems={<>
@@ -357,7 +359,7 @@ const Table = React.forwardRef<HTMLDivElement, TableProps>(
                     {showSearch && <div className={classNames('search-bar', {'show': searchExpanded})}>
                         <div className="br-input">
                             <Input
-                                id={`table-searchbox-${id}`}
+                                id={`table-searchbox-${fid}`}
                                 ref={refInput}
                                 label="Buscar"
                                 placeholder="Buscar na tabela"
@@ -372,8 +374,8 @@ const Table = React.forwardRef<HTMLDivElement, TableProps>(
                     <div className="selected-bar">
                         <div className="info"><span className="count">0</span><span className="text">item selecionado</span></div>
                         <div className="actions-trigger text-nowrap">
-                            <Button circle inverted type="button" data-toggle="dropdown" data-target={`target02-${id}`} aria-label="Ver mais opções" icon="fas fa-ellipsis-v" />
-                            <List id={`target02-${id}`} hidden>
+                            <Button circle inverted type="button" data-toggle="dropdown" data-target={`target02-${fid}`} aria-label="Ver mais opções" icon="fas fa-ellipsis-v" />
+                            <List id={`target02-${fid}`} hidden>
                                 <Button data-toggle="">Ação 1</Button>
                                 <Divider />
                                 <Button>Ação 2</Button>
@@ -424,7 +426,7 @@ const Table = React.forwardRef<HTMLDivElement, TableProps>(
                 <div className="table-footer">
                     <nav className="br-pagination" aria-label="Paginação de resultados" data-total="50" data-current="1" data-per-page="20">
                         <div className="pagination-per-page">
-                            <Select label="Itens por página" id={`per-page-selection-random-${id}`} options={getItemsPerPage()}
+                            <Select label="Itens por página" id={`per-page-selection-random-${fid}`} options={getItemsPerPage()}
                                 onChange={(value: any) => setPageSize(value)}
                                 value={String(pageSize)}
                             />

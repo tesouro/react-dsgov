@@ -9,6 +9,7 @@ import IMtProps from '../IMtProps';
 import { useSpreadProps } from '../Util/useSpreadProps';
 import { useMtProps } from '../Util/useMtProps';
 import uniqueId from 'lodash.uniqueid';
+import useUniqueId from '../Util/useUniqueId';
 
 export interface CardProps extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
     /** Se o card mostra muda de comportamento ao passar o mouse em cima. */
@@ -22,14 +23,15 @@ export interface CardProps extends React.HTMLAttributes<HTMLDivElement>, IMtProp
 } 
 
 const Card = React.forwardRef<HTMLDivElement, CardProps>(
-    ({className, id = uniqueId('card_____'), children, hover, hFixed, disabled, ...props}, ref) => {
+    ({className, id, children, hover, hFixed, disabled, ...props}, ref) => {
+        const fid = useUniqueId(id, 'card_____');
         const mtProps = useMtProps(props);
         const spreadProps = useSpreadProps(props);
 
         return (
             <div 
                 ref={ref}
-                id={id}
+                id={fid}
                 className={classNames(
                     'br-card',
                     hover && 'hover',

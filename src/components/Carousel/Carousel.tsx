@@ -9,6 +9,7 @@ import { useMtProps } from '../Util/useMtProps';
 import { useSpreadProps } from '../Util/useSpreadProps';
 import uniqueId from 'lodash.uniqueid';
 import useCommonProperties from '../Util/useCommonProperties';
+import useUniqueId from '../Util/useUniqueId';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const core = require('@govbr-ds/core/dist/core-init');
@@ -41,7 +42,8 @@ export interface CarouselRef extends HTMLDivElement {
 }
 
 const Carousel = React.forwardRef<HTMLDivElement, CarouselProps>(
-    ({ className, id = uniqueId('carousel_____'), children, circular, interno, hybrid, textual = false, ...props }, ref) => {
+    ({ className, id, children, circular, interno, hybrid, textual = false, ...props }, ref) => {
+        const fid = useUniqueId(id, 'carousel_____');
         const refDiv = useRef<HTMLDivElement>(null);
         const refQtdChildren = useRef<number>(0);
         const refObjetoCarousel = useRef<any>(null);
@@ -78,7 +80,7 @@ const Carousel = React.forwardRef<HTMLDivElement, CarouselProps>(
 
             <div
                 ref={refDiv}
-                id={id}
+                id={fid}
                 data-circular={circular}
                 className={classNames(
                     'br-carousel',

@@ -13,6 +13,7 @@ import AnyAttribute from 'react-any-attr';
 import uniqueId from 'lodash.uniqueid';
 import useOutsideClick from '../Util/useOutsideClick';
 import useCommonProperties from '../Util/useCommonProperties';
+import useUniqueId from '../Util/useUniqueId';
 
 
 export interface SelectOptions {
@@ -42,7 +43,8 @@ interface SelectProps extends React.HTMLAttributes<HTMLSelectElement>, IMtProps 
 }
 
 const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
-    ({ className, children, id = uniqueId('select_____'), label, options, value,  onChange = () => {/* */}, placeholder, type = 'single', selectAllText = 'Selecionar todos', ...props }, ref) => {
+    ({ className, children, id, label, options, value,  onChange = () => {/* */}, placeholder, type = 'single', selectAllText = 'Selecionar todos', ...props }, ref) => {
+        const fid = useUniqueId(id, 'select_____');
         const mtProps = useMtProps(props);
         const spreadProps = useSpreadProps(props);
         const [displayValue, setDisplayValue] = useState('');
@@ -231,11 +233,11 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
                     )}
                 >
                     <div ref={refInputWrapper} className="br-input">
-                        {label && <label htmlFor={id}>{label}</label>}
+                        {label && <label htmlFor={fid}>{label}</label>}
                         <input
                             onClick={handleSelectClick} 
                             onFocus={handleSelectClick} 
-                            id={`${id}_____select`} 
+                            id={`${fid}_____select`} 
                             type="text" 
                             data-value={value} 
                             value={expanded ? searchValue : displayValue} 
@@ -259,7 +261,7 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
                                 )}
                             >
                                 <Checkbox  
-                                    id={`${id}____`}
+                                    id={`${fid}____`}
                                     label="Selecionar todos"
                                     onChange={(event) => handleSelectAll(event.currentTarget.checked)}
                                     checked={allSelected()}
@@ -279,15 +281,15 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
                             >
                                 {type === 'single' &&
                                     <Radio
-                                        id={`${id}____${elemento.value}`}
-                                        name={id}
+                                        id={`${fid}____${elemento.value}`}
+                                        name={fid}
                                         label={elemento.label}
                                         checked={currentValue === String(elemento.value)}
                                         onChange={(event) => handleChangeValue(elemento.value)}
                                     />}
                                 {type === 'multiple' &&
                                     <Checkbox
-                                        id={`${id}____${elemento.value}`}
+                                        id={`${fid}____${elemento.value}`}
                                         name={String(elemento.value)}
                                         label={elemento.label}
                                         checked={(currentValue as string[]).length > 0 && (currentValue as string[]).indexOf(String(elemento.value)) !== -1}

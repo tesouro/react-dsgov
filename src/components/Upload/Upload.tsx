@@ -7,6 +7,7 @@ import { useSpreadProps } from '../Util/useSpreadProps';
 import { useMtProps } from '../Util/useMtProps';
 import uniqueId from 'lodash.uniqueid';
 import useCommonProperties from '../Util/useCommonProperties';
+import useUniqueId from '../Util/useUniqueId';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const core = require('@govbr-ds/core/dist/core-init');
@@ -23,7 +24,8 @@ export interface UploadProps  extends React.HTMLAttributes<HTMLDivElement>, IMtP
 } 
 
 const Upload = React.forwardRef<HTMLDivElement, UploadProps>(
-    ({className, children, id = uniqueId('upload_____'), label, multiple = false, disabled = false, uploadTimeout, ...props}, ref) => {
+    ({className, children, id, label, multiple = false, disabled = false, uploadTimeout, ...props}, ref) => {
+        const fid = useUniqueId(id, 'upload_____');
         const mtProps = useMtProps(props);
         const spreadProps = useSpreadProps(props);
 
@@ -50,10 +52,10 @@ const Upload = React.forwardRef<HTMLDivElement, UploadProps>(
                 {...spreadProps}
                 
             >
-                {label && <label className="upload-label" htmlFor={id}><span>{label}</span></label>}
+                {label && <label className="upload-label" htmlFor={fid}><span>{label}</span></label>}
                 <input 
                     className="upload-input" 
-                    id={id} 
+                    id={fid} 
                     type="file"
                     {...multiple && {multiple: 'multiple'}}
                     {...spreadProps}

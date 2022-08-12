@@ -7,6 +7,7 @@ import { useSpreadProps } from '../Util/useSpreadProps';
 import { useMtProps } from '../Util/useMtProps';
 import uniqueId from 'lodash.uniqueid';
 import useCommonProperties from '../Util/useCommonProperties';
+import useUniqueId from '../Util/useUniqueId';
 
 export interface DateTimePickerProps extends React.HTMLAttributes<HTMLInputElement>, IMtProps {
     /** Modo do Datetime.
@@ -41,7 +42,8 @@ export interface DateTimePickerRef  extends HTMLInputElement {
 }
 
 const DateTimePicker = React.forwardRef<DateTimePickerRef, DateTimePickerProps>(
-    ({ className, id = uniqueId('datetimepicker_____'), children, dataMode = 'single', dataType = 'text', label, placeholder = 'dd/mm/aaaa', buttonIcon = 'fas fa-calendar-alt', minDate, maxDate, ...props }, ref) => {
+    ({ className, id, children, dataMode = 'single', dataType = 'text', label, placeholder = 'dd/mm/aaaa', buttonIcon = 'fas fa-calendar-alt', minDate, maxDate, ...props }, ref) => {
+        const fid = useUniqueId(id, 'datetimepicker_____');
         // Implementando os refs de cada um dos elementos
         const refWrapper = useRef(null);
         const refInputWrapper = useRef(null);
@@ -92,9 +94,9 @@ const DateTimePicker = React.forwardRef<DateTimePickerRef, DateTimePickerProps>(
 
             >
                 <div ref={refInputWrapper} className="br-input has-icon">
-                    {label && <label htmlFor={id}>{label}</label>}
+                    {label && <label htmlFor={fid}>{label}</label>}
                     <input
-                        id={id}
+                        id={fid}
                         type={dataType}
                         placeholder={placeholder}
                         ref={refInput}
