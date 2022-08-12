@@ -80,7 +80,7 @@ const Wizard = React.forwardRef<HTMLDivElement, WizardProps>(
             setCurrentStep(newStep);
             onChange?.(newStep);
             (refWizardForm.current?.querySelectorAll('.wizard-panel')[newStep - 1] as HTMLElement).focus();
-        }, []);
+        }, [onChange]);
 
         const handleClickNextStep = useCallback(() => {
             setCurrentStep((oldCurrentStep) => {
@@ -157,7 +157,7 @@ const Wizard = React.forwardRef<HTMLDivElement, WizardProps>(
                                     </button>}
                                     {index === Children.count(children) - 1 && <button className="br-button primary wizard-btn" type="button" onClick={(event) => {if(onConclude) onConclude(event);}}>{concludeButtonText}
                                     </button>}
-                                    {index > 0 && <button  onClick={handleClickPrevStep}  className="br-button secondary wizard-btn-prev" type="button" ref={refConcludeButton}>{prevButtonText}
+                                    {index > 0 && <button onClick={handleClickPrevStep}  className="br-button secondary wizard-btn-prev" type="button" ref={refConcludeButton}>{prevButtonText}
                                     </button>}
                                 </div>
                             </div>

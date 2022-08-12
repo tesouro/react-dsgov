@@ -50,7 +50,7 @@ const Pagination = React.forwardRef<HTMLElement, PaginationProps>(
         const handleClickItem = useCallback((page : number) => {
             setCurrentPage(page);
             onChange?.(page);            
-        }, []);
+        }, [onChange]);
 
         const handleClickNextPage = useCallback(() => {
             setCurrentPage((oldPage) => {

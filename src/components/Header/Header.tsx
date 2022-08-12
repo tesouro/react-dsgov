@@ -113,7 +113,7 @@ const Header = React.forwardRef<HTMLElement, HeaderProps>(
             if(event.key === 'Enter') {
                 onSearch?.(searchTerm);
             }
-        }, []);
+        }, [onSearch]);
 
         return (
             <header

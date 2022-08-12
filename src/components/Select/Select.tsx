@@ -98,7 +98,7 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
             setCurrentValue(newValue);
             setExpanded(false);
             onChange(newValue);
-        }, []);
+        }, [onChange]);
 
         const handleChangeValueMultiple = useCallback((newValue : string | number, checked : boolean) => {
             if(checked) {

@@ -101,13 +101,13 @@ const Table = React.forwardRef<HTMLDivElement, TableProps>(
         title,
         showDensityButtons = true,
         showSearch = true,
-        onSearch = () => {/* */},
+        onSearch,
         showSelectedBar = true,
         headers,
         data,
         endpoint,
-        onClickNextPage = () => {/* */},
-        onClickPrevPage = () => {/* */},
+        onClickNextPage,
+        onClickPrevPage,
         showPageSelector = false,
         arrayItemsPerPage,
         currentPageNumber,
@@ -142,7 +142,7 @@ const Table = React.forwardRef<HTMLDivElement, TableProps>(
         useCommonProperties<InputRef>(ref, refDiv);
 
         const handleClickNextPage = useCallback((event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-            onClickNextPage(event);
+            onClickNextPage?.(event);
 
             console.log(atualizando);
             if (!atualizando && endpoint) {
@@ -155,10 +155,10 @@ const Table = React.forwardRef<HTMLDivElement, TableProps>(
                 });
             }
 
-        }, [atualizando, endpoint]);
+        }, [atualizando, endpoint, onClickNextPage]);
 
         const handleClickPreviousPage = useCallback((event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-            onClickPrevPage(event);
+            onClickPrevPage?.(event);
 
             if (!atualizando && endpoint) {
                 setPageNumber((currentOffset) => {
@@ -170,10 +170,10 @@ const Table = React.forwardRef<HTMLDivElement, TableProps>(
                 });
             }
 
-        }, [atualizando, endpoint]);
+        }, [atualizando, endpoint, onClickPrevPage]);
 
         const handleTrocaBuscaPadrao = () => {
-            onSearch({ searchText: defaultSearch } as ISearchEvent);
+            onSearch?.({ searchText: defaultSearch } as ISearchEvent);
 
             console.log('Testando!!!!');
             console.log(defaultSearch);
