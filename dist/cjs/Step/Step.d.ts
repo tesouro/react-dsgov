@@ -38,5 +38,5 @@ export interface StepProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'o
     onChange?: (value: number) => void;
     value?: number;
 }
-declare const Step: React.ForwardRefExoticComponent<StepProps & React.RefAttributes<HTMLDivElement>>;
-export default Step;
+declare const _default: React.MemoExoticComponent<React.ForwardRefExoticComponent<StepProps & React.RefAttributes<HTMLDivElement>>>;
+export default _default;

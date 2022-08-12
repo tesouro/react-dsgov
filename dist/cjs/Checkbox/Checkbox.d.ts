@@ -24,5 +24,9 @@ export interface CheckboxProps extends React.HTMLAttributes<HTMLInputElement>, I
     /** Se é filho de um determinado grupo de checkboxes. */
     childOf?: string;
 }
-declare const Checkbox: React.ForwardRefExoticComponent<CheckboxProps & React.RefAttributes<HTMLInputElement>>;
+export interface CheckboxRef extends HTMLInputElement {
+    wrapper: HTMLDivElement;
+    element: HTMLInputElement;
+}
+declare const Checkbox: React.ForwardRefExoticComponent<CheckboxProps & React.RefAttributes<CheckboxRef>>;
 export default Checkbox;

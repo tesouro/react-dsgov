@@ -39,7 +39,13 @@ interface AvatarProps extends React.HTMLAttributes<HTMLElement>, IMtProps {
     /** Cor dsgov, se for do uma letra. */
     bgColor?: string;
 }
-declare const Avatar: React.ForwardRefExoticComponent<AvatarProps & React.RefAttributes<HTMLElement>>;
+interface AvatarRef extends HTMLElement {
+    focus: () => void;
+    expand: () => void;
+    close: () => void;
+    element: HTMLElement;
+}
+declare const _default$d: React.MemoExoticComponent<React.ForwardRefExoticComponent<AvatarProps & React.RefAttributes<AvatarRef>>>;
 
 interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement>, IMtProps {
     /** Se o botão é do tipo "Primário". */
@@ -72,7 +78,12 @@ interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement>, IMtProps 
     /** Itens de dropdown, caso seja um botão com dropdown */
     dropdownItems?: React.ReactElement;
 }
-declare const Button: React.ForwardRefExoticComponent<ButtonProps & React.RefAttributes<HTMLButtonElement>>;
+interface ButtonRef extends HTMLButtonElement {
+    expand: () => void;
+    close: () => void;
+    element: HTMLButtonElement;
+}
+declare const _default$c: React.MemoExoticComponent<React.ForwardRefExoticComponent<ButtonProps & React.RefAttributes<ButtonRef>>>;
 
 interface BreadcrumbItemProps extends React.HTMLAttributes<HTMLLIElement> {
     href?: string;
@@ -83,8 +94,10 @@ interface BreadcrumbItemProps extends React.HTMLAttributes<HTMLLIElement> {
 
 interface BreadcrumbProps extends React.HTMLAttributes<HTMLDivElement> {
 }
-declare const _default$5: React.ForwardRefExoticComponent<BreadcrumbProps & React.RefAttributes<HTMLDivElement>> & {
-    Item: React.ForwardRefExoticComponent<BreadcrumbItemProps & React.RefAttributes<HTMLLIElement>>;
+declare const _default$b: React.NamedExoticComponent<BreadcrumbProps & React.RefAttributes<HTMLDivElement>> & {
+    readonly type: React.ForwardRefExoticComponent<BreadcrumbProps & React.RefAttributes<HTMLDivElement>>;
+} & {
+    Item: React.MemoExoticComponent<React.ForwardRefExoticComponent<BreadcrumbItemProps & React.RefAttributes<HTMLLIElement>>>;
 };
 
 interface CardFooterProps extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
@@ -109,7 +122,7 @@ interface CardProps extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
     /** Se ele está desabilitado. */
     disabled?: boolean;
 }
-declare const _default$4: React.ForwardRefExoticComponent<CardProps & React.RefAttributes<HTMLDivElement>> & {
+declare const _default$a: React.ForwardRefExoticComponent<CardProps & React.RefAttributes<HTMLDivElement>> & {
     Header: React.ForwardRefExoticComponent<CardHeaderProps & React.RefAttributes<HTMLDivElement>>;
     Content: React.ForwardRefExoticComponent<CardContentProps & React.RefAttributes<HTMLDivElement>>;
     Footer: React.ForwardRefExoticComponent<CardFooterProps & React.RefAttributes<HTMLDivElement>>;
@@ -145,7 +158,7 @@ interface CarouselProps extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
     /** Se os botões de passos são substituídos por um texto do estilo <Passo Atual>/<Total de Passos>. */
     textual?: boolean;
 }
-declare const _default$3: React.ForwardRefExoticComponent<CarouselProps & React.RefAttributes<HTMLDivElement>> & {
+declare const _default$9: React.ForwardRefExoticComponent<CarouselProps & React.RefAttributes<HTMLDivElement>> & {
     Page: React.ForwardRefExoticComponent<CarouselPageProps & React.RefAttributes<HTMLDivElement>>;
 };
 
@@ -172,7 +185,11 @@ interface CheckboxProps extends React.HTMLAttributes<HTMLInputElement>, IMtProps
     /** Se é filho de um determinado grupo de checkboxes. */
     childOf?: string;
 }
-declare const Checkbox: React.ForwardRefExoticComponent<CheckboxProps & React.RefAttributes<HTMLInputElement>>;
+interface CheckboxRef extends HTMLInputElement {
+    wrapper: HTMLDivElement;
+    element: HTMLInputElement;
+}
+declare const Checkbox: React.ForwardRefExoticComponent<CheckboxProps & React.RefAttributes<CheckboxRef>>;
 
 interface ColProps extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
     /** Tamanho da coluna. */
@@ -265,7 +282,10 @@ interface CookieBarProps extends React.HTMLAttributes<HTMLDivElement>, IMtProps 
     json?: IConfig[];
     callback?: () => void;
 }
-declare const CookieBar: React.ForwardRefExoticComponent<CookieBarProps & React.RefAttributes<HTMLDivElement>>;
+interface CookieBarRef extends HTMLDivElement {
+    element: HTMLDivElement;
+}
+declare const CookieBar: React.ForwardRefExoticComponent<CookieBarProps & React.RefAttributes<CookieBarRef>>;
 
 interface DateTimePickerProps extends React.HTMLAttributes<HTMLInputElement>, IMtProps {
     /** Modo do Datetime.
@@ -290,7 +310,14 @@ interface DateTimePickerProps extends React.HTMLAttributes<HTMLInputElement>, IM
     /** Data máxima selecionável. */
     maxDate?: string;
 }
-declare const DateTimePicker: React.ForwardRefExoticComponent<DateTimePickerProps & React.RefAttributes<HTMLInputElement>>;
+interface DateTimePickerRef extends HTMLInputElement {
+    element: HTMLInputElement;
+    wrapper: HTMLElement;
+    inputWrapper: HTMLElement;
+    label: HTMLElement;
+    button: HTMLButtonElement;
+}
+declare const DateTimePicker: React.ForwardRefExoticComponent<DateTimePickerProps & React.RefAttributes<DateTimePickerRef>>;
 
 interface DividerProps extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
     /** Orientação.
@@ -432,16 +459,15 @@ interface InputProps extends React.HTMLAttributes<HTMLInputElement>, IMtProps {
     /** Texto de feedback que aparece embaixo do item, com a cor de fundo de acordo com o status escolhido. */
     feedbackText?: string;
 }
-interface InputRefHandle {
-    focus: () => void;
-    input: React.RefObject<HTMLInputElement>;
-    inputWrapper: React.RefObject<HTMLDivElement>;
-    label: React.RefObject<HTMLLabelElement>;
-    labelGroup: React.RefObject<HTMLDivElement>;
-    icon: React.RefObject<HTMLElement>;
-    iconGroup: React.RefObject<HTMLDivElement>;
+interface InputRef extends HTMLInputElement {
+    element: HTMLInputElement | null;
+    inputWrapper?: HTMLDivElement | null;
+    label: HTMLLabelElement | null;
+    labelGroup: HTMLDivElement | null;
+    icon: HTMLElement | null;
+    iconGroup: HTMLDivElement | null;
 }
-declare const Input: React.ForwardRefExoticComponent<InputProps & React.RefAttributes<InputRefHandle>>;
+declare const Input: React.ForwardRefExoticComponent<InputProps & React.RefAttributes<InputRef>>;
 
 interface ItemProps extends React.HTMLAttributes<HTMLElement>, IMtProps {
     /** Se o item tem um highlight ao passar o mouse em cima. */
@@ -462,7 +488,10 @@ interface ItemProps extends React.HTMLAttributes<HTMLElement>, IMtProps {
     subItems?: React.ReactElement;
     onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 }
-declare const Item: React.ForwardRefExoticComponent<ItemProps & React.RefAttributes<HTMLElement>>;
+interface ItemRef extends HTMLDivElement {
+    element: HTMLElement;
+}
+declare const _default$8: React.MemoExoticComponent<React.ForwardRefExoticComponent<ItemProps & React.RefAttributes<ItemRef>>>;
 
 interface ListProps extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
     /** Título da lista, opcional. */
@@ -474,7 +503,10 @@ interface ListProps extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
     /** Expandida ou não */
     expanded?: boolean;
 }
-declare const List: React.ForwardRefExoticComponent<ListProps & React.RefAttributes<HTMLDivElement>>;
+interface ListRef extends HTMLDivElement {
+    element: HTMLDivElement;
+}
+declare const _default$7: React.MemoExoticComponent<React.ForwardRefExoticComponent<ListProps & React.RefAttributes<ListRef>>>;
 
 interface LoadingProps extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
     /** Número indicando o progresso do loading. Opcional. */
@@ -526,7 +558,10 @@ interface MenuProps extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
     shadow?: boolean;
     density?: 'small' | 'normal' | 'large';
 }
-declare const Menu: React.ForwardRefExoticComponent<MenuProps & React.RefAttributes<HTMLDivElement>>;
+interface MenuRef extends HTMLDivElement {
+    element: HTMLDivElement;
+}
+declare const Menu: React.ForwardRefExoticComponent<MenuProps & React.RefAttributes<MenuRef>>;
 
 interface ModalFooterProps extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
 }
@@ -542,7 +577,7 @@ interface ModalProps extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
     /** Se mostra ou não o botão de fechar */
     showCloseButton?: boolean;
 }
-declare const _default$2: React.ForwardRefExoticComponent<ModalProps & React.RefAttributes<HTMLDivElement>> & {
+declare const _default$6: React.ForwardRefExoticComponent<ModalProps & React.RefAttributes<HTMLDivElement>> & {
     Body: React.ForwardRefExoticComponent<ModalBodyProps & React.RefAttributes<HTMLDivElement>>;
     Footer: React.ForwardRefExoticComponent<ModalFooterProps & React.RefAttributes<HTMLDivElement>>;
 };
@@ -560,7 +595,10 @@ interface MagicButtonProps extends React.HTMLAttributes<HTMLButtonElement>, IMtP
     /** Classe de ícone FontAwesome para o botão. */
     icon?: string;
 }
-declare const MagicButton: React.ForwardRefExoticComponent<MagicButtonProps & React.RefAttributes<HTMLButtonElement>>;
+interface MagicButtonRef extends HTMLButtonElement {
+    element: HTMLButtonElement;
+}
+declare const MagicButton: React.ForwardRefExoticComponent<MagicButtonProps & React.RefAttributes<MagicButtonRef>>;
 
 interface MessageProps extends React.HTMLAttributes<HTMLElement>, IMtProps {
     /**
@@ -606,10 +644,10 @@ interface PaginationProps extends Omit<React.HTMLAttributes<HTMLElement>, 'onCha
     ellipsis?: IEllipsis[];
     links?: string[];
     density?: 'small' | 'normal' | 'large';
-    currentPage?: number;
+    initialPage?: number;
     onChange?: (pageNumber: number) => void;
 }
-declare const Pagination: React.ForwardRefExoticComponent<PaginationProps & React.RefAttributes<HTMLElement>>;
+declare const _default$5: React.MemoExoticComponent<React.ForwardRefExoticComponent<PaginationProps & React.RefAttributes<HTMLElement>>>;
 
 interface RadioProps extends React.HTMLAttributes<HTMLInputElement>, IMtProps {
     /** Label do radio. */
@@ -665,7 +703,7 @@ interface SelectProps extends React.HTMLAttributes<HTMLSelectElement>, IMtProps 
     /** Se existe opção de selecionar todos, se o type="multiple". */
     selectAllText?: string;
 }
-declare const Select: React.ForwardRefExoticComponent<SelectProps & React.RefAttributes<HTMLSelectElement>>;
+declare const _default$4: React.MemoExoticComponent<React.ForwardRefExoticComponent<SelectProps & React.RefAttributes<HTMLSelectElement>>>;
 
 interface ISkipLink {
     link: string;
@@ -743,7 +781,7 @@ interface StepProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange
     onChange?: (value: number) => void;
     value?: number;
 }
-declare const Step: React.ForwardRefExoticComponent<StepProps & React.RefAttributes<HTMLDivElement>>;
+declare const _default$3: React.MemoExoticComponent<React.ForwardRefExoticComponent<StepProps & React.RefAttributes<HTMLDivElement>>>;
 
 interface IHeader {
     field: string;
@@ -791,7 +829,7 @@ interface TableProps extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
     /** Sobrescreve o marcador de total de registros na área de paginação. */
     currentTotalRegistros?: number;
 }
-declare const Table: React.ForwardRefExoticComponent<TableProps & React.RefAttributes<HTMLDivElement>>;
+declare const _default$2: React.MemoExoticComponent<React.ForwardRefExoticComponent<TableProps & React.RefAttributes<HTMLDivElement>>>;
 
 interface TabContentProps extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
     title?: string;
@@ -907,4 +945,4 @@ declare const _default: React.ForwardRefExoticComponent<WizardProps & React.RefA
     Panel: React.ForwardRefExoticComponent<WizardPanelProps & React.RefAttributes<HTMLDivElement>>;
 };
 
-export { Avatar, _default$5 as Breadcrumb, Button, _default$4 as Card, _default$3 as Carousel, Checkbox, Col, Container, CookieBar, DateTimePicker, Divider, Footer, Group, Header, Input, Item, List, Loading, MagicButton, Menu, Message, _default$2 as Modal, Notification, Pagination, Radio, Row, Select, SkipLink, Step, Switch, _default$1 as Tab, Table, Tag, Textarea, Upload, _default as Wizard };
+export { _default$d as Avatar, _default$b as Breadcrumb, _default$c as Button, _default$a as Card, _default$9 as Carousel, Checkbox, Col, Container, CookieBar, DateTimePicker, Divider, Footer, Group, Header, Input, _default$8 as Item, _default$7 as List, Loading, MagicButton, Menu, Message, _default$6 as Modal, Notification, _default$5 as Pagination, Radio, Row, _default$4 as Select, SkipLink, _default$3 as Step, Switch, _default$1 as Tab, _default$2 as Table, Tag, Textarea, Upload, _default as Wizard };

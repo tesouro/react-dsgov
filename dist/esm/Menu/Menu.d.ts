@@ -18,5 +18,8 @@ export interface MenuProps extends React.HTMLAttributes<HTMLDivElement>, IMtProp
     shadow?: boolean;
     density?: 'small' | 'normal' | 'large';
 }
-declare const Menu: React.ForwardRefExoticComponent<MenuProps & React.RefAttributes<HTMLDivElement>>;
+export interface MenuRef extends HTMLDivElement {
+    element: HTMLDivElement;
+}
+declare const Menu: React.ForwardRefExoticComponent<MenuProps & React.RefAttributes<MenuRef>>;
 export default Menu;

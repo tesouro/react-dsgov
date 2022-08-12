@@ -51,5 +51,5 @@ export interface TableProps extends React.HTMLAttributes<HTMLDivElement>, IMtPro
     /** Sobrescreve o marcador de total de registros na área de paginação. */
     currentTotalRegistros?: number;
 }
-declare const Table: React.ForwardRefExoticComponent<TableProps & React.RefAttributes<HTMLDivElement>>;
-export default Table;
+declare const _default: React.MemoExoticComponent<React.ForwardRefExoticComponent<TableProps & React.RefAttributes<HTMLDivElement>>>;
+export default _default;

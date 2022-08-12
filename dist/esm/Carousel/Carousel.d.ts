@@ -20,6 +20,9 @@ export interface CarouselProps extends React.HTMLAttributes<HTMLDivElement>, IMt
     /** Se os botões de passos são substituídos por um texto do estilo <Passo Atual>/<Total de Passos>. */
     textual?: boolean;
 }
+export interface CarouselRef extends HTMLDivElement {
+    element: HTMLDivElement;
+}
 declare const _default: React.ForwardRefExoticComponent<CarouselProps & React.RefAttributes<HTMLDivElement>> & {
     Page: React.ForwardRefExoticComponent<import("./CarouselPage/CarouselPage").CarouselPageProps & React.RefAttributes<HTMLDivElement>>;
 };

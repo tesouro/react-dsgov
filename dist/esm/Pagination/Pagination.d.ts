@@ -10,8 +10,8 @@ interface PaginationProps extends Omit<React.HTMLAttributes<HTMLElement>, 'onCha
     ellipsis?: IEllipsis[];
     links?: string[];
     density?: 'small' | 'normal' | 'large';
-    currentPage?: number;
+    initialPage?: number;
     onChange?: (pageNumber: number) => void;
 }
-declare const Pagination: React.ForwardRefExoticComponent<PaginationProps & React.RefAttributes<HTMLElement>>;
-export default Pagination;
+declare const _default: React.MemoExoticComponent<React.ForwardRefExoticComponent<PaginationProps & React.RefAttributes<HTMLElement>>>;
+export default _default;

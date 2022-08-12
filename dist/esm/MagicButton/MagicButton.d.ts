@@ -14,5 +14,8 @@ export interface MagicButtonProps extends React.HTMLAttributes<HTMLButtonElement
     /** Classe de ícone FontAwesome para o botão. */
     icon?: string;
 }
-declare const MagicButton: React.ForwardRefExoticComponent<MagicButtonProps & React.RefAttributes<HTMLButtonElement>>;
+export interface MagicButtonRef extends HTMLButtonElement {
+    element: HTMLButtonElement;
+}
+declare const MagicButton: React.ForwardRefExoticComponent<MagicButtonProps & React.RefAttributes<MagicButtonRef>>;
 export default MagicButton;

@@ -11,5 +11,8 @@ export interface ListProps extends React.HTMLAttributes<HTMLDivElement>, IMtProp
     /** Expandida ou não */
     expanded?: boolean;
 }
-declare const List: React.ForwardRefExoticComponent<ListProps & React.RefAttributes<HTMLDivElement>>;
-export default List;
+export interface ListRef extends HTMLDivElement {
+    element: HTMLDivElement;
+}
+declare const _default: React.MemoExoticComponent<React.ForwardRefExoticComponent<ListProps & React.RefAttributes<ListRef>>>;
+export default _default;

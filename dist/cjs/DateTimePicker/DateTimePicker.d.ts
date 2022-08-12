@@ -24,5 +24,12 @@ export interface DateTimePickerProps extends React.HTMLAttributes<HTMLInputEleme
     /** Data máxima selecionável. */
     maxDate?: string;
 }
-declare const DateTimePicker: React.ForwardRefExoticComponent<DateTimePickerProps & React.RefAttributes<HTMLInputElement>>;
+export interface DateTimePickerRef extends HTMLInputElement {
+    element: HTMLInputElement;
+    wrapper: HTMLElement;
+    inputWrapper: HTMLElement;
+    label: HTMLElement;
+    button: HTMLButtonElement;
+}
+declare const DateTimePicker: React.ForwardRefExoticComponent<DateTimePickerProps & React.RefAttributes<DateTimePickerRef>>;
 export default DateTimePicker;

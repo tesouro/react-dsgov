@@ -67,5 +67,8 @@ interface CookieBarProps extends React.HTMLAttributes<HTMLDivElement>, IMtProps 
     json?: IConfig[];
     callback?: () => void;
 }
-declare const CookieBar: React.ForwardRefExoticComponent<CookieBarProps & React.RefAttributes<HTMLDivElement>>;
+export interface CookieBarRef extends HTMLDivElement {
+    element: HTMLDivElement;
+}
+declare const CookieBar: React.ForwardRefExoticComponent<CookieBarProps & React.RefAttributes<CookieBarRef>>;
 export default CookieBar;

@@ -1,5 +1,4 @@
 import '@govbr-ds/core/dist/core.min.css';
-import '@govbr-ds/core/dist/core-init';
 import React from 'react';
 import IMtProps from '../IMtProps';
 export interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement>, IMtProps {
@@ -33,5 +32,10 @@ export interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement>, IM
     /** Itens de dropdown, caso seja um botão com dropdown */
     dropdownItems?: React.ReactElement;
 }
-declare const Button: React.ForwardRefExoticComponent<ButtonProps & React.RefAttributes<HTMLButtonElement>>;
-export default Button;
+export interface ButtonRef extends HTMLButtonElement {
+    expand: () => void;
+    close: () => void;
+    element: HTMLButtonElement;
+}
+declare const _default: React.MemoExoticComponent<React.ForwardRefExoticComponent<ButtonProps & React.RefAttributes<ButtonRef>>>;
+export default _default;

@@ -24,5 +24,11 @@ export interface AvatarProps extends React.HTMLAttributes<HTMLElement>, IMtProps
     /** Cor dsgov, se for do uma letra. */
     bgColor?: string;
 }
-declare const Avatar: React.ForwardRefExoticComponent<AvatarProps & React.RefAttributes<HTMLElement>>;
-export default Avatar;
+export interface AvatarRef extends HTMLElement {
+    focus: () => void;
+    expand: () => void;
+    close: () => void;
+    element: HTMLElement;
+}
+declare const _default: React.MemoExoticComponent<React.ForwardRefExoticComponent<AvatarProps & React.RefAttributes<AvatarRef>>>;
+export default _default;

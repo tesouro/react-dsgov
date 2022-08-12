@@ -109,7 +109,7 @@ const Table = React.forwardRef<HTMLDivElement, TableProps>(
         onClickNextPage = () => {/* */},
         onClickPrevPage = () => {/* */},
         showPageSelector = false,
-        arrayItemsPerPage = [10, 20, 30, 50, 100],
+        arrayItemsPerPage,
         currentPageNumber,
         currentPerPageNumber,
         currentTotalRegistros,
@@ -309,11 +309,12 @@ const Table = React.forwardRef<HTMLDivElement, TableProps>(
 
         const getItemsPerPage = useCallback(() => {
             const newItemsPerPage : IItemPage[] = [];
+            const array = arrayItemsPerPage || [10, 20, 30, 50, 100];
 
-            for (const index in arrayItemsPerPage) {
+            for (const index in array) {
                 newItemsPerPage.push({
-                    label: String(arrayItemsPerPage[index]),
-                    value: String(arrayItemsPerPage[index])
+                    label: String(array[index]),
+                    value: String(array[index])
                 });
             }
 
@@ -435,7 +436,7 @@ const Table = React.forwardRef<HTMLDivElement, TableProps>(
                     <nav className="br-pagination" aria-label="Paginação de resultados" data-total="50" data-current="1" data-per-page="20">
                         <div className="pagination-per-page">
                             <Select label="Itens por página" id={`per-page-selection-random-${fid}`} options={getItemsPerPage()}
-                                onChange={(value: any) => setPageSize(value)}
+                                onChange={useCallback((value: any) => setPageSize(value), [])}
                                 value={String(pageSize)}
                             />
                         </div><span className="br-divider d-none d-sm-block mx-3"></span>

@@ -20,5 +20,8 @@ export interface ItemProps extends React.HTMLAttributes<HTMLElement>, IMtProps {
     subItems?: React.ReactElement;
     onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 }
-declare const Item: React.ForwardRefExoticComponent<ItemProps & React.RefAttributes<HTMLElement>>;
-export default Item;
+export interface ItemRef extends HTMLDivElement {
+    element: HTMLElement;
+}
+declare const _default: React.MemoExoticComponent<React.ForwardRefExoticComponent<ItemProps & React.RefAttributes<ItemRef>>>;
+export default _default;
