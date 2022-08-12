@@ -65,7 +65,7 @@ const Item = React.forwardRef<ItemRef, ItemProps>(
         const handleOnClick = useCallback((event : React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
             onClick?.(event);
             setExpanded(!expanded);
-        }, []);
+        }, [onClick]);
 
         return (
             <>
