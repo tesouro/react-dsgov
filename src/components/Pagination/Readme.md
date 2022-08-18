@@ -63,3 +63,12 @@ const [currentPage, setCurrentPage] = useState(1);
     </Col>
 </Row>
 ```
+
+
+### Paginação com contexto
+```js
+    <Pagination 
+        type="contextual"
+        itemCount={50}
+    />
+```

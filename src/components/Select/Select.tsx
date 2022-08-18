@@ -94,17 +94,17 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
             }
         }, []);
 
-        const handleChangeValue = useCallback((newValue : string | number) => {
-            setCurrentValue(newValue);
+        const handleChangeValue = useCallback((event : React.FormEvent<HTMLInputElement>) => {
+            setCurrentValue(event.currentTarget.value);
             setExpanded(false);
-            onChange(newValue);
+            onChange(event.currentTarget.value);
         }, [onChange]);
 
-        const handleChangeValueMultiple = useCallback((newValue : string | number, checked : boolean) => {
-            if(checked) {
+        const handleChangeValueMultiple = useCallback((event : React.FormEvent<HTMLInputElement>) => {
+            if(event.currentTarget.checked) {
                 setCurrentValue((oldValues : any) => {
-                    if(oldValues.indexOf(newValue) === -1) {
-                        const newValues = [... oldValues, newValue];
+                    if(oldValues.indexOf(event.currentTarget.value) === -1) {
+                        const newValues = [... oldValues, event.currentTarget.value];
                         onChange(newValues);
                         return newValues;
                     }  
@@ -112,8 +112,8 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
                 });
             } else {
                 setCurrentValue((oldValues : any) => {
-                    onChange(oldValues.filter((val : any) => val !== newValue));
-                    return oldValues.filter((val : any) => val !== newValue);                    
+                    onChange(oldValues.filter((val : any) => val !== event.currentTarget.value));
+                    return oldValues.filter((val : any) => val !== event.currentTarget.value);                    
                 });
                 
             }
@@ -214,6 +214,7 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
 
             
         }, []);
+        
 
 
         if(type === 'multiple') {
@@ -240,6 +241,7 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
                         id={`${fid}_____select`} 
                         type="text" 
                         data-value={value} 
+                        data-displayvalue={displayValue}
                         value={expanded ? searchValue : displayValue} 
                         onChange={handleChangeSearch} 
                         placeholder={placeholder} 
@@ -285,7 +287,8 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
                                     name={fid}
                                     label={elemento.label}
                                     checked={currentValue === String(elemento.value)}
-                                    onChange={useCallback(() => handleChangeValue(elemento.value), [])}
+                                    value={String(elemento.value)}
+                                    onChange={handleChangeValue}
                                 />}
                             {type === 'multiple' &&
                                 <Checkbox
@@ -294,7 +297,7 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
                                     label={elemento.label}
                                     checked={(currentValue as string[]).length > 0 && (currentValue as string[]).indexOf(String(elemento.value)) !== -1}
                                     value={String(elemento.value)}
-                                    onChange={useCallback((event : React.FormEvent<HTMLInputElement>) => handleChangeValueMultiple(elemento.value, event.currentTarget.checked), [])}
+                                    onChange={handleChangeValueMultiple}
                                 />
                             }
                         </Item>

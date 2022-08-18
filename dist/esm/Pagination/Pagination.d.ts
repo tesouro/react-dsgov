@@ -6,12 +6,17 @@ export interface IEllipsis {
     end: number;
 }
 interface PaginationProps extends Omit<React.HTMLAttributes<HTMLElement>, 'onChange'>, IMtProps {
-    pageCount: number;
+    pageCount?: number;
     ellipsis?: IEllipsis[];
     links?: string[];
     density?: 'small' | 'normal' | 'large';
     initialPage?: number;
     onChange?: (pageNumber: number) => void;
+    onChangePageSize?: (pageSize: number) => void;
+    type?: 'normal' | 'contextual';
+    perPageOptions?: number[];
+    itemCount?: number;
+    showPageCombo?: boolean;
 }
 declare const _default: React.MemoExoticComponent<React.ForwardRefExoticComponent<PaginationProps & React.RefAttributes<HTMLElement>>>;
 export default _default;

@@ -262,7 +262,7 @@ const Tests : React.FC = () => {
             <Container fluid>
                 <Row>
                     <Col>
-                        <Select id="select1" type="single" label="Selecione abaixo" placeholder='Selecione um item' value={valorSelect}  onChange={useCallback((value : string) => { setValorSelect(value); }, [])} options={
+                        <Select id="select1" type="single" label="Selecione abaixo" placeholder='Selecione um item' value={valorSelect}  onChange={(value : string) => { setValorSelect(value); }} options={
                             useMemo(() => [
                                 { label: 'Teste 1', value: '1' },
                                 { label: 'Teste 2', value: '2' },
@@ -283,7 +283,7 @@ const Tests : React.FC = () => {
                         <Button onClick={() => setValorSelect('2')}>Teste</Button>
                         <span>{valorSelect}</span>
 
-                        <Select id="select2" type="multiple" label="Selecione abaixo" placeholder='Selecione um item' value={valorSelectMultiplo}  onChange={useCallback((value : string[]) => { console.log(value); setValorSelectMultiplo(value); }, [])} options={
+                        <Select id="select2" type="multiple" label="Selecione abaixo" placeholder='Selecione um item' value={valorSelectMultiplo}  onChange={(value : string[]) => { console.log(value); setValorSelectMultiplo(value); }} options={
                             useMemo(() => [
                                 { label: 'Teste 1', value: '1' },
                                 { label: 'Teste 2', value: '2' },
@@ -647,7 +647,7 @@ const Tests : React.FC = () => {
                         {currentPage === 2 && <span>Estou na Página 2</span>}
                         {currentPage === 3 && <span>Estou na Página 3</span>}
               
-                        <Pagination onChange={useCallback((newPage) => setCurrentPage(newPage), [])} pageCount={100} ellipsis={
+                        <Pagination onChange={(newPage) => setCurrentPage(newPage)} pageCount={100} ellipsis={
                             useMemo(() => [
                                 {start: 5, end: 95}
                             ], [])

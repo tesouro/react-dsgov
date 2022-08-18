@@ -17,6 +17,7 @@ import { InputRef } from '../Input/Input';
 import { ButtonRef } from '../Button/Button';
 import useCommonProperties from '../Util/useCommonProperties';
 import useUniqueId from '../Util/useUniqueId';
+import Pagination from '../Pagination';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const core = require('@govbr-ds/core/dist/core-init');
@@ -351,11 +352,11 @@ const Table = React.forwardRef<HTMLDivElement, TableProps>(
                                 aria-label="Ver mais opções" 
                                 icon="fas fa-ellipsis-v" 
                                 dropdownItems={<>
-                                    <Button onClick={useCallback(() => handleClickDensity('large'), [])} isItem data-density="small">Densidade alta
+                                    <Button onClick={() => handleClickDensity('large')} isItem data-density="small">Densidade alta
                                     </Button><span className="br-divider"></span>
-                                    <Button onClick={useCallback(() => handleClickDensity('medium'), [])} isItem data-density="medium">Densidade média
+                                    <Button onClick={() => handleClickDensity('medium')} isItem data-density="medium">Densidade média
                                     </Button><span className="br-divider"></span>
-                                    <Button onClick={useCallback(() => handleClickDensity('small'), [])} isItem data-density="large">Densidade baixa
+                                    <Button onClick={() => handleClickDensity('small')} isItem data-density="large">Densidade baixa
                                     </Button>
                                 </>}
                             />
@@ -433,24 +434,14 @@ const Table = React.forwardRef<HTMLDivElement, TableProps>(
                     {children}
                 </table>
                 <div className="table-footer">
-                    <nav className="br-pagination" aria-label="Paginação de resultados" data-total="50" data-current="1" data-per-page="20">
-                        <div className="pagination-per-page">
-                            <Select label="Itens por página" id={`per-page-selection-random-${fid}`} options={getItemsPerPage()}
-                                onChange={useCallback((value: any) => setPageSize(value), [])}
-                                value={String(pageSize)}
-                            />
-                        </div><span className="br-divider d-none d-sm-block mx-3"></span>
-                        <div className="pagination-information d-none d-sm-flex"><span className="current">{currentPageNumber || (pageNumber != null && pageSize != null && pageNumber * pageSize + 1)}</span>&ndash;<span className="per-page">{currentPerPageNumber || (pageNumber != null && pageSize != null && pageNumber * pageSize + pageSize)}</span>&nbsp;de&nbsp;<span className="total">{currentTotalRegistros || recordCount}</span>&nbsp;itens</div>
-                        <div className="pagination-go-to-page d-none d-sm-flex ml-auto">
-                            {showPageSelector &&
-                                <Select id={'go-to-selection-random-75889'} options={pageOptions || []}
-                                    onChange={(valor: string) => setPageNumber(Number(valor) - 1)} value={pageNumber} />}
-                        </div><span className="br-divider d-none d-sm-block mx-3"></span>
-                        <div className="pagination-arrows ml-auto ml-sm-0">
-                            <Button circle aria-label="Voltar página" icon="fas fa-angle-left" disabled={pageNumber === 0} onClick={handleClickPreviousPage} />
-                            <Button circle data-total={pageCount.current} aria-label="Avançar página" icon="fas fa-angle-right" disabled={pageNumber === ((pageCount.current || 0) - 1)} onClick={handleClickNextPage} />
-                        </div>
-                    </nav>
+                    <Pagination 
+                        type="contextual"
+                        itemCount={recordCount}
+                        onChange={(value) => setPageNumber(value)}
+                        onChangePageSize={(value) => setPageSize(value)}
+                        showPageCombo={showPageSelector}
+                    />
+                    
                 </div>
             </div>
         );
