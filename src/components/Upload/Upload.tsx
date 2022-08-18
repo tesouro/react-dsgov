@@ -1,4 +1,4 @@
-import '@govbr-ds/core/dist/core.min.css';
+import '../BaseStyles';
 
 import classNames from 'classnames';
 import React, { useEffect, useImperativeHandle, useRef } from 'react';
@@ -8,9 +8,9 @@ import { useMtProps } from '../Util/useMtProps';
 import uniqueId from 'lodash.uniqueid';
 import useCommonProperties from '../Util/useCommonProperties';
 import useUniqueId from '../Util/useUniqueId';
+import { getDSGovCoreInit } from '../getDSGovCoreInit';
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const core = require('@govbr-ds/core/dist/core-init');
+const coreModule = getDSGovCoreInit();
 
 export interface UploadProps  extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
     /** Label do upload */
@@ -35,9 +35,11 @@ const Upload = React.forwardRef<HTMLDivElement, UploadProps>(
         useCommonProperties<HTMLDivElement>(ref, refWrapper);
 
         useEffect(() => {
-            if(refWrapper.current && uploadTimeout && !refElement.current) {
-                refElement.current = new core.BRUpload('br-upload', refWrapper.current, uploadTimeout);
-            }            
+            coreModule.then(core => {
+                if(refWrapper.current && uploadTimeout && !refElement.current) {
+                    refElement.current = new core.BRUpload('br-upload', refWrapper.current, uploadTimeout);
+                }  
+            });                      
         }, [uploadTimeout]);
 
         return (

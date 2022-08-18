@@ -1,4 +1,4 @@
-import '@govbr-ds/core/dist/core.min.css';
+import '../BaseStyles';
 
 import classNames from 'classnames';
 import React, { ComponentType, memo, useCallback, useEffect, useImperativeHandle, useRef, useState } from 'react';
@@ -9,9 +9,9 @@ import Divider from '../Divider';
 import CustomTag from '../CustomTag';
 import List from '../List/List';
 import useCommonProperties from '../Util/useCommonProperties';
+import { getDSGovCoreInit } from '../getDSGovCoreInit';
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const core = require('@govbr-ds/core/dist/core-init');
+const coreModule = getDSGovCoreInit();
 
 export interface ItemProps  extends React.HTMLAttributes<HTMLElement>, IMtProps {
     /** Se o item tem um highlight ao passar o mouse em cima. */
@@ -56,10 +56,11 @@ const Item = React.forwardRef<ItemRef, ItemProps>(
         });
 
         useEffect(() => {
-            if(refDiv.current && !refElemento.current) {
-                refElemento.current = new core.BRItem('br-item', refDiv.current);
-            }
-            
+            coreModule.then(core => {
+                if(refDiv.current && !refElemento.current) {
+                    refElemento.current = new core.BRItem('br-item', refDiv.current);
+                }
+            });
         }, []);
 
         const handleOnClick = useCallback((event : React.MouseEvent<HTMLButtonElement, MouseEvent>) => {

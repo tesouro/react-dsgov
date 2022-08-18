@@ -1,4 +1,4 @@
-import '@govbr-ds/core/dist/core.min.css';
+import '../BaseStyles';
 
 import classNames from 'classnames';
 import React, { memo, useCallback, useEffect, useImperativeHandle, useRef, useState } from 'react';
@@ -17,9 +17,9 @@ import { InputRef } from '../Input/Input';
 import { ButtonRef } from '../Button/Button';
 import useCommonProperties from '../Util/useCommonProperties';
 import useUniqueId from '../Util/useUniqueId';
+import { getDSGovCoreInit } from '../getDSGovCoreInit';
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const core = require('@govbr-ds/core/dist/core-init');
+const coreModule = getDSGovCoreInit();
 
 export interface IHeader {
     field: string,

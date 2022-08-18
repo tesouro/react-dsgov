@@ -1,4 +1,4 @@
-import '@govbr-ds/core/dist/core.min.css';
+import '../BaseStyles';
 
 
 import classNames from 'classnames';
@@ -7,9 +7,9 @@ import IMtProps from '../IMtProps';
 import { useSpreadProps } from '../Util/useSpreadProps';
 import { useMtProps } from '../Util/useMtProps';
 import useCommonProperties from '../Util/useCommonProperties';
+import { getDSGovCoreInit } from '../getDSGovCoreInit';
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const core = require('@govbr-ds/core/dist/core-init');
+const coreModule = getDSGovCoreInit();
 
 export interface ICookieList {
     cookieId?: string;
@@ -172,18 +172,20 @@ const CookieBar = React.forwardRef<CookieBarRef, CookieBarProps>(
         });
 
         useEffect(() => {
-            if(!refElement.current && refDiv.current) {
-                const params = {
-                    name: 'br-cookiebar',
-                    component: refDiv.current,
-                    json: JSON.stringify(json),
-                    lang: 'pt-br',
-                    mode: 'default',
-                    callback: callback,
-                };
-    
-                refElement.current = new core.BRCookiebar(params);
-            }            
+            coreModule.then(core => {
+                if(!refElement.current && refDiv.current) {
+                    const params = {
+                        name: 'br-cookiebar',
+                        component: refDiv.current,
+                        json: JSON.stringify(json),
+                        lang: 'pt-br',
+                        mode: 'default',
+                        callback: callback,
+                    };
+        
+                    refElement.current = new core.BRCookiebar(params);
+                }
+            });
         }, [json, callback]);
 
         return (

@@ -17,8 +17,8 @@
     "ui",
     "dsgov"
   ],
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
+  "main": "dist/cjs/index.min.js",
+  "module": "dist/esm/index.min.js",
   "files": [
     "dist",
     "package.json",
@@ -47,12 +47,21 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "rollup -c",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
+    "build:bundles": "rollup -c",
+    "build": "npm run buildbabel && npm run build:bundles",
     "styleguide": "styleguidist server",
     "styleguide:build": "styleguidist build",
-    "buildbabel": "rm -rf dist && NODE_ENV=production babel src/components --out-dir dist --copy-files"
+    "build:m:base": "babel --extensions '.js,.jsx,.ts,.tsx' src/components",
+    "build:m:esm": "TARGET_MODULE_SYSTEM=esm npm run build:m:base -- --out-dir dist/esm",
+    "build:m:cjs": "TARGET_MODULE_SYSTEM=commonjs npm run build:m:base -- --out-dir dist/cjs",
+    "build:m": "npm run build:m:cjs && npm run build:m:esm && rollup -c rollup.config.baseStyles.js",
+    "build:types:base": "tsc -p . --outDir dist --declaration --emitDeclarationOnly --declarationDir",
+    "build:types:esm": "npm run build:types:base dist/esm",
+    "build:types:cjs": "npm run build:types:base dist/cjs",
+    "build:types": "npm run build:types:cjs && npm run build:types:esm",
+    "buildbabel": "rm -rf dist && NODE_ENV=production npm run build:m && npm run build:types"
   },
   "eslintConfig": {
     "extends": [
@@ -76,6 +85,7 @@
     "@babel/cli": "^7.18.9",
     "@babel/core": "^7.18.9",
     "@babel/preset-env": "^7.18.9",
+    "@babel/preset-typescript": "^7.18.6",
     "@rollup/plugin-commonjs": "^22.0.2",
     "@rollup/plugin-node-resolve": "^13.3.0",
     "@rollup/plugin-typescript": "^8.3.4",

@@ -1,4 +1,4 @@
-import '@govbr-ds/core/dist/core.min.css';
+import '../BaseStyles';
 
 /* eslint-disable no-script-url */
 import classNames from 'classnames';

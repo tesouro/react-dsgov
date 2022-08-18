@@ -1,4 +1,4 @@
-import '@govbr-ds/core/dist/core.min.css';
+import '../BaseStyles';
 
 import classNames from 'classnames';
 import React, { useEffect, useImperativeHandle, useRef } from 'react';
@@ -8,6 +8,7 @@ import { useMtProps } from '../Util/useMtProps';
 import uniqueId from 'lodash.uniqueid';
 import useCommonProperties from '../Util/useCommonProperties';
 import useUniqueId from '../Util/useUniqueId';
+import { getDSGovCoreInit } from '../getDSGovCoreInit';
 
 export interface DateTimePickerProps extends React.HTMLAttributes<HTMLInputElement>, IMtProps {
     /** Modo do Datetime.
@@ -73,9 +74,9 @@ const DateTimePicker = React.forwardRef<DateTimePickerRef, DateTimePickerProps>(
 
         // Inicializando o datetimepicker
         useEffect(() => {
-            // eslint-disable-next-line @typescript-eslint/no-var-requires
-            const core = require('@govbr-ds/core/dist/core-init');
-            refElement.current = new core.BRDateTimePicker('br-datetimepicker', refWrapper.current, { minDate: minDate, maxDate: maxDate });
+            getDSGovCoreInit().then(core => {
+                refElement.current = new core.BRDateTimePicker('br-datetimepicker', refWrapper.current, { minDate: minDate, maxDate: maxDate });
+            });
         }, [minDate, maxDate]);
 
         const mtProps = useMtProps(props);

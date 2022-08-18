@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
-import '@govbr-ds/core/dist/core.min.css';
+import '../BaseStyles';
 
 import classNames from 'classnames';
 import React, { Children, memo, useEffect, useImperativeHandle, useRef } from 'react';
@@ -10,9 +10,9 @@ import { useSpreadProps } from '../Util/useSpreadProps';
 import uniqueId from 'lodash.uniqueid';
 import useCommonProperties from '../Util/useCommonProperties';
 import useUniqueId from '../Util/useUniqueId';
+import { getDSGovCoreInit } from '../getDSGovCoreInit';
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const core = require('@govbr-ds/core/dist/core-init');
+const coreModule = getDSGovCoreInit();
 
 export interface CarouselProps extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
     /** Se o carousel é circular, ou seja, ao pressionar o botão de "próximo" no último, ele volta pro primeiro. 
@@ -59,20 +59,22 @@ const Carousel = React.forwardRef<HTMLDivElement, CarouselProps>(
         
         // Reinstancia o Carousel quando mudarem os filhos do Carousel (ou seja, as páginas)
         useEffect(() => {
-            const qtdChildrenAtual = Children.count(children);
+            coreModule.then(core => {
+                const qtdChildrenAtual = Children.count(children);
 
-            // Somente reinstancia se por acaso trocar a quantidade de páginas
-            // dentro do Carousel
-            if (qtdChildrenAtual !== refQtdChildren.current) {
-                // Apaga o método shiftPage do objeto anterior
-                if(refObjetoCarousel.current) {
-                    refObjetoCarousel.current.shiftPage = () => {};
-                }                
- 
-                // Define o novo objeto
-                refObjetoCarousel.current = new core.BRCarousel('br-carousel', refDiv.current);
-                refQtdChildren.current = qtdChildrenAtual;                      
-            }
+                // Somente reinstancia se por acaso trocar a quantidade de páginas
+                // dentro do Carousel
+                if (qtdChildrenAtual !== refQtdChildren.current) {
+                    // Apaga o método shiftPage do objeto anterior
+                    if(refObjetoCarousel.current) {
+                        refObjetoCarousel.current.shiftPage = () => {};
+                    }                
+    
+                    // Define o novo objeto
+                    refObjetoCarousel.current = new core.BRCarousel('br-carousel', refDiv.current);
+                    refQtdChildren.current = qtdChildrenAtual;                      
+                }
+            });
 
         }, [children]);
         

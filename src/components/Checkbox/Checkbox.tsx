@@ -1,4 +1,4 @@
-import '@govbr-ds/core/dist/core.min.css';
+import '../BaseStyles';
 
 import classNames from 'classnames';
 import React, { memo, useEffect, useImperativeHandle, useRef } from 'react';
@@ -8,9 +8,9 @@ import { useMtProps } from '../Util/useMtProps';
 import uniqueId from 'lodash.uniqueid';
 import useCommonProperties from '../Util/useCommonProperties';
 import useUniqueId from '../Util/useUniqueId';
+import { getDSGovCoreInit } from '../getDSGovCoreInit';
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const core = require('@govbr-ds/core/dist/core-init');
+const coreModule = getDSGovCoreInit();
 
 export interface CheckboxProps  extends React.HTMLAttributes<HTMLInputElement>, IMtProps {
     /** Se o checkbox for inline, ou seja, não pula linha após. */
@@ -63,10 +63,11 @@ const Checkbox = React.forwardRef<CheckboxRef, CheckboxProps>(
         });
 
         useEffect(() => {
-            if(refWrapper.current && !refElement.current) {
-                refElement.current = new core.BRCheckbox('br-checkbox', refWrapper.current);
-            }
-            
+            coreModule.then(core => {
+                if(refWrapper.current && !refElement.current) {
+                    refElement.current = new core.BRCheckbox('br-checkbox', refWrapper.current);
+                }
+            });
         }, []);
 
         return (

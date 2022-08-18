@@ -1,4 +1,4 @@
-import '@govbr-ds/core/dist/core.min.css';
+import '../BaseStyles';
 
 import classNames from 'classnames';
 import React, { ForwardedRef, memo, MutableRefObject, useCallback, useEffect, useImperativeHandle, useRef, useState } from 'react';
@@ -8,10 +8,9 @@ import { useMtProps } from '../Util/useMtProps';
 import useCommonProperties from '../Util/useCommonProperties';
 import uniqueId from 'lodash.uniqueid';
 import useUniqueId from '../Util/useUniqueId';
+import { getDSGovCoreInit } from '../getDSGovCoreInit';
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const core = require('@govbr-ds/core/dist/core-init');
-const Tooltip = core.Tooltip;
+const coreModule = getDSGovCoreInit();
 
 export interface IStep {
     label?: string,
@@ -93,14 +92,16 @@ const Step = React.forwardRef<HTMLDivElement, StepProps>(
                 (refStepProgress.current as HTMLElement)
                     .querySelectorAll('[data-tooltip-text]')
                     .forEach((TooltipExample : Element) => {
-                        const texttooltip = TooltipExample.getAttribute('data-tooltip-text');
-                        const config = {
-                            activator: TooltipExample,
-                            placement: 'top',
-                            textTooltip: texttooltip,
-                        };
+                        coreModule.then(core => {
+                            const texttooltip = TooltipExample.getAttribute('data-tooltip-text');
+                            const config = {
+                                activator: TooltipExample,
+                                placement: 'top',
+                                textTooltip: texttooltip,
+                            };
 
-                        const tooltip = new Tooltip(config);
+                            const tooltip = new core.Tooltip(config);
+                        });
                     });
             }
             

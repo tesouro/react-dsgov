@@ -1,4 +1,4 @@
-import '@govbr-ds/core/dist/core.min.css';
+import '../BaseStyles';
 
 import classNames from 'classnames';
 import React, { useEffect, useImperativeHandle, useRef } from 'react';
@@ -7,9 +7,9 @@ import { useSpreadProps } from '../Util/useSpreadProps';
 import { useMtProps } from '../Util/useMtProps';
 import CustomTag from '../CustomTag';
 import useCommonProperties from '../Util/useCommonProperties';
+import { getDSGovCoreInit } from '../getDSGovCoreInit';
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const core = require('@govbr-ds/core/dist/core-init');
+const coreModule = getDSGovCoreInit();
 
 export interface MessageProps extends React.HTMLAttributes<HTMLElement>, IMtProps {
     /**
@@ -43,9 +43,11 @@ const Message = React.forwardRef<HTMLElement, MessageProps>(
         const refElement = useRef(null);
         
         useEffect(() => {
-            if(refWrapper.current && !refElement.current) {
-                refElement.current = new core.BRAlert('br-message', refWrapper.current);
-            }            
+            coreModule.then(core => {
+                if(refWrapper.current && !refElement.current) {
+                    refElement.current = new core.BRAlert('br-message', refWrapper.current);
+                }         
+            });   
         }, []);
         
         useCommonProperties<HTMLElement>(ref, refWrapper);
