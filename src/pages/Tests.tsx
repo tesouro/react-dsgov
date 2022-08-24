@@ -280,7 +280,7 @@ const Tests : React.FC = () => {
                             ], [])} />
                         
 
-                        <Button onClick={() => setValorSelect('2')}>Teste</Button>
+                        <Button onClick={() => setValorSelect('')}>Teste</Button>
                         <span>{valorSelect}</span>
 
                         <Select id="select2" type="multiple" label="Selecione abaixo" placeholder='Selecione um item' value={valorSelectMultiplo}  onChange={(value : string[]) => { console.log(value); setValorSelectMultiplo(value); }} options={

@@ -67,11 +67,11 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
                 setSearchValue('');
             }
             setExpanded(!expanded);
-        }, []);
+        }, [expanded, setSearchValue, setExpanded]);
 
         const handleSelectClick = useCallback(() => {
             setExpanded(true);
-        }, []);
+        }, [setExpanded]);
 
         useOutsideClick(refWrapper, () => {
             setExpanded(false);
@@ -84,7 +84,7 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
                 setSearchValue(event.target.value);
             }
             
-        }, []);
+        }, [expanded, setSearchValue]);
 
         const handleFilterSearch = useCallback((option : SelectOptions) => {
             if(searchValue === '') {
@@ -92,13 +92,13 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
             } else {
                 return option.label.toLowerCase().indexOf(searchValue.toLowerCase()) !== -1;
             }
-        }, []);
+        }, [searchValue]);
 
         const handleChangeValue = useCallback((event : React.FormEvent<HTMLInputElement>) => {
             setCurrentValue(event.currentTarget.value);
             setExpanded(false);
             onChange(event.currentTarget.value);
-        }, [onChange]);
+        }, [onChange, setCurrentValue, setExpanded]);
 
         const handleChangeValueMultiple = useCallback((event : React.FormEvent<HTMLInputElement>) => {
             if(event.currentTarget.checked) {
@@ -118,7 +118,7 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
                 
             }
          
-        }, []);
+        }, [setCurrentValue]);
 
         const handleSelectAll = useCallback((selected : boolean) => {
             const newValues : any = [];
@@ -130,11 +130,15 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
             }            
 
             setCurrentValue(newValues);
-        }, []);
+        }, [handleFilterSearch]);
 
         const allSelected = useCallback(() => {
             return (currentValue as string[] | number[]).length === options.filter(handleFilterSearch).length;
         }, [currentValue, options, expanded]);
+
+        useEffect(() => {
+            setCurrentValue(value || '');
+        }, [value]);
        
         useEffect(() => {
 
@@ -213,7 +217,7 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
 
 
             
-        }, []);
+        }, [setCurrentFocus, setExpanded, setCurrentFocus]);
         
 
 
