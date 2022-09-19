@@ -1,7 +1,7 @@
 import '@govbr-ds/core/dist/core.min.css';
 
 import classNames from 'classnames';
-import React, { memo, useCallback, useEffect, useImperativeHandle, useRef, useState } from 'react';
+import React, { memo, useCallback, useEffect, useRef, useState } from 'react';
 import IMtProps from '../IMtProps';
 import { useSpreadProps } from '../Util/useSpreadProps';
 import { useMtProps } from '../Util/useMtProps';
@@ -9,10 +9,8 @@ import List from '../List';
 import Button from '../Button';
 import Input from '../Input';
 import Divider from '../Divider';
-import Select from '../Select';
 import { updateQueryStringParameter } from '../Util/Util';
 import { SelectOptions } from '../Select/Select';
-import uniqueId from 'lodash.uniqueid';
 import { InputRef } from '../Input/Input';
 import { ButtonRef } from '../Button/Button';
 import useCommonProperties from '../Util/useCommonProperties';
@@ -49,6 +47,10 @@ export interface TableProps extends React.HTMLAttributes<HTMLDivElement>, IMtPro
     id?: string,
     /** Título da tabela */
     title?: string,
+
+    /** Se mostra a topbar da tabela */
+    showTopBar?: boolean,
+
     /** Se mostra ou não o menu de densidade. */
     showDensityButtons?: boolean;
 
@@ -57,6 +59,9 @@ export interface TableProps extends React.HTMLAttributes<HTMLDivElement>, IMtPro
     
     /** Se mostra ou não a barra de selecionados. */
     showSelectedBar?: boolean;
+
+    /** Se mostra ou não a paginação */
+    showPagination?: boolean;
 
     /** Mostra ou não o seletor de página. */
     showPageSelector?: boolean;
@@ -103,7 +108,9 @@ const Table = React.forwardRef<HTMLDivElement, TableProps>(
         showDensityButtons = true,
         showSearch = true,
         onSearch,
+        showTopBar = true,
         showSelectedBar = true,
+        showPagination = true,
         headers,
         data,
         endpoint,
@@ -176,9 +183,6 @@ const Table = React.forwardRef<HTMLDivElement, TableProps>(
         const handleTrocaBuscaPadrao = () => {
             onSearch?.({ searchText: defaultSearch } as ISearchEvent);
 
-            console.log('Testando!!!!');
-            console.log(defaultSearch);
-
             defaultSearch !== undefined && setCurrentEndpoint((currentEndpoint) => 
                 updateQueryStringParameter(currentEndpoint, 'defaultSearch', String(defaultSearch)));
         };
@@ -217,8 +221,6 @@ const Table = React.forwardRef<HTMLDivElement, TableProps>(
         }, [searchExpanded, alreadyExpanded]);
 
         useEffect(() => {
-            console.log('aaaa!!!!!');
-
             // Se os dados tiverem sido informados manualmente, informa-os
             if (data && (data as IData).records) {
                 setTableData((data as IData).records);
@@ -341,7 +343,7 @@ const Table = React.forwardRef<HTMLDivElement, TableProps>(
 
             >
                 <div className={classNames('table-header', {'show': searchExpanded})}>
-                    <div className="top-bar">
+                    {showTopBar && <div className="top-bar">
                         <div className="table-title">{title}</div>
                         {showDensityButtons && <div className="actions-trigger text-nowrap">
                             <Button 
@@ -365,7 +367,7 @@ const Table = React.forwardRef<HTMLDivElement, TableProps>(
                             {showSearch && <Button ref={refSearchExpander} onClick={handleExpandSearch} circle data-toggle="search" aria-label="Abrir busca"><i className="fas fa-search" aria-hidden="true"></i>
                             </Button>}
                         </div>
-                    </div>
+                    </div>}
                     {showSearch && <div className={classNames('search-bar', {'show': searchExpanded})}>
                         <div className="br-input">
                             <Input
@@ -394,7 +396,7 @@ const Table = React.forwardRef<HTMLDivElement, TableProps>(
                     </div>
                 </div>
                 <table>
-                    <caption>{title}</caption>
+                    {showTopBar && <caption>{title}</caption>}
                     {headers &&
                         <thead>
                             <tr>
@@ -433,7 +435,7 @@ const Table = React.forwardRef<HTMLDivElement, TableProps>(
 
                     {children}
                 </table>
-                <div className="table-footer">
+                {showPagination && <div className="table-footer">
                     <Pagination 
                         type="contextual"
                         itemCount={recordCount}
@@ -442,7 +444,7 @@ const Table = React.forwardRef<HTMLDivElement, TableProps>(
                         showPageCombo={showPageSelector}
                     />
                     
-                </div>
+                </div>}
             </div>
         );
     }

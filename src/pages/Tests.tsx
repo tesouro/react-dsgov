@@ -496,6 +496,12 @@ const Tests : React.FC = () => {
                                     }
                                 ], [])
                             }
+
+                            showPagination={false}
+                            showDensityButtons={false}
+                            showSearch={false}
+                            showSelectedBar={false}
+                            showTopBar={false}
                         />
 
 

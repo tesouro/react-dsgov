@@ -805,12 +805,16 @@ interface TableProps extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
     id?: string;
     /** Título da tabela */
     title?: string;
+    /** Se mostra a topbar da tabela */
+    showTopBar?: boolean;
     /** Se mostra ou não o menu de densidade. */
     showDensityButtons?: boolean;
     /** Se mostra ou não o menu de busca. */
     showSearch?: boolean;
     /** Se mostra ou não a barra de selecionados. */
     showSelectedBar?: boolean;
+    /** Se mostra ou não a paginação */
+    showPagination?: boolean;
     /** Mostra ou não o seletor de página. */
     showPageSelector?: boolean;
     /** Headers da tabela. */
