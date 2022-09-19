@@ -24,6 +24,13 @@ export interface TableProps extends React.HTMLAttributes<HTMLDivElement>, IMtPro
     title?: string;
     /** Se mostra a topbar da tabela */
     showTopBar?: boolean;
+    /** Densidade da tabela.
+     *
+     * - small: pequena
+     * - medium: média
+     * - large: alta
+     */
+    density?: 'small' | 'medium' | 'large';
     /** Se mostra ou não o menu de densidade. */
     showDensityButtons?: boolean;
     /** Se mostra ou não o menu de busca. */

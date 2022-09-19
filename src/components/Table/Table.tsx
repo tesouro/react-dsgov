@@ -51,6 +51,14 @@ export interface TableProps extends React.HTMLAttributes<HTMLDivElement>, IMtPro
     /** Se mostra a topbar da tabela */
     showTopBar?: boolean,
 
+    /** Densidade da tabela.
+     * 
+     * - small: pequena
+     * - medium: média
+     * - large: alta
+     */
+    density?: 'small' | 'medium' | 'large',
+
     /** Se mostra ou não o menu de densidade. */
     showDensityButtons?: boolean;
 
@@ -111,6 +119,7 @@ const Table = React.forwardRef<HTMLDivElement, TableProps>(
         showTopBar = true,
         showSelectedBar = true,
         showPagination = true,
+        density,
         headers,
         data,
         endpoint,
@@ -152,7 +161,6 @@ const Table = React.forwardRef<HTMLDivElement, TableProps>(
         const handleClickNextPage = useCallback((event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
             onClickNextPage?.(event);
 
-            console.log(atualizando);
             if (!atualizando && endpoint) {
                 setPageNumber((currentOffset) => {
                     if (typeof currentOffset !== 'undefined') {
@@ -331,6 +339,7 @@ const Table = React.forwardRef<HTMLDivElement, TableProps>(
                 id={fid}
                 className={classNames(
                     'br-table',
+                    density,
                     className,
                     currentDensity,
                     ...mtProps
