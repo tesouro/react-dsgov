@@ -8,6 +8,8 @@ export interface CardProps extends React.HTMLAttributes<HTMLDivElement>, IMtProp
     hFixed?: boolean;
     /** Se ele está desabilitado. */
     disabled?: boolean;
+    /** Densidade do card */
+    density?: 'small' | 'medium' | 'large';
 }
 declare const _default: React.ForwardRefExoticComponent<CardProps & React.RefAttributes<HTMLDivElement>> & {
     Header: React.ForwardRefExoticComponent<import("./CardHeader/CardHeader").CardHeaderProps & React.RefAttributes<HTMLDivElement>>;

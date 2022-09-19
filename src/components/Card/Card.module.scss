@@ -1,0 +1,14 @@
+$smallPadding: 8px;
+$largePadding: 20px;
+
+.br-card-small {
+    :global(.card-header), :global(.card-content), :global(.card-footer) {
+        padding: $smallPadding;
+    }
+}
+
+.br-card-large {
+    :global(.card-header), :global(.card-content), :global(.card-footer) {
+        padding: $largePadding;
+    }
+}

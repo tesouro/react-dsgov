@@ -10,7 +10,7 @@ import { useSpreadProps } from '../Util/useSpreadProps';
 import { useMtProps } from '../Util/useMtProps';
 import uniqueId from 'lodash.uniqueid';
 import useUniqueId from '../Util/useUniqueId';
-import './Card.scss';
+import styles from './Card.module.scss';
 
 export interface CardProps extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
     /** Se o card mostra muda de comportamento ao passar o mouse em cima. */
@@ -38,7 +38,8 @@ const Card = React.forwardRef<HTMLDivElement, CardProps>(
                 id={fid}
                 className={classNames(
                     'br-card',
-                    density,
+                    density === 'small' && styles['br-card-small'],
+                    density === 'large' && styles['br-card-large'],
                     hover && 'hover',
                     hFixed && 'h-fixed',
                     disabled && 'disabled',

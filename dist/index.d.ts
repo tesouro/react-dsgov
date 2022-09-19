@@ -121,6 +121,8 @@ interface CardProps extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
     hFixed?: boolean;
     /** Se ele está desabilitado. */
     disabled?: boolean;
+    /** Densidade do card */
+    density?: 'small' | 'medium' | 'large';
 }
 declare const _default$a: React.ForwardRefExoticComponent<CardProps & React.RefAttributes<HTMLDivElement>> & {
     Header: React.ForwardRefExoticComponent<CardHeaderProps & React.RefAttributes<HTMLDivElement>>;

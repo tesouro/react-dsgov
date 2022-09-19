@@ -141,7 +141,7 @@ const Tests : React.FC = () => {
                 <br />
                 <Row>
                     <Col sm={4}>
-                        <Card>
+                        <Card density="small">
                             <Card.Header cardImageUrl='https://picsum.photos/id/823/400' cardTitle='Título' cardSubtitle='Subtítulo'></Card.Header>
                             <Card.Content>Conteúdo</Card.Content>
                             <Card.Footer>Footer do Card</Card.Footer>
