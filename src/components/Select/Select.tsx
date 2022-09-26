@@ -40,10 +40,12 @@ interface SelectProps extends React.HTMLAttributes<HTMLSelectElement>, IMtProps 
     type?: 'single' | 'multiple';
     /** Se existe opção de selecionar todos, se o type="multiple". */
     selectAllText?: string
+    /** Se está desabilitado. */
+    disabled?: boolean
 }
 
 const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
-    ({ className, children, id, label, options, value,  onChange = () => {/* */}, placeholder, type = 'single', selectAllText = 'Selecionar todos', ...props }, ref) => {
+    ({ className, children, id, label, options, value,  onChange = () => {/* */}, placeholder, type = 'single', selectAllText = 'Selecionar todos', disabled = false, ...props }, ref) => {
         const fid = useUniqueId(id, 'select_____');
         const mtProps = useMtProps(props);
         const spreadProps = useSpreadProps(props);
@@ -250,6 +252,10 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
                         onChange={handleChangeSearch} 
                         placeholder={placeholder} 
                         onKeyDown={handleKeyDown}
+                        disabled={disabled}
+                        className={classNames(
+                            {'disabled' : disabled}
+                        )}
                     />
                     <button onClick={handleSelectButtonClick} className="br-button" type="button" aria-label="Exibir lista" tabIndex={-1} data-trigger="data-trigger"><i className="fas fa-angle-down" aria-hidden="true"></i></button>
                 </div>

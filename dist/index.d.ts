@@ -709,6 +709,8 @@ interface SelectProps extends React.HTMLAttributes<HTMLSelectElement>, IMtProps 
     type?: 'single' | 'multiple';
     /** Se existe opção de selecionar todos, se o type="multiple". */
     selectAllText?: string;
+    /** Se está desabilitado. */
+    disabled?: boolean;
 }
 declare const _default$4: React.MemoExoticComponent<React.ForwardRefExoticComponent<SelectProps & React.RefAttributes<HTMLSelectElement>>>;
 

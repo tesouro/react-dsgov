@@ -17,6 +17,24 @@ O componente select permite selecionar itens em uma lista de opções.
 />
 ```
 
+
+### Select simples desabilitado
+```js
+<Select 
+    id="select-simples"
+    placeholder="Selecione..."
+    label="Label"
+    disabled
+    options={[
+        {label: "Opção 1", value: "1"},
+        {label: "Opção 2", value: "2"},
+        {label: "Opção 3", value: "3"},
+        {label: "Opção 4", value: "4"},
+        {label: "Opção 5", value: "5"}
+    ]}
+/>
+```
+
 ### Select simples associado a um estado
 ```js
 const [valor, setValor] = React.useState("1");
