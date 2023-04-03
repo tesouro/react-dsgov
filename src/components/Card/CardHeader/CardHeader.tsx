@@ -33,7 +33,7 @@ const CardHeader = React.forwardRef<HTMLDivElement, CardHeaderProps>(
                     <div className="d-flex">
                         {cardImageUrl && <span className="br-avatar mt-1" title={cardTitle}><span className="image"><img src="https://picsum.photos/id/823/400" alt={cardImageAlt} /></span></span>}
                         {(cardTitle || cardSubtitle) && <div className="ml-3">
-                            {cardTitle && <div className="text-weight-semi-bold text-up-02">Maria Amorim</div>}
+                            {cardTitle && <div className="text-weight-semi-bold text-up-02">{cardTitle}</div>}
                             {cardSubtitle && <div>{cardSubtitle}</div>}
                         </div>}
                         {cardButton && <div className="ml-auto">
