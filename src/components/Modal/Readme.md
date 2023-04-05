@@ -14,6 +14,19 @@ import { Modal, Button } from '../index';
 </Modal>
 ```
 
+### Modal com Scrim
+```js
+import { Modal, Button } from '../index';
+const [modalAberta, setModalAberta] = useState(false);
+<>
+    <Modal useScrim showCloseButton modalOpened={modalAberta} onCloseButtonClick={() => setModalAberta(false)}>
+            Teste.
+    </Modal>
+
+    <Button primary onClick={() => setModalAberta(true)}>Abrir Modal</Button>
+</>
+```
+
 ### Modal Alerta com ícone de fechar
 ```js
 import { Modal, Button } from '../index';

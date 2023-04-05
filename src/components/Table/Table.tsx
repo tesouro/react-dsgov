@@ -104,6 +104,12 @@ export interface TableProps extends React.HTMLAttributes<HTMLDivElement>, IMtPro
     /** Sobrescreve o marcador de total de registros na área de paginação. */
     currentTotalRegistros?: number;
 
+    customRecordsProp?: string;
+
+    customPageNumberProp?: string;
+
+    customPageSizeProp?: string;
+
     
 }
 
@@ -130,6 +136,9 @@ const Table = React.forwardRef<HTMLDivElement, TableProps>(
         currentPageNumber,
         currentPerPageNumber,
         currentTotalRegistros,
+        customRecordsProp = 'records',
+        customPageNumberProp = 'pageNumber',
+        customPageSizeProp = 'pageSize',        
         ...props
     }, ref) => {
         const fid = useUniqueId(id, 'table_____');

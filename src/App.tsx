@@ -7,6 +7,7 @@ import './App.css';
 import StepTests from './pages/StepTests';
 import Tests from './pages/Tests';
 import PaginationTests from './pages/PaginationTests';
+import ModalTests from './pages/ModalTests';
 
 function App() {
     return (

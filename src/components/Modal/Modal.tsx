@@ -9,50 +9,66 @@ import Container from '../Container';
 import ModalBody from './ModalBody';
 import ModalFooter from './ModalFooter';
 import Button from '../Button';
+import CustomTag from '../CustomTag/CustomTag';
 
 export interface ModalProps  extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
     /** Título da Modal */
     title?: string
     /** Se mostra ou não o botão de fechar */
     showCloseButton?: boolean
+    /** Se a modal é envolvida com um scrim. */
+    useScrim?:boolean
+    /** Se a modal está aberta. */
+    modalOpened?:boolean
+    /** Evento a ser executado ao clicar no botão de fechar */
+    onCloseButtonClick?: ((event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void) | undefined
 } 
 
 const Modal = React.forwardRef<HTMLDivElement, ModalProps>(
-    ({className, children, title, showCloseButton = false, ...props}, ref) => {
+    ({className, children, title, showCloseButton = false, useScrim = false, modalOpened = false, onCloseButtonClick = () => {/** */}, ...props}, ref) => {
         const mtProps = useMtProps(props);
         const spreadProps = useSpreadProps(props);
 
         return (
-            <div
-                ref={ref}
+            <CustomTag 
+                tagName={useScrim && 'div'}
                 className={classNames(
-                    'br-modal',
-                    className,
-                    ...mtProps
+                    'br-scrim-util',
+                    'foco',
+                    {'active' : modalOpened}
                 )}
-                {...spreadProps}
-                
             >
-                <Container fluid p={1} p-sm={4}>
-                    {(title || showCloseButton) && 
-                        <div className="br-modal-header">
-                            {title &&
-                                <div className="br-modal-title" title={title}>{title}</div>
-                            }
-                            {showCloseButton &&
-                                <Button circle small 
-                                    className="close" 
-                                    data-dismiss="br-modal"
-                                    aria-label="Close"
-                                    icon="fas fa-times"
-                                />
-                            }
-                        </div>
-                    }
-                    {children}
-                </Container>
-                
-            </div>
+                <div
+                    ref={ref}
+                    className={classNames(
+                        'br-modal',
+                        className,
+                        ...mtProps
+                    )}
+                    {...spreadProps}
+                    
+                >
+                    <Container fluid p={1} p-sm={4}>
+                        {(title || showCloseButton) && 
+                            <div className="br-modal-header">
+                                {title &&
+                                    <div className="br-modal-title" title={title}>{title}</div>
+                                }
+                                {showCloseButton &&
+                                    <Button onClick={onCloseButtonClick} circle small 
+                                        className="close" 
+                                        data-dismiss="br-modal"
+                                        aria-label="Close"
+                                        icon="fas fa-times"
+                                    />
+                                }
+                            </div>
+                        }
+                        {children}
+                    </Container>
+                    
+                </div>
+            </CustomTag>
         );
     }
 ); 

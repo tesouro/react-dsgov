@@ -2,7 +2,7 @@
   "name": "react-dsgov",
   "description": "Componentes React do DSGov (Padrão Digital do Governo).",
   "author": "cosis-stn",
-  "version": "0.8.2",
+  "version": "0.8.5",
   "private": false,
   "types": "dist/index.d.ts",
   "repository": {
