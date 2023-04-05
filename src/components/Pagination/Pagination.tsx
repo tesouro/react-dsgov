@@ -1,4 +1,4 @@
-import '@govbr-ds/core/dist/core.min.css';
+import '@govbr-ds/core/dist/components/pagination/pagination.min.css';
 
 /* eslint-disable no-script-url */
 import classNames from 'classnames';

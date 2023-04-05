@@ -1,4 +1,4 @@
-import '@govbr-ds/core/dist/core.min.css';
+import '@govbr-ds/core/dist/components/avatar/avatar.min.css';
 
 import classNames from 'classnames';
 import React, { memo, useCallback, useEffect, useImperativeHandle, useRef, useState } from 'react';

@@ -1,4 +1,4 @@
-import '@govbr-ds/core/dist/core.min.css';
+import '@govbr-ds/core/dist/components/upload/upload.min.css';
 
 import classNames from 'classnames';
 import React, { useEffect, useImperativeHandle, useRef } from 'react';

@@ -1,4 +1,4 @@
-import '@govbr-ds/core/dist/core.min.css';
+import '@govbr-ds/core/dist/components/cookiebar/cookiebar.min.css';
 
 
 import classNames from 'classnames';

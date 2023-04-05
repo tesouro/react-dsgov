@@ -1,4 +1,4 @@
-import '@govbr-ds/core/dist/core.min.css';
+import '@govbr-ds/core/dist/components/checkbox/checkbox.min.css';
 
 import classNames from 'classnames';
 import React, { memo, useEffect, useImperativeHandle, useRef } from 'react';

@@ -1,4 +1,5 @@
-import '@govbr-ds/core/dist/core.min.css';
+import '@govbr-ds/core/dist/components/step/step.min.css';
+import '@govbr-ds/core/dist/components/tooltip/tooltip.min.css';
 
 import classNames from 'classnames';
 import React, { ForwardedRef, memo, MutableRefObject, useCallback, useEffect, useImperativeHandle, useRef, useState } from 'react';

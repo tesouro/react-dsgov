@@ -1,4 +1,4 @@
-import '@govbr-ds/core/dist/core.min.css';
+import '@govbr-ds/core/dist/components/switch/switch.min.css';
 
 import classNames from 'classnames';
 import React from 'react';

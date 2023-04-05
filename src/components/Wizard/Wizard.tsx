@@ -1,4 +1,5 @@
-import '@govbr-ds/core/dist/core.min.css';
+/* eslint-disable react/no-unknown-property */
+import '@govbr-ds/core/dist/components/wizard/wizard.min.css';
 
 import classNames from 'classnames';
 import React, { Children, useCallback, useEffect, useImperativeHandle, useRef, useState } from 'react';

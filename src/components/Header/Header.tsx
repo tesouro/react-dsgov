@@ -1,4 +1,4 @@
-import '@govbr-ds/core/dist/core.min.css';
+import '@govbr-ds/core/dist/components/header/header.min.css';
 
 import classNames from 'classnames';
 import React, { useCallback, useRef, useState } from 'react';

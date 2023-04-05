@@ -2,7 +2,7 @@
   "name": "react-dsgov",
   "description": "Componentes React do DSGov (Padrão Digital do Governo).",
   "author": "cosis-stn",
-  "version": "0.8.5",
+  "version": "0.8.6",
   "private": false,
   "types": "dist/index.d.ts",
   "repository": {
@@ -73,6 +73,9 @@
     ]
   },
   "devDependencies": {
+
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "@babel/cli": "^7.18.9",
     "@babel/core": "^7.18.9",
     "@babel/preset-env": "^7.18.9",

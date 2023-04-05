@@ -1,4 +1,4 @@
-import '@govbr-ds/core/dist/core.min.css';
+import '@govbr-ds/core/dist/components/card/card.min.css';
 
 import classNames from 'classnames';
 import React, { memo } from 'react';

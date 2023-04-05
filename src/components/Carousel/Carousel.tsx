@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
-import '@govbr-ds/core/dist/core.min.css';
+import '@govbr-ds/core/dist/components/carousel/carousel.min.css';
 
 import classNames from 'classnames';
 import React, { Children, memo, useEffect, useImperativeHandle, useRef } from 'react';
