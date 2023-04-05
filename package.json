@@ -2,7 +2,7 @@
   "name": "react-dsgov",
   "description": "Componentes React do DSGov (Padrão Digital do Governo).",
   "author": "cosis-stn",
-  "version": "0.8.6",
+  "version": "0.8.7",
   "private": false,
   "types": "dist/index.d.ts",
   "repository": {
@@ -73,9 +73,6 @@
     ]
   },
   "devDependencies": {
-
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
     "@babel/cli": "^7.18.9",
     "@babel/core": "^7.18.9",
     "@babel/preset-env": "^7.18.9",
@@ -88,7 +85,9 @@
     "@welldone-software/why-did-you-render": "^7.0.1",
     "eslint": "^8.20.0",
     "eslint-plugin-react": "^7.30.1",
+    "react": "^18.2.0",
     "react-docgen-typescript": "^2.2.2",
+    "react-dom": "^18.2.0",
     "react-styleguidist": "^11.2.0",
     "rollup": "^2.77.2",
     "rollup-plugin-dts": "^4.2.2",

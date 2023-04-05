@@ -1,5 +1,4 @@
-import '@govbr-ds/core/dist/components/tab/tab.min.css';
-import '@govbr-ds/core/dist/components/tooltip/tooltip.min.css';
+import '@govbr-ds/core/dist/components/tooltip/tooltip.min.css'; 
 
 import classNames from 'classnames';
 import React, { Children, useCallback, useEffect, useRef, useState } from 'react';
@@ -71,7 +70,7 @@ const Tab = React.forwardRef<HTMLDivElement, TabProps>(
                 ref={ref}
                 id={fid}
                 className={classNames(
-                    'br-tab',
+                    styles['br-tab'],
                     {'large': density === 'large'},
                     {'small': density === 'small'},
                     {'inverted' : inverted},
@@ -82,7 +81,7 @@ const Tab = React.forwardRef<HTMLDivElement, TabProps>(
                 
             >
                 <nav ref={refNav} className={classNames(
-                    'tab-nav',
+                    styles['tab-nav'],
                     (isNavWithSubtitle() && styles.tabsubtitled)
                 )}>
                     <ul>
@@ -91,8 +90,8 @@ const Tab = React.forwardRef<HTMLDivElement, TabProps>(
                                 key={index} 
                                 {...element.props.onlyIcon && {'data-tooltip-text': element.props.title}}
                                 className={classNames(
-                                    'tab-item',
-                                    {'active' : currentTab === (index+1)},
+                                    styles['tab-item'],
+                                    currentTab === (index+1) && styles['active'],
                                     {'notification-tooltip' : element.props.onlyIcon}
                                 )}
                             >
@@ -115,7 +114,7 @@ const Tab = React.forwardRef<HTMLDivElement, TabProps>(
                         ))}
                     </ul>
                 </nav>
-                <div className="tab-content">
+                <div className={styles['tab-content']}>
                     {Children.map(children, (element : any, index : number) => {
                         const {active, ...elementProps} = element.props;
 
