@@ -97,19 +97,19 @@ const Tab = React.forwardRef<HTMLDivElement, TabProps>(
                             >
                                 <button onClick={(event) => handleClick(event, index)} type="button" data-panel={`${fid}-panel-${index + 1}`}>
                                     {element.props.icon && 
-                                        <span className="name">
+                                        <span className={styles['name']}>
                                             <span className="d-flex flex-column flex-sm-row">
                                                 <span className="icon mb-1 mb-sm-0 mr-sm-1">
                                                     <i className={element.props.icon} aria-hidden="true"></i>
                                                 </span>
-                                                {!element.props.onlyIcon && <span className="name">{element.props.title}</span>}
+                                                {!element.props.onlyIcon && <span className={styles['name']}>{element.props.title}</span>}
                                             </span>
                                         </span>
                                     }
-                                    {!element.props.icon && !element.props.onlyIcon && <span className="name">{element.props.title}</span>}
+                                    {!element.props.icon && !element.props.onlyIcon && <span className={styles['name']}>{element.props.title}</span>}
                                     
                                 </button>
-                                {element.props.subTitle && <span className="results">{element.props.subTitle}</span>}
+                                {element.props.subTitle && <span className={styles['results']}>{element.props.subTitle}</span>}
                             </li>
                         ))}
                     </ul>

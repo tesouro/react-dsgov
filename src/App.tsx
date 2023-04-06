@@ -8,12 +8,13 @@ import StepTests from './pages/StepTests';
 import Tests from './pages/Tests';
 import PaginationTests from './pages/PaginationTests';
 import ModalTests from './pages/ModalTests';
+import TabTests from './pages/TabTests';
 
 function App() {
     return (
-        <>
-            <Tests />
-        </>
+        <div id="content">
+            <TabTests />
+        </div>
     );
 }
 

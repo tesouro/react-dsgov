@@ -3,3 +3,21 @@
 } 
 
 @import 'node_modules/@govbr-ds/core/dist/components/tab/tab.min';
+
+.tab-nav {
+    width: 100% !important;
+}
+
+.tab-nav .tab-item button {
+    border-radius: 0px !important;
+    height: auto !important;
+}
+
+.tab-nav ul {
+    list-style-type: none !important;
+    display: flex !important;
+}
+
+.tab-nav li.tab-item {
+    display: flex !important;
+}
