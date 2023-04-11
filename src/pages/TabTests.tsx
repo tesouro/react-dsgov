@@ -2,10 +2,13 @@ import React, { useState } from 'react';
 import { Button, Modal, Tab } from '../components';
 
 const TabTests = () => {
+    const [tab, setTab] = useState(1);
 
     return (
         <>
-            <Tab>
+            <Button primary onClick={() => setTab(3)}>Define como a terceira aba.</Button>
+            {tab}
+            <Tab current={tab} onTabChange={(current) => setTab(current)}>
                 <Tab.Content title="Sobre">
                     Painel Sobre
                 </Tab.Content>

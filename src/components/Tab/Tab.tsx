@@ -18,11 +18,13 @@ interface TabProps  extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
     /** */
     initial?: number;
     inverted?: boolean;
-    density?: 'small' | 'medium' | 'large'
+    density?: 'small' | 'medium' | 'large',
+    current?: number;
+    onTabChange?: (current: number) => void
 } 
 
 const Tab = React.forwardRef<HTMLDivElement, TabProps>(
-    ({className, children, id, initial = 1, density = 'medium', inverted, ...props}, ref) => {
+    ({className, children, id, initial = 1, density = 'medium', inverted, current, onTabChange, ...props}, ref) => {
         const fid = useUniqueId(id, 'tab_____');
         const mtProps = useMtProps(props);
         const spreadProps = useSpreadProps(props);
@@ -32,8 +34,17 @@ const Tab = React.forwardRef<HTMLDivElement, TabProps>(
         const refNav = useRef(null);
 
         const handleClick = useCallback((event: React.MouseEvent<HTMLButtonElement, MouseEvent>, index: number) => {
+            if(onTabChange) {
+                onTabChange(index + 1);
+            }
             setCurrentTab(index + 1);
         }, []);
+        
+        useEffect(() => {
+            if(current) {
+                setCurrentTab(current);
+            }            
+        }, [current]);
 
 
         const isNavWithSubtitle = useCallback(() => {
@@ -46,6 +57,8 @@ const Tab = React.forwardRef<HTMLDivElement, TabProps>(
 
             return subtitle;
         }, [children]);
+
+        
 
         useEffect(() => {
             // Aplicando os tooltips
