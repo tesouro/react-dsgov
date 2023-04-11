@@ -10,7 +10,7 @@ import useCommonProperties from '../Util/useCommonProperties';
 import useUniqueId from '../Util/useUniqueId';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const core = require('@govbr-ds/core/dist/core-init');
+const BRUpload = require('@govbr-ds/core/dist/components/upload/upload.js').default;
 
 export interface UploadProps  extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
     /** Label do upload */
@@ -36,7 +36,7 @@ const Upload = React.forwardRef<HTMLDivElement, UploadProps>(
 
         useEffect(() => {
             if(refWrapper.current && uploadTimeout && !refElement.current) {
-                refElement.current = new core.BRUpload('br-upload', refWrapper.current, uploadTimeout);
+                refElement.current = new BRUpload('br-upload', refWrapper.current, uploadTimeout);
             }            
         }, [uploadTimeout]);
 

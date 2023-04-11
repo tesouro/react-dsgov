@@ -8,7 +8,7 @@ import { useSpreadProps } from '../Util/useSpreadProps';
 import { useMtProps } from '../Util/useMtProps';
 import useCommonProperties from '../Util/useCommonProperties';
 
-
+import styles from './CookieBar.module.scss'; 
 
 export interface ICookieList {
     cookieId?: string;
@@ -159,7 +159,7 @@ export interface CookieBarRef extends HTMLDivElement {
 const CookieBar = React.forwardRef<CookieBarRef, CookieBarProps>(
     ({className, children, json = defaultConfigs, callback, ...props}, ref) => {
         // eslint-disable-next-line @typescript-eslint/no-var-requires
-        const core = require('@govbr-ds/core/dist/core-init');
+        const core = require('@govbr-ds/core/dist/core-base');
 
         const mtProps = useMtProps(props);
         const spreadProps = useSpreadProps(props);

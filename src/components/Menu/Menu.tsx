@@ -15,7 +15,7 @@ import useCommonProperties from '../Util/useCommonProperties';
 import useUniqueId from '../Util/useUniqueId';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const core = require('@govbr-ds/core/dist/core-init');
+const BRMenu = require('@govbr-ds/core/dist/components/menu/menu.js').default;
 
 export interface MenuProps extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
     systemLogoUrl?: string,
@@ -52,7 +52,7 @@ const Menu = React.forwardRef<MenuRef, MenuProps>(
 
         useEffect(() => {
             if (refDiv.current && !refElemento.current) {
-                refElemento.current = new core.BRMenu('br-menu', refDiv.current);
+                refElemento.current = new BRMenu('br-menu', refDiv.current);
             }
         }, []);
 

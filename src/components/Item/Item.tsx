@@ -11,7 +11,7 @@ import List from '../List/List';
 import useCommonProperties from '../Util/useCommonProperties';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const core = require('@govbr-ds/core/dist/core-init');
+const core = require('@govbr-ds/core/dist/core-base');
 
 export interface ItemProps  extends React.HTMLAttributes<HTMLElement>, IMtProps {
     /** Se o item tem um highlight ao passar o mouse em cima. */

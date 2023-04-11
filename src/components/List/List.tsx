@@ -11,7 +11,7 @@ import useCommonProperties from '../Util/useCommonProperties';
 import useUniqueId from '../Util/useUniqueId';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const core = require('@govbr-ds/core/dist/core-init');
+const core = require('@govbr-ds/core/dist/core-base');
 
 export interface ListProps extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
     /** Título da lista, opcional. */

@@ -10,7 +10,8 @@ import useCommonProperties from '../Util/useCommonProperties';
 import useUniqueId from '../Util/useUniqueId';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const core = require('@govbr-ds/core/dist/core-init');
+const BRCheckbox = require('@govbr-ds/core/dist/components/checkbox/checkbox.js').default;
+
 
 export interface CheckboxProps  extends React.HTMLAttributes<HTMLInputElement>, IMtProps {
     /** Se o checkbox for inline, ou seja, não pula linha após. */
@@ -64,7 +65,7 @@ const Checkbox = React.forwardRef<CheckboxRef, CheckboxProps>(
 
         useEffect(() => {
             if(refWrapper.current && !refElement.current) {
-                refElement.current = new core.BRCheckbox('br-checkbox', refWrapper.current);
+                refElement.current = new BRCheckbox('br-checkbox', refWrapper.current);
             }
             
         }, []);

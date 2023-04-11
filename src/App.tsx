@@ -9,12 +9,12 @@ import Tests from './pages/Tests';
 import PaginationTests from './pages/PaginationTests';
 import ModalTests from './pages/ModalTests';
 import TabTests from './pages/TabTests';
+import RandomTests from './pages/RandomTests';
 
 function App() {
     return (
-        <div id="content">
-            <TabTests />
-        </div>
+        <Tests />
+
     );
 }
 

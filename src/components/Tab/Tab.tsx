@@ -11,7 +11,7 @@ import styles from './Tab.module.scss';
 import useUniqueId from '../Util/useUniqueId';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const core = require('@govbr-ds/core/dist/core-init');
+const core = require('@govbr-ds/core/dist/core');
 const Tooltip = core.Tooltip;
 
 interface TabProps  extends React.HTMLAttributes<HTMLDivElement>, IMtProps {

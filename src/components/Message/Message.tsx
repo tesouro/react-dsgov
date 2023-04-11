@@ -9,7 +9,7 @@ import CustomTag from '../CustomTag';
 import useCommonProperties from '../Util/useCommonProperties';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const core = require('@govbr-ds/core/dist/core-init');
+const BRAlert = require('@govbr-ds/core/dist/components/message/message.js').default;
 
 export interface MessageProps extends React.HTMLAttributes<HTMLElement>, IMtProps {
     /**
@@ -44,7 +44,7 @@ const Message = React.forwardRef<HTMLElement, MessageProps>(
         
         useEffect(() => {
             if(refWrapper.current && !refElement.current) {
-                refElement.current = new core.BRAlert('br-message', refWrapper.current);
+                refElement.current = new BRAlert('br-message', refWrapper.current);
             }            
         }, []);
         

@@ -74,7 +74,7 @@ const DateTimePicker = React.forwardRef<DateTimePickerRef, DateTimePickerProps>(
         // Inicializando o datetimepicker
         useEffect(() => {
             // eslint-disable-next-line @typescript-eslint/no-var-requires
-            const core = require('@govbr-ds/core/dist/core-init');
+            const core = require('@govbr-ds/core/dist/core-base');
             refElement.current = new core.BRDateTimePicker('br-datetimepicker', refWrapper.current, { minDate: minDate, maxDate: maxDate });
         }, [minDate, maxDate]);
 

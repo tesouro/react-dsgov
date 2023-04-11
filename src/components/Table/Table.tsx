@@ -17,8 +17,6 @@ import useCommonProperties from '../Util/useCommonProperties';
 import useUniqueId from '../Util/useUniqueId';
 import Pagination from '../Pagination';
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const core = require('@govbr-ds/core/dist/core-init');
 
 export interface IHeader {
     field: string,

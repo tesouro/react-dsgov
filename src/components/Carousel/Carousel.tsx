@@ -11,8 +11,12 @@ import uniqueId from 'lodash.uniqueid';
 import useCommonProperties from '../Util/useCommonProperties';
 import useUniqueId from '../Util/useUniqueId';
 
+
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const core = require('@govbr-ds/core/dist/core-init');
+const BRCarousel = require('@govbr-ds/core/dist/components/carousel/carousel.js').default;
+
+console.log('aaaah!!!');
+console.log(BRCarousel);
 
 export interface CarouselProps extends React.HTMLAttributes<HTMLDivElement>, IMtProps {
     /** Se o carousel é circular, ou seja, ao pressionar o botão de "próximo" no último, ele volta pro primeiro. 
@@ -70,7 +74,7 @@ const Carousel = React.forwardRef<HTMLDivElement, CarouselProps>(
                 }                
  
                 // Define o novo objeto
-                refObjetoCarousel.current = new core.BRCarousel('br-carousel', refDiv.current);
+                refObjetoCarousel.current = new BRCarousel('br-carousel', refDiv.current);
                 refQtdChildren.current = qtdChildrenAtual;                      
             }
 

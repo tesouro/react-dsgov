@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Modal, Tab } from '../components';
+import { Button, CookieBar, Modal, Tab } from '../components';
 
 const TabTests = () => {
     const [tab, setTab] = useState(1);
@@ -64,6 +64,8 @@ const TabTests = () => {
                     Painel Aplicativos
                 </Tab.Content>
             </Tab>
+
+            <CookieBar />
         </>
         
     );
