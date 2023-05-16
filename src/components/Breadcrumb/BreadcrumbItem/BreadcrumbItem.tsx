@@ -1,13 +1,14 @@
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import React from 'react';
+import Button from '../../Button/Button';
 
 export interface BreadcrumbItemProps extends Omit<React.HTMLAttributes<HTMLLIElement>, 'onClick'> {
     href?: string,
     home?: boolean,
     target?: string,
     disabled?: boolean,
-    onClick?: React.MouseEventHandler<HTMLAnchorElement>
+    onClick?: React.MouseEventHandler<HTMLAnchorElement> | React.MouseEventHandler<HTMLButtonElement>
 }
 
 const propTypes = {
@@ -44,7 +45,13 @@ export const BreadcrumbItem = React.forwardRef<HTMLLIElement, BreadcrumbItemProp
                 {home ?
                     (
                         <li className="crumb home">
-                            <div className="br-button circle"><span className="sr-only">{children}</span><i className="icon fas fa-home"></i></div>
+                            <Button onClick={(event) => {
+                                if(onClick) {
+                                    (onClick as React.MouseEventHandler<HTMLButtonElement>)(event);
+                                } else if(href) {
+                                    window.location.href = href;
+                                }
+                            }} small circle icon='fas fa-home'></Button><span className="sr-only">{children}</span>
                         </li>
                     )
                     :
@@ -52,7 +59,11 @@ export const BreadcrumbItem = React.forwardRef<HTMLLIElement, BreadcrumbItemProp
                         <li className={classNames('crumb', className)} ref={ref} {...props}>
                             {href && 
                                 ( 
-                                    <a onClick={onClick} href={href} target={target}>
+                                    <a onClick={(event) => {
+                                        if(onClick) {
+                                            (onClick as React.MouseEventHandler<HTMLAnchorElement>)(event);
+                                        }
+                                    }} href={href} target={target}>
                                         {children}
                                     </a>
                                 )
