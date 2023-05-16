@@ -2,11 +2,12 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import React from 'react';
 
-export interface BreadcrumbItemProps extends React.HTMLAttributes<HTMLLIElement> {
+export interface BreadcrumbItemProps extends Omit<React.HTMLAttributes<HTMLLIElement>, 'onClick'> {
     href?: string,
     home?: boolean,
     target?: string,
-    disabled?: boolean
+    disabled?: boolean,
+    onClick?: React.MouseEventHandler<HTMLAnchorElement>
 }
 
 const propTypes = {
@@ -35,7 +36,7 @@ const propTypes = {
 
 export const BreadcrumbItem = React.forwardRef<HTMLLIElement, BreadcrumbItemProps>(
 
-    ({ home, href, target, children, className, ...props }, ref) => {
+    ({ home, href, target, children, className, onClick, ...props }, ref) => {
 
         return (
             <>
@@ -51,7 +52,7 @@ export const BreadcrumbItem = React.forwardRef<HTMLLIElement, BreadcrumbItemProp
                         <li className={classNames('crumb', className)} ref={ref} {...props}>
                             {href && 
                                 ( 
-                                    <a href={href} target={target}>
+                                    <a onClick={onClick} href={href} target={target}>
                                         {children}
                                     </a>
                                 )

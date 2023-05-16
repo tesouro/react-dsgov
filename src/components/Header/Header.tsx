@@ -16,7 +16,7 @@ import useUniqueId from '../Util/useUniqueId';
 
 export interface ILink {
     label: string,
-    href: string
+    href: string | React.MouseEventHandler<HTMLAnchorElement>
 }
 
 export interface IFeature {
@@ -147,7 +147,12 @@ const Header = React.forwardRef<HTMLElement, HeaderProps>(
                                         <div className="title">Acesso Rápido</div>
                                     </div>
                                     {quickAccessLinks?.map((link, index) =>
-                                        <a key={index} className="br-item" href={link.href}>{link.label}</a>
+                                        <>
+                                            {typeof link.href === 'string' 
+                                                ? <a key={index} className="br-item" href={link.href}>{link.label}</a>
+                                                : <a key={index} className="br-item" onClick={link.href} href="#">{link.label}</a>
+                                            }
+                                        </>  
                                     )}
                                 </div>
                             </div>
