@@ -12,7 +12,7 @@ import useOutsideClick from '../Util/useOutsideClick';
 import useCommonProperties from '../Util/useCommonProperties';
 import useUniqueId from '../Util/useUniqueId';
 
-export interface AvatarProps  extends React.HTMLAttributes<HTMLElement>, IMtProps {
+export interface AvatarProps extends React.HTMLAttributes<HTMLElement>, IMtProps {
     /** Título do avatar. */
     title?: string;
     /** Imagem do avatar. */
@@ -32,8 +32,10 @@ export interface AvatarProps  extends React.HTMLAttributes<HTMLElement>, IMtProp
     density?: 'small' | 'medium' | 'large'
     /** Se o avatar é dropdown */
     dropdown?: boolean
-    /** Cor dsgov, se for do uma letra. */
+    /** Cor dsgov, se for do uma letra. Pode ser também no formato hexadecimal. */
     bgColor?: string
+    /** Cor do ícone. Pode ser também no formato hexadecimal. */
+    iconColor?: string
 }
 
 export interface AvatarRef extends HTMLElement {
@@ -44,7 +46,7 @@ export interface AvatarRef extends HTMLElement {
 }
 
 const Avatar = React.forwardRef<AvatarRef, AvatarProps>(
-    ({className, children, id, title, imageSrc, alt = 'Avatar', density = 'small', letter, dropdown = false, icon, bgColor = 'bg-violet-50', ...props}, ref) => {
+    ({ className, children, id, title, imageSrc, alt = 'Avatar', density = 'small', letter, dropdown = false, icon, bgColor, iconColor, ...props }, ref) => {
         const fid = useUniqueId(id, 'avatar_____');
         const mtProps = useMtProps(props);
         const spreadProps = useSpreadProps(props);
@@ -53,6 +55,9 @@ const Avatar = React.forwardRef<AvatarRef, AvatarProps>(
 
         const [opened, setOpened] = useState<boolean>(false);
 
+        let bgStyleProps = {};
+        let iconStyleProps = {};
+
         useOutsideClick(refContainer, () => {
             setOpened(false);
         });
@@ -60,7 +65,7 @@ const Avatar = React.forwardRef<AvatarRef, AvatarProps>(
         const handleOpenClose = useCallback(() => {
             setOpened(!opened);
         }, []);
-        
+
         useCommonProperties<AvatarRef>(ref, refContainer, {
             expand: () => setOpened(true),
             close: () => setOpened(false),
@@ -68,6 +73,14 @@ const Avatar = React.forwardRef<AvatarRef, AvatarProps>(
                 return refContainer.current;
             }
         });
+
+        if (bgColor?.charAt(0) === '#') {
+            bgStyleProps = { ...bgStyleProps, style: { backgroundColor: bgColor } };
+        }
+
+        if (iconColor?.charAt(0) === '#') {
+            iconStyleProps = { ...iconStyleProps, style: { color: iconColor } };
+        }
 
         return (
             <>
@@ -78,29 +91,29 @@ const Avatar = React.forwardRef<AvatarRef, AvatarProps>(
                     title={title}
                     onClick={handleOpenClose}
                     {
-                        ...dropdown && 
-                        {
-                            type: 'button', 
-                            'data-toggle': 'dropdown',
-                            'data-target': 'avatar-menu-' + id,
-                            'aria-label': 'Avatar com dropdown',
-                            'aria-expanded': opened,
-                            'data-visible': opened
-                        }
+                        ...dropdown &&
+                    {
+                        type: 'button',
+                        'data-toggle': 'dropdown',
+                        'data-target': 'avatar-menu-' + id,
+                        'aria-label': 'Avatar com dropdown',
+                        'aria-expanded': opened,
+                        'data-visible': opened
+                    }
                     }
                     className={classNames(
                         'br-avatar',
-                        {'medium' : density === 'medium'},
-                        {'large': density === 'large'},
+                        { 'medium': density === 'medium' },
+                        { 'large': density === 'large' },
                         className,
                         ...mtProps
                     )}
                     {...spreadProps}
-                    
+
                 >
-                    {imageSrc && <span className="image"><img src={imageSrc} alt={alt} /></span>}
-                    {icon && <span className="image"><i className={icon} aria-hidden="true"></i></span>}
-                    {letter && !imageSrc && <span className={classNames('letter', 'text-pure-0', bgColor)}>{letter}</span>}
+                    {imageSrc && <span {...bgStyleProps} className={classNames('image', (bgColor?.charAt(0) !== '#' && bgColor))}><img src={imageSrc} alt={alt} /></span>}
+                    {icon && <span {...bgStyleProps} className={classNames('image', (bgColor?.charAt(0) !== '#' && bgColor))}><i {...iconStyleProps} className={classNames(icon, (iconColor?.charAt(0) !== '#' && iconColor))} aria-hidden="true"></i></span>}
+                    {letter && !imageSrc && <span {...bgStyleProps} className={classNames('letter', 'text-pure-0', (bgColor?.charAt(0) !== '#' && bgColor))}>{letter}</span>}
                     {dropdown && <i className={opened ? 'fas fa-caret-up' : 'fas fa-caret-down'} aria-hidden="true"></i>}
                     {!dropdown && children}
                 </CustomTag>
@@ -110,7 +123,7 @@ const Avatar = React.forwardRef<AvatarRef, AvatarProps>(
             </>
         );
     }
-); 
+);
 
 Avatar.displayName = 'Avatar';
 
