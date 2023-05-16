@@ -9,6 +9,7 @@ import Divider from '../Divider';
 import CustomTag from '../CustomTag';
 import List from '../List/List';
 import useCommonProperties from '../Util/useCommonProperties';
+import styles from './Item.module.scss';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const core = require('@govbr-ds/core/dist/core-base');
@@ -33,6 +34,9 @@ export interface ItemProps  extends React.HTMLAttributes<HTMLElement>, IMtProps 
     subItems?: React.ReactElement
 
     onClick?: (event : React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
+
+    /** Se é inicialmente expandido. */
+    initiallyExpanded?: boolean;
 } 
 
 export interface ItemRef extends HTMLDivElement {
@@ -40,13 +44,13 @@ export interface ItemRef extends HTMLDivElement {
 }
 
 const Item = React.forwardRef<ItemRef, ItemProps>(
-    ({className, children, highlighted, divider, role = 'listItem', disabled = false, showDividerAfter = false, target, collapsable = false, link, subItems, onClick, ...props}, ref) => {
+    ({className, children, highlighted, divider, role = 'listItem', disabled = false, showDividerAfter = false, target, collapsable = false, initiallyExpanded = false, link, subItems, onClick, ...props}, ref) => {
         const mtProps = useMtProps(props);
         const spreadProps = useSpreadProps(props);
         const refDiv = useRef<HTMLDivElement>(null);
         const refElemento = useRef(null);
 
-        const [expanded, setExpanded] = useState<boolean>(false);
+        const [expanded, setExpanded] = useState<boolean>(initiallyExpanded);
 
 
         useCommonProperties<ItemRef>(ref, refDiv, {
@@ -58,13 +62,12 @@ const Item = React.forwardRef<ItemRef, ItemProps>(
         useEffect(() => {
             if(refDiv.current && !refElemento.current) {
                 refElemento.current = new core.BRItem('br-item', refDiv.current);
-            }
-            
+            }            
         }, []);
 
         const handleOnClick = useCallback((event : React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
             onClick?.(event);
-            setExpanded(!expanded);
+            setExpanded(oldExpanded => !oldExpanded);
         }, [onClick]);
 
         return (
@@ -91,7 +94,7 @@ const Item = React.forwardRef<ItemRef, ItemProps>(
                     
                 >
                     {children}
-                    {collapsable && <i className="fas fa-angle-down" aria-hidden="true"></i>}
+                    {collapsable &&  <i className={classNames('fas', expanded ? 'fa-chevron-up' : 'fa-chevron-down', styles['icon-expansion'])} aria-hidden="true"></i>}
                 </CustomTag>
                 {showDividerAfter && <Divider />}
                 {subItems &&
