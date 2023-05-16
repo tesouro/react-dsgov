@@ -10,10 +10,11 @@ export interface CardHeaderProps extends React.HTMLAttributes<HTMLDivElement>, I
     cardImageUrl?: string,
     cardImageAlt?: string
     cardButton?: React.ReactElement
+    cardCustomAvatar?: React.ReactElement
 }
 
 const CardHeader = React.forwardRef<HTMLDivElement, CardHeaderProps>(
-    ({ className, children, cardTitle, cardSubtitle, cardImageUrl, cardImageAlt, cardButton, ...props }, ref) => {
+    ({ className, children, cardTitle, cardSubtitle, cardImageUrl, cardImageAlt, cardButton, cardCustomAvatar, ...props }, ref) => {
         
         const mtProps = useMtProps(props);
         const spreadProps = useSpreadProps(props);
@@ -31,7 +32,8 @@ const CardHeader = React.forwardRef<HTMLDivElement, CardHeaderProps>(
             >
                 {(cardButton || cardImageUrl || cardSubtitle || cardTitle) &&
                     <div className="d-flex">
-                        {cardImageUrl && <span className="br-avatar mt-1" title={cardTitle}><span className="image"><img src="https://picsum.photos/id/823/400" alt={cardImageAlt} /></span></span>}
+                        {cardImageUrl && !cardCustomAvatar && <span className="br-avatar mt-1" title={cardTitle}><span className="image"><img src="https://picsum.photos/id/823/400" alt={cardImageAlt} /></span></span>}
+                        {cardCustomAvatar && <>{cardCustomAvatar}</>}
                         {(cardTitle || cardSubtitle) && <div className="ml-3">
                             {cardTitle && <div className="text-weight-semi-bold text-up-02">{cardTitle}</div>}
                             {cardSubtitle && <div>{cardSubtitle}</div>}
