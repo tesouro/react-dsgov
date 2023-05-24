@@ -113,7 +113,7 @@ const Header = React.forwardRef<HTMLElement, HeaderProps>(
             if(event.key === 'Enter') {
                 onSearch?.(searchTerm);
             }
-        }, [onSearch]);
+        }, [onSearch, searchTerm]);
 
         return (
             <header
@@ -190,8 +190,8 @@ const Header = React.forwardRef<HTMLElement, HeaderProps>(
                                     'header-sign-in',
                                     {'d-none' : loggedIn}
                                 )}>
-                                    <button onClick={onClickLogin} className="br-sign-in small" type="button" data-trigger="login"><i className="fas fa-user" aria-hidden="true"></i><span className="d-sm-inline">Entrar</span>
-                                    </button>
+                                    <Button onClick={onClickLogin} signIn small data-trigger="login"><i className="fas fa-user" aria-hidden="true"></i><span className="d-sm-inline">Entrar</span></Button>
+                                    
                                 </div>
                                 <div className={
                                     classNames(
