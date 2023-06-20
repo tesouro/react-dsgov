@@ -50,7 +50,7 @@ const Tab = React.forwardRef<HTMLDivElement, TabProps>(
         const isNavWithSubtitle = useCallback(() => {
             let subtitle = false;
             Children.map(children, (element : any) => {
-                if(element.props.subTitle) {
+                if(element && element.props.subTitle) {
                     subtitle = true;
                 }
             });
@@ -98,40 +98,49 @@ const Tab = React.forwardRef<HTMLDivElement, TabProps>(
                     (isNavWithSubtitle() && styles.tabsubtitled)
                 )}>
                     <ul>
-                        {Children.map(children, (element : any, index) => (
-                            <li 
-                                key={index} 
-                                {...element.props.onlyIcon && {'data-tooltip-text': element.props.title}}
-                                className={classNames(
-                                    styles['tab-item'],
-                                    currentTab === (index+1) && styles['active'],
-                                    {'notification-tooltip' : element.props.onlyIcon}
-                                )}
-                            >
-                                <button onClick={(event) => handleClick(event, index)} type="button" data-panel={`${fid}-panel-${index + 1}`}>
-                                    {element.props.icon && 
-                                        <span className={styles['name']}>
-                                            <span className="d-flex flex-column flex-sm-row">
-                                                <span className="icon mb-1 mb-sm-0 mr-sm-1">
-                                                    <i className={element.props.icon} aria-hidden="true"></i>
+                        {Children.map(children, (element : any, index) => {
+                            if(element && element.props) {
+                                return <li 
+                                    key={index} 
+                                    {...element.props.onlyIcon && {'data-tooltip-text': element.props.title}}
+                                    className={classNames(
+                                        styles['tab-item'],
+                                        currentTab === (index+1) && styles['active'],
+                                        {'notification-tooltip' : element.props.onlyIcon}
+                                    )}
+                                >
+                                    <button onClick={(event) => handleClick(event, index)} type="button" data-panel={`${fid}-panel-${index + 1}`}>
+                                        {element.props.icon && 
+                                            <span className={styles['name']}>
+                                                <span className="d-flex flex-column flex-sm-row">
+                                                    <span className="icon mb-1 mb-sm-0 mr-sm-1">
+                                                        <i className={element.props.icon} aria-hidden="true"></i>
+                                                    </span>
+                                                    {!element.props.onlyIcon && <span className={styles['name']}>{element.props.title}</span>}
                                                 </span>
-                                                {!element.props.onlyIcon && <span className={styles['name']}>{element.props.title}</span>}
                                             </span>
-                                        </span>
-                                    }
-                                    {!element.props.icon && !element.props.onlyIcon && <span className={styles['name']}>{element.props.title}</span>}
-                                    
-                                </button>
-                                {element.props.subTitle && <span className={styles['results']}>{element.props.subTitle}</span>}
-                            </li>
-                        ))}
+                                        }
+                                        {!element.props.icon && !element.props.onlyIcon && <span className={styles['name']}>{element.props.title}</span>}
+                                        
+                                    </button>
+                                    {element.props.subTitle && <span className={styles['results']}>{element.props.subTitle}</span>}
+                                </li>;
+                            } else {
+                                return <></>;
+                            }
+                            
+                        })}
                     </ul>
                 </nav>
                 <div className={styles['tab-content']}>
                     {Children.map(children, (element : any, index : number) => {
-                        const {active, ...elementProps} = element.props;
-
-                        return <TabContent key={index} active={currentTab === (index + 1)} {...elementProps} />;
+                        if(element && element.props) {
+                            const {active, ...elementProps} = element.props;
+                            return <TabContent key={index} active={currentTab === (index + 1)} {...elementProps} />;
+                        } else {
+                            return <></>;
+                        }
+                        
                     })}
                 </div>
                 
