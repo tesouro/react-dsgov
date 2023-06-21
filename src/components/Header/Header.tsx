@@ -66,10 +66,13 @@ export interface HeaderProps extends React.HTMLAttributes<HTMLElement>, IMtProps
 
     /** Avatar que é mostrado ao se logar. */
     avatar?: React.ReactElement
+
+    /** Mostrar ou não o menu */
+    showMenuButton?: boolean
 }
 
 const Header = React.forwardRef<HTMLElement, HeaderProps>(
-    ({ className, children, id,  urlLogo, systemName, title, subTitle, compact = false, density = 'medium', quickAccessLinks, features, loggedIn = false, showLoginButton = true, onClickLogin, showSearchBar = true, onSearch, avatar, ...props }, ref) => {
+    ({ className, children, id,  urlLogo, systemName, title, subTitle, compact = false, density = 'medium', quickAccessLinks, features, loggedIn = false, showLoginButton = true, onClickLogin, showSearchBar = true, onSearch, avatar, showMenuButton = true, ...props }, ref) => {
         const fid = useUniqueId(id, 'header_____');
         const mtProps = useMtProps(props);
         const spreadProps = useSpreadProps(props);
@@ -206,9 +209,9 @@ const Header = React.forwardRef<HTMLElement, HeaderProps>(
                     </div>
                     <div className="header-bottom">
                         <div className="header-menu">
-                            <div className="header-menu-trigger">
+                            {showMenuButton && <div className="header-menu-trigger">
                                 <Button icon="fas fa-bars" small circle type="button" aria-label="Menu" data-toggle="menu" data-target="#main-navigation" id="navigation" />
-                            </div>
+                            </div>}
                             <div className="header-info">
                                 <div className="header-title">{title}</div>
                                 <div className="header-subtitle">{subTitle}</div>
