@@ -1,5 +1,5 @@
 {
-  "compilerOptions": {
+  "compilerOptions": { 
     "plugins": [{ "name": "typescript-plugin-css-modules" }],
     "declaration": true,
     "declarationDir": "./types",
