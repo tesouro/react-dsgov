@@ -2,12 +2,12 @@
   "name": "react-dsgov",
   "description": "Componentes React do DSGov (Padrão Digital do Governo).",
   "author": "cosis-stn",
-  "version": "0.9.9",
+  "version": "0.9.10",
   "private": false,
   "types": "dist/index.d.ts",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/cosis-stn/react-dsgov.git"
+    "url": "git+https://github.com/tesouro/react-dsgov.git"
   },
   "homepage": "https://cosis-stn.github.io/react-dsgov/styleguide/",
   "license": "MIT",
