@@ -42,6 +42,8 @@ interface SelectProps extends React.HTMLAttributes<HTMLSelectElement>, IMtProps 
     selectAllText?: string
     /** Se está desabilitado. */
     disabled?: boolean
+    /** Placeholder do select. */
+    placeholder?: string
 }
 
 const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
@@ -208,7 +210,7 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
                     (refList.current?.element.querySelectorAll('.br-item')[oldCurrentFocus - 1] as HTMLElement).focus();
                     return oldCurrentFocus - 1;
                 });
-            } else if(event.key === ' ' && event.target.tagName === 'DIV') {
+            } else if(event.key === ' ' && (event.target as HTMLElement).tagName === 'DIV') {
                 event.preventDefault();
                 (refList.current?.element.querySelectorAll('.br-item')[currentFocus] as HTMLElement).querySelector('input')?.click();
                 setCurrentFocus(-1);
