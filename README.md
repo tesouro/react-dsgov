@@ -4,7 +4,7 @@ Biblioteca de componentes React baseada no DSGov (https://www.gov.br/ds).
 
 O Padrão Digital de Governo apresenta os padrões de interface que devem ser seguidos por designers e desenvolvedores para garantir a experiência única na interação com os sistemas interativos.
 
-A documentação pode ser encontrada em https://cosis-stn.github.io/react-dsgov/styleguide/
+A documentação pode ser encontrada em [https://cosis-stn.github.io/react-dsgov/styleguide/](https://tesouro.github.io/react-dsgov/styleguide/)
 
 # Componentes
 A seguinte lista de componentes foi implementada:
